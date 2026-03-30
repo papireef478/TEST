@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
-    /* (all styles as before) */
+    /* (all styles same as before) */
     @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
     body { background: #0f172a; font-family: 'Inter', sans-serif; color: #e2e8f0; }
     .card { background: #1e293b; border: 1px solid #334155; border-radius: 1rem; transition: all 0.2s; }
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<!-- Modals (same as before) -->
+<!-- Modals -->
 <div id="loginModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700"><h2 class="text-2xl font-bold text-center mb-6 text-white">DOJ Portal Login</h2><p class="text-gray-400 text-center mb-6">Enter your passcode</p><input type="password" id="loginPasscode" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg mb-4 text-white"><div id="loginError" class="text-red-500 text-sm mb-4 hidden">Invalid passcode</div><div class="flex gap-3"><button id="loginSubmitBtn" class="btn-primary flex-1 py-2 rounded-lg">Login</button><button id="loginCancelBtn" class="btn-secondary flex-1 py-2 rounded-lg">Cancel</button></div><div class="mt-4 text-center"><button id="forgotPasswordBtn" class="text-sm text-gray-400 hover:text-[#facc15]">Forgot password?</button></div></div></div>
 <div id="quickGuideModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">Quick Guide</h3><button onclick="closeModal('quickGuideModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div class="aspect-w-16 aspect-h-9 mb-4"><iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe></div><div class="prose max-w-none text-gray-300"><p>This is the official quick guide for the San Junipero Department of Justice. It explains the basics of interacting with the DOJ, filing cases, and understanding your rights.</p><ul class="list-disc pl-5 mt-2 text-gray-400"><li>All legal matters must be filed through a DOJ Ticket in Discord.</li><li>Clerks are available to assist with paperwork and fees.</li><li>Court schedules are posted daily in #court-docket.</li><li>Evidence requires screenshots or video (Rule 12.6).</li></ul></div></div></div>
 <div id="trainingModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 id="trainingModalTitle" class="text-xl font-bold text-white"></h3><button onclick="closeModal('trainingModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div id="trainingModalContent"></div></div></div>
@@ -100,7 +100,7 @@
   }
 
   // ============================================
-  // MOCK DATA (expanded)
+  // MOCK DATA (as before)
   // ============================================
   const mockStats = { activeCases: 2, activeMarriages: 2, registeredProperties: 2 };
   const mockMarriages = [
@@ -170,7 +170,7 @@
   let currentUser = null;
   let userAvailability = {};
 
-  // Helper functions
+  // Helper: two‑week pay period
   function getPayPeriodDates() {
     const today = new Date();
     const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -210,7 +210,7 @@
   }
 
   // ============================================
-  // PUBLIC RECORDS
+  // PUBLIC RECORDS (fully implemented)
   // ============================================
   function renderPublicRecords() {
     const recordsDiv = document.getElementById('publicRecordsSection');
@@ -223,10 +223,10 @@
           <button class="tab-btn" data-tab="professional">Professional Registry</button>
         </div>
         <div class="mb-4"><input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
-        <div id="marriageTab" class="tab-content active"><div class="overflow-x-auto"><table class="data-table"><thead><th>Certificate #</th><th>Spouse 1</th><th>Spouse 2</th><th>Date</th><th>Officiant</th></thead><tbody id="marriageTableBody"></tbody>   </table></div></div>
-        <div id="propertyTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Deed #</th><th>Type</th><th>Grantor</th><th>Grantee</th><th>Date</th></thead><tbody id="propertyTableBody"></tbody>   </table></div></div>
-        <div id="casesTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Case #</th><th>Type</th><th>Plaintiff</th><th>Defendant</th><th>Judge</th><th>Filed Date</th><th>Status</th></thead><tbody id="casesTableBody"></tbody>   </table></div></div>
-        <div id="professionalTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Entity</th><th>Type</th><th>Owner</th><th>License #</th><th>Expires</th><th>Status</th></thead><tbody id="professionalTableBody"></tbody>   </table></div></div>
+        <div id="marriageTab" class="tab-content active"><div class="overflow-x-auto"><table class="data-table"><thead><th>Certificate #</th><th>Spouse 1</th><th>Spouse 2</th><th>Date</th><th>Officiant</th></thead><tbody id="marriageTableBody"></tbody>    </table></div></div>
+        <div id="propertyTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Deed #</th><th>Type</th><th>Grantor</th><th>Grantee</th><th>Date</th></thead><tbody id="propertyTableBody"></tbody>    </table></div></div>
+        <div id="casesTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Case #</th><th>Type</th><th>Plaintiff</th><th>Defendant</th><th>Judge</th><th>Filed Date</th><th>Status</th></thead><tbody id="casesTableBody"></tbody>    </table></div></div>
+        <div id="professionalTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Entity</th><th>Type</th><th>Owner</th><th>License #</th><th>Expires</th><th>Status</th></thead><tbody id="professionalTableBody"></tbody>    </table></div></div>
       </div>`;
     updatePublicTables('');
     const searchInput = document.getElementById('searchInput');
@@ -241,6 +241,7 @@
     }));
     lucide.createIcons();
   }
+
   function updatePublicTables(searchTerm) {
     const term = searchTerm.toLowerCase();
     const activeTab = document.querySelector('.tab-content.active').id;
@@ -260,7 +261,7 @@
   }
 
   // ============================================
-  // PENAL CODE
+  // PENAL CODE (accordion)
   // ============================================
   function renderPenalCode() {
     const penalDiv = document.getElementById('penalCodeSection');
@@ -356,7 +357,6 @@
     `;
     container.appendChild(row);
     row.querySelector('.remove-charge').addEventListener('click', () => row.remove());
-    // Attach change event for bail update (handled globally)
   }
 
   function showPoliceReportForm() {
@@ -593,29 +593,86 @@
         }
       });
     });
-    document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => {
-      const msg = prompt('Message to Police:');
-      if (msg) addDojNotification('police', `Message from DA ${currentUser.name}: ${msg}`);
+    document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
+  }
+
+  // ============================================
+  // COMMUNICATION MODAL (with recipient selection)
+  // ============================================
+  function getUsersByRole(role) {
+    return Object.values(users).filter(u => u.role === role).map(u => u.name);
+  }
+
+  function showCommunicationModal(targetRole, targetLabel) {
+    const usersList = getUsersByRole(targetRole);
+    let recipientOptions = '';
+    if (usersList.length > 1) {
+      recipientOptions = `<option value="all">All ${targetLabel}</option>` + usersList.map(name => `<option value="${name}">${name}</option>`).join('');
+    } else if (usersList.length === 1) {
+      recipientOptions = `<option value="${usersList[0]}">${usersList[0]}</option>`;
+    } else {
+      recipientOptions = `<option value="${targetRole}">All ${targetLabel}</option>`;
+    }
+
+    const modalContent = `
+      <h3 class="text-xl font-bold mb-4 text-white">Send Message to ${targetLabel}</h3>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-gray-300 mb-1">To:</label>
+          <select id="recipientSelect" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+            ${recipientOptions}
+          </select>
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1">Subject (optional):</label>
+          <input type="text" id="messageSubject" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" placeholder="Subject">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1">Message:</label>
+          <textarea id="messageBody" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="4" placeholder="Type your message..."></textarea>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button id="sendMessageBtn" class="btn-primary py-2 px-4 rounded-lg">Send</button>
+          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
+        </div>
+      </div>
+    `;
+    showModal(modalContent);
+    document.getElementById('sendMessageBtn').addEventListener('click', () => {
+      const recipientValue = document.getElementById('recipientSelect').value;
+      const subject = document.getElementById('messageSubject').value;
+      const body = document.getElementById('messageBody').value;
+      if (!body) {
+        alert('Please enter a message.');
+        return;
+      }
+      const fullMessage = subject ? `[${subject}] ${body}` : body;
+
+      if (recipientValue === 'all' || recipientValue === targetRole) {
+        addDojNotification(targetRole, `Message from ${currentUser.name}: ${fullMessage}`);
+        alert(`Message sent to all ${targetLabel}.`);
+      } else {
+        const targetUser = Object.values(users).find(u => u.name === recipientValue);
+        if (targetUser) {
+          addDojNotification(targetUser.role, `Message from ${currentUser.name} (to ${recipientValue}): ${fullMessage}`);
+          alert(`Message sent to ${recipientValue}.`);
+        } else {
+          addDojNotification(targetRole, `Message from ${currentUser.name}: ${fullMessage}`);
+          alert(`Message sent to ${targetLabel}.`);
+        }
+      }
+      closeModal('globalModal');
     });
   }
 
   // ============================================
-  // OTHER MODALS (simplified but functional)
+  // OTHER MODALS
   // ============================================
   function showRecusalForm() { alert('Recusal request form (mock)'); }
   function showSentencingForm() { alert('Sentencing form (mock)'); }
   function showOfficialLetterForm() { alert('Official letter form (mock)'); }
   function showTrustWithdrawalForm() { alert('Trust withdrawal form (mock)'); }
   function showTrustDepositForm() { alert('Trust deposit form (mock)'); }
-
-  // ============================================
-  // COMMUNICATION
-  // ============================================
-  function showSendToClerk() { addDojNotification('clerk', `Message from ${currentUser.name}: (mock)`); alert('Message sent to Clerk.'); }
-  function showSendToMasterClerk() { addDojNotification('admin', `Message from ${currentUser.name}: (mock)`); alert('Message sent to Master Clerk.'); }
-  function showSendToDA() { addDojNotification('district_attorney', `Message from ${currentUser.name}: (mock)`); alert('Message sent to District Attorney.'); }
-  function showSendToChiefJustice() { addDojNotification('chief_justice', `Message from ${currentUser.name}: (mock)`); alert('Message sent to Chief Justice.'); }
-  function showSendToPolice() { addDojNotification('police', `Message from ${currentUser.name}: (mock)`); alert('Message sent to Police.'); }
 
   // ============================================
   // SCHEDULING
@@ -680,7 +737,8 @@
     const tasks = roleTasks[role] || [];
     const tasksHtml = role !== 'police' ? `<div class="card p-6 mb-6"><div class="flex justify-between items-center mb-4"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg"><i data-lucide="check-square"></i> Daily Tasks</div><button id="refreshTasks" class="btn-secondary text-sm py-1 px-3 rounded-lg">Refresh</button></div><ul id="tasksList" class="space-y-2">${tasks.map(task => `<li class="flex items-center gap-2"><input type="checkbox" ${task.status==='done'?'checked':''} data-id="${task.id}" class="task-checkbox"><span class="flex-1">${task.task}</span><span class="text-xs text-gray-500">${task.due}</span></li>`).join('')}</ul></div>` : '';
     const notifHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="bell"></i> DOJ Notifications</div><div id="dojNotificationsContainer"></div></div>`;
-    // Communication buttons
+
+    // Communication buttons (all use modal)
     let commButtons = '';
     if (role === 'clerk') {
       commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
@@ -771,11 +829,11 @@
     }
 
     // Communication buttons
-    document.getElementById('sendToClerkBtn')?.addEventListener('click', showSendToClerk);
-    document.getElementById('sendToMasterClerkBtn')?.addEventListener('click', showSendToMasterClerk);
-    document.getElementById('sendToDABtn')?.addEventListener('click', showSendToDA);
-    document.getElementById('sendToCJBtn')?.addEventListener('click', showSendToChiefJustice);
-    document.getElementById('sendToPoliceBtn')?.addEventListener('click', showSendToPolice);
+    document.getElementById('sendToClerkBtn')?.addEventListener('click', () => showCommunicationModal('clerk', 'Clerk'));
+    document.getElementById('sendToMasterClerkBtn')?.addEventListener('click', () => showCommunicationModal('admin', 'Master Clerk'));
+    document.getElementById('sendToDABtn')?.addEventListener('click', () => showCommunicationModal('district_attorney', 'District Attorney'));
+    document.getElementById('sendToCJBtn')?.addEventListener('click', () => showCommunicationModal('chief_justice', 'Chief Justice'));
+    document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
 
     document.getElementById('trainingBtn')?.addEventListener('click', () => showTrainingModal(role));
     document.getElementById('loaBtn')?.addEventListener('click', () => alert('LOA request (mock)'));
