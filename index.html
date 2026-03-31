@@ -393,100 +393,122 @@
   // PENAL CODE
   // ============================================
   async function renderPenalCode() {
-    const penalDiv = document.getElementById('penalCodeSection');
-    penalDiv.innerHTML = `
-      <div class="card p-6">
-        <h2 class="text-2xl font-bold text-white mb-4">San Andreas Penal Code</h2>
-        <p class="text-gray-300 mb-4">The complete Penal Code is available in the DOJ Manual.</p>
-        <div class="flex gap-4 mb-6">
-          <a href="https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf" target="_blank" class="btn-primary py-2 px-4 rounded-lg">Download Manual (PDF)</a>
-          <button id="openManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Full Manual</button>
-        </div>
-        <div class="space-y-2 penal-code-table" id="penalCodeAccordion"></div>
-      </div>`;
-    document.getElementById('openManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/edit?usp=sharing', '_blank'));
+  const penalDiv = document.getElementById('penalCodeSection');
+  penalDiv.innerHTML = `
+    <div class="card p-6">
+      <h2 class="text-2xl font-bold text-white mb-4">San Andreas Penal Code</h2>
+      <p class="text-gray-300 mb-4">The complete Penal Code is available in the DOJ Manual.</p>
+      <div class="flex gap-4 mb-6">
+        <a href="https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf" target="_blank" class="btn-primary py-2 px-4 rounded-lg">Download Manual (PDF)</a>
+        <button id="openManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Full Manual</button>
+      </div>
+      <div class="space-y-2 penal-code-table" id="penalCodeAccordion"></div>
+    </div>`;
+  document.getElementById('openManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/edit?usp=sharing', '_blank'));
 
-    try {
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${PENAL_CODE_SPREADSHEET_ID}/values/PenalCode?key=${SHEETS_API_KEY}`;
-      const response = await fetch(url);
-      const data = await response.json();
-      
-      if (!data.values || data.values.length < 2) throw new Error('No penal code data');
-      
-      const rows = data.values;
-      const headers = rows[0];
-      const codes = [];
-      
-      for (let i = 1; i < rows.length; i++) {
-        const row = rows[i];
-        const code = {};
-        headers.forEach((h, idx) => { code[h] = row[idx] || ''; });
-        codes.push(code);
-      }
-      
-      if (codes.length > 0) {
-        const grouped = {};
-        codes.forEach(c => {
-          const title = c['Title'] || 'Uncategorized';
-          if (!grouped[title]) grouped[title] = [];
-          grouped[title].push({
-            Code: c['Code'] || '',
-            Offense: c['Offense'] || '',
-            Description: c['Description'] || '',
-            Level: c['Level'] || '',
-            Jail: c['Jail (month)'] || c['Jail'] || '',
-            Fine: c['Fine ($)'] || c['Fine'] || c['Fine $'] || ''
-          });
-        });
-        renderPenalCodeAccordion(grouped);
-      }
-    } catch (err) {
-      console.warn('Penal code error:', err);
-      document.getElementById('penalCodeAccordion').innerHTML = `<div class="text-red-400 p-4">Error loading penal code: ${err.message}</div>`;
+  try {
+    // 🔥 DIRECT GOOGLE SHEETS API - NO CORS, NO APPS SCRIPT NEEDED 🔥
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${PENAL_CODE_SPREADSHEET_ID}/values/PenalCode?key=${SHEETS_API_KEY}`;
+    const response = await fetch(url);
+    
+    if (!response.ok) {
+      throw new Error(`Sheets API error: ${response.status}`);
     }
+    
+    const data = await response.json();
+    
+    if (!data.values || data.values.length < 2) {
+      throw new Error('No penal code data found');
+    }
+    
+    const rows = data.values;
+    const headers = rows[0]; // First row = headers
+    const codes = [];
+    
+    // Parse data rows (starting from row 2)
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const code = {};
+      headers.forEach((h, idx) => {
+        code[h] = row[idx] || '';
+      });
+      codes.push(code);
+    }
+    
+    if (codes.length > 0) {
+      const grouped = {};
+      codes.forEach(c => {
+        const title = c['Title'] || 'Uncategorized';
+        if (!grouped[title]) grouped[title] = [];
+        grouped[title].push({
+          Code: c['Code'] || '',
+          Offense: c['Offense'] || '',
+          Description: c['Description'] || '',
+          Level: c['Level'] || '',
+          Jail: c['Jail (month)'] || c['Jail'] || '',
+          Fine: c['Fine ($)'] || c['Fine'] || c['Fine $'] || ''
+        });
+      });
+      renderPenalCodeAccordion(grouped);
+    }
+  } catch (err) {
+    console.warn('Penal code error:', err);
+    document.getElementById('penalCodeAccordion').innerHTML = `
+      <div class="text-red-400 p-4">
+        <p class="font-semibold mb-2">Error loading penal code.</p>
+        <p class="text-sm">Please ensure:</p>
+        <ul class="list-disc pl-5 mt-2 text-sm">
+          <li>The "PenalCode" tab exists in spreadsheet: ${PENAL_CODE_SPREADSHEET_ID}</li>
+          <li>Row 1 has headers: Title, Code, Offense, Level, Description, Jail (month), Fine ($)</li>
+          <li>Data starts from row 2</li>
+          <li>The spreadsheet is shared publicly (Anyone with link can view)</li>
+        </ul>
+        <p class="mt-2 text-xs text-gray-500">Error: ${err.message}</p>
+      </div>`;
   }
+}
 
   function renderPenalCodeAccordion(grouped) {
-    const container = document.getElementById('penalCodeAccordion');
-    container.innerHTML = Object.entries(grouped).map(([title, rows], idx) => `
-      <div class="border border-gray-700 rounded-lg overflow-hidden">
-        <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}">
-          <span>${title}</span><i data-lucide="chevron-down" class="w-5 h-5"></i>
-        </div>
-        <div class="accordion-content" data-idx="${idx}">
-          <div class="overflow-x-auto">
-            <table class="data-table w-full">
-              <thead><tr><th>Code</th><th>Offense</th><th>Description</th><th>Level</th><th>Jail (mo)</th><th>Fine</th></tr></thead>
-              <tbody>
-                ${rows.map(r => `
-                  <tr>
-                    <td>${r.Code}</td>
-                    <td>${r.Offense}</td>
-                    <td class="desc-col" title="${r.Description}">${r.Description || '—'}</td>
-                    <td>${r.Level}</td>
-                    <td>${r.Jail}</td>
-                    <td>${r.Fine ? '$' + Number(r.Fine).toLocaleString() : ''}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
+  const container = document.getElementById('penalCodeAccordion');
+  container.innerHTML = Object.entries(grouped).map(([title, rows], idx) => `
+    <div class="border border-gray-700 rounded-lg overflow-hidden">
+      <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}">
+        <span>${title}</span><i data-lucide="chevron-down" class="w-5 h-5"></i>
+      </div>
+      <div class="accordion-content" data-idx="${idx}">
+        <div class="overflow-x-auto">
+          <table class="data-table w-full">
+            <thead><tr><th>Code</th><th>Offense</th><th>Description</th><th>Level</th><th>Jail (mo)</th><th>Fine</th></tr></thead>
+            <tbody>
+              ${rows.map(r => `
+                <tr>
+                  <td>${r.Code}</td>
+                  <td>${r.Offense}</td>
+                  <td class="desc-col" title="${r.Description}">${r.Description || '—'}</td>
+                  <td>${r.Level}</td>
+                  <td>${r.Jail}</td>
+                  <td>${r.Fine ? '$' + Number(r.Fine).toLocaleString() : ''}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
         </div>
       </div>
-    `).join('');
-    
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const idx = header.dataset.idx;
-        const content = document.querySelector(`.accordion-content[data-idx="${idx}"]`);
-        content.classList.toggle('active');
-        const icon = header.querySelector('i');
-        if (icon) icon.setAttribute('data-lucide', content.classList.contains('active') ? 'chevron-up' : 'chevron-down');
-        lucide.createIcons();
-      });
+    </div>
+  `).join('');
+  
+  document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const idx = header.dataset.idx;
+      const content = document.querySelector(`.accordion-content[data-idx="${idx}"]`);
+      content.classList.toggle('active');
+      const icon = header.querySelector('i');
+      if (icon) icon.setAttribute('data-lucide', content.classList.contains('active') ? 'chevron-up' : 'chevron-down');
+      lucide.createIcons();
     });
-    lucide.createIcons();
-  }
+  });
+  lucide.createIcons();
+}
 
   // ============================================
   // HOME PAGE
