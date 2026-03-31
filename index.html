@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
-    /* ========== STYLES (unchanged) ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
     body { background: #0f172a; font-family: 'Inter', sans-serif; color: #e2e8f0; }
     .card { background: #1e293b; border: 1px solid #334155; border-radius: 1rem; transition: all 0.2s; }
@@ -39,7 +38,7 @@
 <body>
 <div id="splashScreen" style="display: none;"></div>
 <div id="mainContent" class="container mx-auto px-4 py-6 max-w-7xl">
-  <!-- Header (unchanged) -->
+  <!-- Header -->
   <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-700">
     <div class="flex items-center gap-3">
       <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-2xl font-bold text-[#e94560]">⚖️</div>
@@ -70,8 +69,7 @@
     <div id="roleContent"></div>
   </div>
 </div>
-
-<!-- Modals (unchanged) -->
+<!-- Modals -->
 <div id="loginModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700"><h2 class="text-2xl font-bold text-center mb-6 text-white">DOJ Portal Login</h2><p class="text-gray-400 text-center mb-6">Enter your passcode</p><input type="password" id="loginPasscode" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg mb-4 text-white"><div id="loginError" class="text-red-500 text-sm mb-4 hidden">Invalid passcode</div><div class="flex gap-3"><button id="loginSubmitBtn" class="btn-primary flex-1 py-2 rounded-lg">Login</button><button id="loginCancelBtn" class="btn-secondary flex-1 py-2 rounded-lg">Cancel</button></div><div class="mt-4 text-center"><button id="forgotPasswordBtn" class="text-sm text-gray-400 hover:text-[#facc15]">Forgot password?</button></div></div></div>
 <div id="quickGuideModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">Quick Guide</h3><button onclick="closeModal('quickGuideModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div class="aspect-w-16 aspect-h-9 mb-4"><iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe></div><div class="prose max-w-none text-gray-300"><p>This is the official quick guide for the San Junipero Department of Justice. It explains the basics of interacting with the DOJ, filing cases, and understanding your rights.</p><ul class="list-disc pl-5 mt-2 text-gray-400"><li>All legal matters must be filed through a DOJ Ticket in Discord.</li><li>Clerks are available to assist with paperwork and fees.</li><li>Court schedules are posted daily in #court-docket.</li><li>Evidence requires screenshots or video (Rule 12.6).</li></ul></div></div></div>
 <div id="trainingModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 id="trainingModalTitle" class="text-xl font-bold text-white"></h3><button onclick="closeModal('trainingModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div id="trainingModalContent"></div></div></div>
@@ -148,7 +146,6 @@
     }
     return records;
   }
-
   // ============================================
   // PUBLIC RECORDS (with exact column mapping)
   // ============================================
@@ -176,7 +173,7 @@
 
     // Map records to the correct fields
     const mappedMarriages = marriages.map(r => ({
-      cert: r['Certificate #'] || r['cert'] || r['CertificateNumber'] || '',
+      cert: r['Certificate #'] || r['CertificateNumber'] || '',
       spouse1: r['Spouse 1'] || r['Spouse1'] || '',
       spouse2: r['Spouse 2'] || r['Spouse2'] || '',
       date: r['Marriage Date'] || r['Date'] || '',
@@ -184,7 +181,7 @@
     }));
 
     const mappedProperties = properties.map(r => ({
-      deed: r['Deed #'] || r['DeedNumber'] || r['Deed'] || '',
+      deed: r['Deed #'] || r['DeedNumber'] || '',
       type: r['Type'] || '',
       grantor: r['Grantor'] || '',
       grantee: r['Grantee'] || '',
@@ -200,9 +197,9 @@
         plaintiff: r['Plaintiff'] || '',
         defendant: r['Defendant'] || '',
         judge: judgeDisplay,
+        courtLevel: r['Court Level'] || '',
         filedDate: r['Filed Date'] || r['Date'] || '',
-        status: r['Status'] || '',
-        courtLevel: r['Court Level'] || ''
+        status: r['Status'] || ''
       };
     });
 
@@ -223,8 +220,8 @@
       if (!table) return;
       const thead = table.querySelector('thead');
       const tbody = table.querySelector('tbody');
-      thead.innerHTML = ` <tr>${headers.map(h => `<th>${h}</th>`).join('')} </tr>`;
-      tbody.innerHTML = records.map(record => ` <tr>${headers.map(h => `<td>${record[fieldMap[h]] || ''}</td>`).join('')} </tr>`).join('');
+      thead.innerHTML = `  <tr>${headers.map(h => `<th>${h}</th>`).join('')}   `;
+      tbody.innerHTML = records.map(record => `  <tr>${headers.map(h => `<td>${record[fieldMap[h]] || ''}   `).join('')}   `).join('');
     }
 
     renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], {
@@ -276,9 +273,8 @@
     });
     lucide.createIcons();
   }
-
   // ============================================
-  // HOME PAGE STATS (count rows)
+  // HOME PAGE STATS
   // ============================================
   async function updateHomeStats() {
     try {
@@ -294,7 +290,7 @@
   }
 
   // ============================================
-  // PENAL CODE (load from sheet, group by exact title)
+  // PENAL CODE (load from sheet)
   // ============================================
   async function renderPenalCode() {
     const penalDiv = document.getElementById('penalCodeSection');
@@ -314,7 +310,6 @@
       const result = await apiCall('getPenalCode');
       if (result.success && result.codes && result.codes.length) {
         const codes = result.codes;
-        // Group by the exact title string
         const grouped = {};
         codes.forEach(c => {
           let title = c.Title;
@@ -330,26 +325,11 @@
         });
         renderPenalCodeAccordion(grouped);
       } else {
-        throw new Error('Sheet data not available');
+        throw new Error('No sheet data');
       }
     } catch (err) {
-      console.warn('Failed to load penal code from sheet, using static fallback', err);
-      // Use the static data from the previous version (which had all titles)
-      const fallback = {
-        "Title 1 - Crimes Against the Person": [ /* ... */ ],
-        "Title 2 - Crimes Against Property": [ /* ... */ ],
-        "Title 3 - Crimes Against Public Decency and Order": [ /* ... */ ],
-        "Title 4 - Crimes Against Justice": [ /* ... */ ],
-        "Title 5 - Crimes Committed with Firearms, Deadly Weapons, or Enhancements": [ /* ... */ ],
-        "Title 6 - Offenses Against Public Order": [ /* ... */ ],
-        "Title 7 - Offenses Against Public Health and Morals": [ /* ... */ ],
-        "Title 8 - Offenses Against Public Safety": [ /* ... */ ],
-        "Title 9 - Offenses Involving Operation of a Vehicle": [ /* ... */ ],
-        "Title 10 - Offenses Involving Operation of an Aircraft": [ /* ... */ ],
-        "Title 11 - Wildlife Laws": [ /* ... */ ],
-        "Vehicle Code – Division 1 through 5": [ /* ... */ ]
-      };
-      renderPenalCodeAccordion(fallback);
+      console.warn('Could not load penal code from sheet:', err);
+      document.getElementById('penalCodeAccordion').innerHTML = '<div class="text-red-400">Error loading penal code. Please ensure the PenalCode sheet exists in DOJ_Admin_Ops.</div>';
     }
   }
 
@@ -358,7 +338,7 @@
     container.innerHTML = Object.entries(grouped).map(([title, rows], idx) => `
       <div class="border border-gray-700 rounded-lg overflow-hidden">
         <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}"><span>${title}</span><i data-lucide="chevron-down" class="w-5 h-5"></i></div>
-        <div class="accordion-content" data-idx="${idx}"><div class="overflow-x-auto"><table class="data-table w-full"><thead> <th>Code</th><th>Offense</th><th>Level</th><th>Jail (months)</th><th>Fine</th> </thead><tbody>${rows.map(r => ` <tr><td>${r.Code || ''}</td><td>${r.Offense || ''}</td><td>${r.Level || ''}</td><td>${r.Jail || ''}</td><td>${r.Fine || ''}</td></tr>`).join('')}</tbody> </div></div>
+        <div class="accordion-content" data-idx="${idx}"><div class="overflow-x-auto"><table class="data-table w-full"><thead> <th>Code</th><th>Offense</th><th>Level</th><th>Jail (months)</th><th>Fine</th> </thead><tbody>${rows.map(r => `   <tr>${['Code','Offense','Level','Jail','Fine'].map(k => `<td>${r[k] || ''}</td>`).join('')}</tr>`).join('')}</tbody> </div></div>
       </div>`).join('');
     document.querySelectorAll('.accordion-header').forEach(header => {
       header.addEventListener('click', () => {
@@ -374,7 +354,7 @@
   }
 
   // ============================================
-  // HOME PAGE (rest)
+  // HOME PAGE
   // ============================================
   function renderHome() {
     const homeDiv = document.getElementById('homeSection');
@@ -403,20 +383,16 @@
     careersDiv.innerHTML = `<div class="card p-8 max-w-3xl mx-auto"><h2 class="text-2xl font-bold text-white mb-4">Join the Department of Justice</h2><p class="text-gray-300 mb-4">The San Junipero DOJ is always looking for dedicated individuals to serve as Clerks, Judges, Attorneys, and support staff.</p><div class="bg-gray-700/50 p-4 rounded-lg mb-6"><h3 class="text-lg font-semibold text-[#facc15] mb-2">How to Apply</h3><p class="text-gray-300">Submit a <strong class="text-blue-400">DOJ Assistance</strong> ticket in Discord with the subject "Job Application – [Position]". Include:</p><ul class="list-disc pl-5 mt-2 text-gray-300"><li>Your character name and Discord ID</li><li>Position you're applying for</li><li>A brief statement of interest and relevant experience (IC or OOC)</li><li>Your availability (days/times you can be active)</li></ul><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-4 btn-primary py-2 px-4 rounded-lg">Open DOJ Ticket on Discord</a></div></div>`;
     lucide.createIcons();
   }
-
-  <script>
   // ============================================
-  // DASHBOARD FUNCTIONS (all roles, tasks, reports, etc.)
+  // GLOBAL STATE
   // ============================================
-
-  // Global state
   let currentUser = null;
   let userAvailability = {};
   let pendingReports = [];
   let chargedCases = [];
   let dojNotifications = [];
 
-  // Mock data for dashboards (you can replace with API later)
+  // Mock data for dashboards
   const mockAssignedCases = [
     { caseNo: "CIV-SC-03-2026-338", parties: "Thomas Anderson v. William Clark", status: "Pre-Trial", judge: "Judge Roberts", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" },
     { caseNo: "FAM-P2-03-2026-208", parties: "Jessica White v. Kevin Harris", status: "Pre-Trial", judge: "Judge Chen", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" }
@@ -541,7 +517,6 @@
       renderDashboardByRole();
     });
   }
-
   // Communication modal
   function showCommunicationModal(targetRole, targetLabel) {
     showModal(`
@@ -711,7 +686,6 @@
     });
     document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
   }
-
   // Other role forms
   function showRecusalForm() { alert('Recusal request form (mock)'); }
   function showSentencingForm() { alert('Sentencing form (mock)'); }
@@ -755,64 +729,34 @@
     const commHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="message-square"></i> Communications</div>${commButtons}</div>`;
 
     let roleSpecific = '';
-
     if (role === 'clerk') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="file-plus"></i> New Filing</div><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=59417065" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📄 Case Filing</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1895005036" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💍 Marriage</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1376146295" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🚗 Property</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1538730298" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🏢 Professional</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1478971826" target="_blank" class="btn-secondary text-center py-2 rounded-lg">👶 Paternity</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1874312862" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📜 Will</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=318970083" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💰 Treasury</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📊 All Sheets</a></div></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Financial Tools</div><div class="flex flex-wrap gap-3"><a href="${offlineDuesSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Manage Offline Dues</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">View All Filings (Audit)</a></div></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="file-plus"></i> New Filing</div><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=59417065" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📄 Case Filing</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1895005036" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💍 Marriage</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1376146295" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🚗 Property</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1538730298" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🏢 Professional</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1478971826" target="_blank" class="btn-secondary text-center py-2 rounded-lg">👶 Paternity</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1874312862" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📜 Will</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=318970083" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💰 Treasury</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📊 All Sheets</a></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Financial Tools</div><div class="flex flex-wrap gap-3"><a href="${offlineDuesSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Manage Offline Dues</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">View All Filings (Audit)</a></div></div>`;
     } else if (role === 'judge') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Court Level: ${currentUser.courtLevel || 'Municipal'}</div><div id="judgeCasesList" class="space-y-2">${mockAssignedCases.filter(c=>c.judge===currentUser.name).map(c=>`<div class="border border-gray-700 rounded p-3 flex justify-between items-center"><div><strong>${c.caseNo}</strong> - ${c.parties}<br><span class="text-sm text-gray-400">Status: ${c.status}</span></div><a href="${c.url}" target="_blank" class="btn-secondary text-sm py-1 px-3 rounded-lg">View Case</a></div>`).join('')}</div></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="sentencingBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Sentencing</button><button id="officialLetterBtn" class="btn-secondary py-2 px-4 rounded-lg">Official Letter</button></div></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Court Level: ${currentUser.courtLevel}</div><div id="judgeCasesList" class="space-y-2">${mockAssignedCases.filter(c=>c.judge===currentUser.name).map(c=>`<div class="border border-gray-700 rounded p-3 flex justify-between items-center"><div><strong>${c.caseNo}</strong> - ${c.parties}<br><span class="text-sm text-gray-400">Status: ${c.status}</span></div><a href="${c.url}" target="_blank" class="btn-secondary text-sm py-1 px-3 rounded-lg">View Case</a></div>`).join('')}</div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="sentencingBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Sentencing</button><button id="officialLetterBtn" class="btn-secondary py-2 px-4 rounded-lg">Official Letter</button></div></div>`;
     } else if (role === 'attorney') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="folder"></i> My Cases</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}</div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Trust Account</div><div class="flex flex-wrap gap-3"><button id="trustWithdrawalBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Withdrawal</button><button id="trustDepositBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Deposit</button></div></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="settings"></i> Actions</div><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="folder"></i> My Cases</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}</div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Trust Account</div><div class="flex flex-wrap gap-3"><button id="trustWithdrawalBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Withdrawal</button><button id="trustDepositBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Deposit</button></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button></div>`;
     } else if (role === 'public_defender') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Assigned Clients</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}<div class="mt-3 pt-3 border-t border-gray-700"><div class="text-sm">Case Count (this pay period): <span class="font-bold text-[#facc15]">${mockAssignedCases.length}</span></div><div class="text-xs text-gray-500">Bi-weekly compensation: $${mockAssignedCases.length*500}</div></div></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="pdReportBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Criminal Report to DA</button></div></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Assigned Clients</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}<div class="mt-3 pt-3 border-t border-gray-700"><div class="text-sm">Case Count (this pay period): <span class="font-bold text-[#facc15]">${mockAssignedCases.length}</span></div><div class="text-xs text-gray-500">Bi-weekly compensation: $${mockAssignedCases.length*500}</div></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="pdReportBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Criminal Report to DA</button></div></div>`;
     } else if (role === 'district_attorney') {
-      roleSpecific = `<div id="daDashboardPlaceholder">Loading DA dashboard...</div>`;
+      roleSpecific = renderDADashboard();
     } else if (role === 'police') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="badge-check"></i> Police Dashboard</div><p class="text-gray-300 mb-4">File criminal reports for review by the District Attorney.</p><button id="policeReportBtn" class="btn-secondary py-2 px-4 rounded-lg">File Criminal Report</button></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="badge-check"></i> Police Dashboard</div><p class="text-gray-300 mb-4">File criminal reports for review by the District Attorney.</p><button id="policeReportBtn" class="btn-secondary py-2 px-4 rounded-lg">File Criminal Report</button></div>`;
     } else if (role === 'bailiff') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="shield"></i> Civil Process</div><button id="serviceProcessBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Service of Process</button></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="shield"></i> Civil Process</div><button id="serviceProcessBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Service of Process</button></div>`;
     } else if (role === 'reporter') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="upload"></i> Transcripts</div><button id="uploadTranscriptBtn" class="btn-secondary py-2 px-4 rounded-lg">Upload Transcript URL</button></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="upload"></i> Transcripts</div><button id="uploadTranscriptBtn" class="btn-secondary py-2 px-4 rounded-lg">Upload Transcript URL</button></div>`;
     } else if (role === 'admin') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> User Management</div><button id="userMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Users</button></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Judge Assignment</div><button id="assignJudgeBtn" class="btn-secondary py-2 px-4 rounded-lg">Auto-Assign Unassigned Cases</button></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Recusal Queue</div><button id="recusalQueueBtn" class="btn-secondary py-2 px-4 rounded-lg">View Queue</button></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="chart-line"></i> Audit Tools</div><div class="flex flex-wrap gap-3"><button id="financialAuditBtn" class="btn-secondary py-2 px-4 rounded-lg">Financial Summary</button><button id="offlineDuesBtn" class="btn-secondary py-2 px-4 rounded-lg">Offline Dues</button><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Audit Log (All Filings)</a></div></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> User Management</div><button id="userMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Users</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Judge Assignment</div><button id="assignJudgeBtn" class="btn-secondary py-2 px-4 rounded-lg">Auto-Assign Unassigned Cases</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Recusal Queue</div><button id="recusalQueueBtn" class="btn-secondary py-2 px-4 rounded-lg">View Queue</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="chart-line"></i> Audit Tools</div><div class="flex flex-wrap gap-3"><button id="financialAuditBtn" class="btn-secondary py-2 px-4 rounded-lg">Financial Summary</button><button id="offlineDuesBtn" class="btn-secondary py-2 px-4 rounded-lg">Offline Dues</button><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Audit Log (All Filings)</a></div></div>`;
     } else if (role === 'chief_justice') {
-      roleSpecific = `
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Judicial Oversight</div><div class="space-y-2"><button id="cjViewRecusalsBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Recusal Queue</button><button id="cjAssignJudgeBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">Manually Assign Judge to Case</button><button id="cjViewAuditBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Audit Log (All Filings)</button></div></div>
-        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="users"></i> Manage Users</div><button id="cjUserMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Edit User Roles</button></div>
-      `;
+      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Judicial Oversight</div><div class="space-y-2"><button id="cjViewRecusalsBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Recusal Queue</button><button id="cjAssignJudgeBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">Manually Assign Judge to Case</button><button id="cjViewAuditBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Audit Log (All Filings)</button></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Manage Users</div><button id="cjUserMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Edit User Roles</button></div>`;
     }
 
-    // Build full HTML
-    let fullHtml = tasksHtml + notifHtml + commHtml + roleSpecific + renderScheduling() + `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book"></i> Training Guide</div><button id="trainingBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Training Materials</button></div>`;
-    roleContent.innerHTML = fullHtml;
+    const scheduleHtml = role !== 'police' ? renderScheduling() : '';
+    const trainingHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book"></i> Training Guide</div><button id="trainingBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Training Materials</button></div>`;
 
-    // Attach event listeners after rendering
+    roleContent.innerHTML = tasksHtml + notifHtml + commHtml + roleSpecific + scheduleHtml + trainingHtml;
+
+    // Attach event listeners
     if (role !== 'police') {
       document.getElementById('refreshTasks')?.addEventListener('click', () => alert('Refresh tasks'));
       document.querySelectorAll('.task-checkbox')?.forEach(cb => cb.addEventListener('change', () => alert('Task updated')));
@@ -829,12 +773,7 @@
       document.getElementById('recusalBtn')?.addEventListener('click', showRecusalForm);
       document.getElementById('pdReportBtn')?.addEventListener('click', showPDReportForm);
     } else if (role === 'district_attorney') {
-      (async () => {
-        const daHtml = await renderDADashboard();
-        const daPlaceholder = document.getElementById('daDashboardPlaceholder');
-        if (daPlaceholder) daPlaceholder.outerHTML = daHtml;
-        attachDAEventListeners();
-      })();
+      attachDAEventListeners();
     } else if (role === 'police') {
       document.getElementById('policeReportBtn')?.addEventListener('click', showPoliceReportForm);
     } else if (role === 'bailiff') {
@@ -865,9 +804,30 @@
     document.getElementById('loaBtn')?.addEventListener('click', () => alert('LOA request (mock)'));
     document.getElementById('availabilityBtn')?.addEventListener('click', showAvailabilityForm);
 
-    // Update notifications container
     renderDojNotifications();
     lucide.createIcons();
+  }
+
+  function renderDojNotifications() {
+    const container = document.getElementById('dojNotificationsContainer');
+    if (!container) return;
+    const notifs = dojNotifications.filter(n => n.role === currentUser.role);
+    if (notifs.length === 0) { container.innerHTML = '<div class="text-gray-400 text-sm">No internal notifications</div>'; return; }
+    container.innerHTML = notifs.slice(0,5).map(n => `<div class="flex justify-between items-start py-2 border-b border-gray-700 text-sm ${!n.read ? 'bg-gray-700/30' : ''}"><div>${n.message}</div><div class="text-xs text-gray-500">${new Date(n.timestamp).toLocaleTimeString()}</div></div>`).join('');
+  }
+
+  // ============================================
+  // MODAL HELPERS
+  // ============================================
+  function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+  }
+  function showModal(contentHtml) {
+    const modal = document.getElementById('globalModal');
+    const modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = contentHtml;
+    modal.classList.remove('hidden');
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal('globalModal'); });
   }
 
   // ============================================
@@ -877,23 +837,34 @@
   function showPublicRecords() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.remove('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderPublicRecords(); }
   function showPenalCode() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.remove('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderPenalCode(); }
   function showCareers() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.remove('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderCareers(); }
-  function showDashboard() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden'); document.getElementById('dashboardTitle').innerText = `${currentUser.name} (${currentUser.role.replace('_',' ')})`; renderDashboardByRole(); }
+  function showDashboard() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden'); document.getElementById('dashboardTitle').innerText = `${currentUser.name} (${currentUser.role.replace('_',' ')})`; if (!userAvailability[currentUser.name]) userAvailability[currentUser.name] = {}; renderDashboardByRole(); }
 
   // ============================================
-  // LOGIN/LOGOUT
+  // LOGIN (Mock – replace with real API)
   // ============================================
-  async function handleLogin(passcode) {
-    try {
-      const result = await apiCall('verifyLogin', { passcode });
-      currentUser = result.user;
+  const users = {
+    "CLERK123": { name: "Clerk Johnson", role: "clerk", courtLevel: null },
+    "JUDGE123": { name: "Judge Roberts", role: "judge", courtLevel: "Superior" },
+    "ATTY123": { name: "Attorney Miller", role: "attorney", courtLevel: null },
+    "PD123": { name: "Public Defender Williams", role: "public_defender", courtLevel: null },
+    "DA123": { name: "DA Martinez", role: "district_attorney", courtLevel: null },
+    "POLICE123": { name: "Officer Davis", role: "police", courtLevel: null },
+    "BAILIFF123": { name: "Bailiff Davis", role: "bailiff", courtLevel: null },
+    "REPORTER123": { name: "Court Reporter Garcia", role: "reporter", courtLevel: null },
+    "ADMIN123": { name: "Master Clerk Wilson", role: "admin", courtLevel: null },
+    "CJ123": { name: "Chief Justice Taylor", role: "chief_justice", courtLevel: "Supreme" }
+  };
+
+  function handleLogin(passcode) {
+    const user = users[passcode];
+    if (user) {
+      currentUser = user;
       sessionStorage.setItem('doj_user', JSON.stringify(currentUser));
       document.getElementById('loginNavBtn').classList.add('hidden');
       document.getElementById('logoutBtn').classList.remove('hidden');
       document.getElementById('loginModal').classList.add('hidden');
-      await loadUserAvailability();
-      await loadNotifications();
       showDashboard();
-    } catch (err) {
+    } else {
       document.getElementById('loginError').classList.remove('hidden');
     }
   }
@@ -926,7 +897,7 @@
 
   const saved = sessionStorage.getItem('doj_user');
   if (saved) {
-    try { currentUser = JSON.parse(saved); document.getElementById('loginNavBtn').classList.add('hidden'); document.getElementById('logoutBtn').classList.remove('hidden'); loadUserAvailability().then(() => loadNotifications()).then(() => showDashboard()); } catch(e) { showHome(); }
+    try { currentUser = JSON.parse(saved); document.getElementById('loginNavBtn').classList.add('hidden'); document.getElementById('logoutBtn').classList.remove('hidden'); showDashboard(); } catch(e) { showHome(); }
   } else { showHome(); }
   lucide.createIcons();
 </script>
