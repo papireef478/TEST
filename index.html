@@ -269,112 +269,192 @@
   // PUBLIC RECORDS
   // ============================================
   async function renderPublicRecords() {
-    const recordsDiv = document.getElementById('publicRecordsSection');
-    recordsDiv.innerHTML = `
-      <div class="card p-6">
-        <div class="flex gap-4 border-b border-gray-700 mb-4 flex-wrap">
-          <button class="tab-btn active" data-tab="marriage">Marriage Registry</button>
-          <button class="tab-btn" data-tab="property">Property Registry</button>
-          <button class="tab-btn" data-tab="cases">Case Docket</button>
-          <button class="tab-btn" data-tab="professional">Professional Registry</button>
+  const recordsDiv = document.getElementById('publicRecordsSection');
+  
+  // 🔥 FIXED: Case Docket tab is NOW after Professional Registry 🔥
+  recordsDiv.innerHTML = `
+    <div class="card p-6">
+      <div class="flex gap-4 border-b border-gray-700 mb-4 flex-wrap">
+        <button class="tab-btn active" data-tab="marriage">Marriage Registry</button>
+        <button class="tab-btn" data-tab="property">Property Registry</button>
+        <button class="tab-btn" data-tab="professional">Professional Registry</button>
+        <button class="tab-btn" data-tab="cases">Case Docket</button>
+      </div>
+      <div class="mb-4"><input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
+      
+      <!-- Marriage Registry Tab -->
+      <div id="marriageTab" class="tab-content active">
+        <div class="overflow-x-auto">
+          <table class="data-table" id="marriageTable">
+            <thead><tr><th>Certificate #</th><th>Spouse 1</th><th>Spouse 2</th><th>Date</th><th>Officiant</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
         </div>
-        <div class="mb-4"><input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
-        
-        <div id="marriageTab" class="tab-content active"><div class="overflow-x-auto"><table class="data-table" id="marriageTable"><thead><tr><th>Certificate #</th><th>Spouse 1</th><th>Spouse 2</th><th>Date</th><th>Officiant</th><th>Status</th></tr></thead><tbody></tbody></table></div></div>
-        <div id="propertyTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="propertyTable"><thead><tr><th>Deed #</th><th>Type</th><th>Grantor</th><th>Grantee</th><th>Date</th></tr></thead><tbody></tbody></table></div></div>
-        <div id="casesTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="casesTable"><thead><tr><th>Case #</th><th>Type</th><th>Plaintiff</th><th>Defendant</th><th>Judge</th><th>Court Level</th><th>Filed Date</th><th>Status</th></tr></thead><tbody></tbody></table></div></div>
-        <div id="professionalTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="professionalTable"><thead><tr><th>Entity</th><th>Type</th><th>Owner</th><th>License #</th><th>Expires</th><th>Notes</th><th>Status</th></tr></thead><tbody></tbody></table></div></div>
-      </div>`;
+      </div>
+      
+      <!-- Property Registry Tab -->
+      <div id="propertyTab" class="tab-content hidden">
+        <div class="overflow-x-auto">
+          <table class="data-table" id="propertyTable">
+            <thead><tr><th>Deed #</th><th>Type</th><th>Grantor</th><th>Grantee</th><th>Date</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Professional Registry Tab -->
+      <div id="professionalTab" class="tab-content hidden">
+        <div class="overflow-x-auto">
+          <table class="data-table" id="professionalTable">
+            <thead><tr><th>Entity</th><th>Type</th><th>Owner</th><th>License #</th><th>Expires</th><th>Notes</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      
+      <!-- Case Docket Tab (MOVED TO END) -->
+      <div id="casesTab" class="tab-content hidden">
+        <div class="overflow-x-auto">
+          <table class="data-table" id="casesTable">
+            <thead><tr><th>Case #</th><th>Type</th><th>Plaintiff</th><th>Defendant</th><th>Judge</th><th>Court Level</th><th>Filed Date</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
 
-    const marriages = await fetchSheetData('MarriageRegistry');
-    const properties = await fetchSheetData('PropertyRegistry');
-    const cases = await fetchSheetData('CaseRegistry');
-    const professionals = await fetchSheetData('ProfessionalRegistry');
+  // Fetch data from Google Sheets
+  const marriages = await fetchSheetData('MarriageRegistry');
+  const properties = await fetchSheetData('PropertyRegistry');
+  const professionals = await fetchSheetData('ProfessionalRegistry');
+  const cases = await fetchSheetData('CaseRegistry');
 
-    const mappedMarriages = marriages.map(r => ({
-      cert: r['Certificate #'] || '', spouse1: r['Spouse 1'] || '', spouse2: r['Spouse 2'] || '',
-      date: r['Date'] || '', officiant: r['Officiant'] || '', status: r['Status'] || ''
-    }));
+  // 🔥 MARRIAGE REGISTRY - CORRECT COLUMN MAPPINGS 🔥
+  const mappedMarriages = marriages.map(r => ({
+    cert: r['Certificate #'] || r['CertificateNumber'] || '',
+    spouse1: r['Spouse 1'] || r['Spouse1'] || '',
+    spouse2: r['Spouse 2'] || r['Spouse2'] || '',
+    date: r['Marriage Date'] || r['Date'] || '',  // 🔥 Column I: Marriage Date
+    officiant: r['Officiant'] || '',
+    status: r['Status'] || ''
+  }));
 
-    const mappedProperties = properties.map(r => ({
-      deed: r['Deed/Transfer #'] || r['Deed #'] || '',
-      type: r['Type'] || '',
-      grantor: r['Grantor (Seller)'] || r['Grantor'] || '',
-      grantee: r['Grantee (Buyer)'] || r['Grantee'] || '',
-      date: r['Date'] || ''
-    }));
+  // 🔥 PROPERTY REGISTRY - CORRECT COLUMN MAPPINGS 🔥
+  const mappedProperties = properties.map(r => ({
+    deed: r['Deed/Transfer #'] || r['Deed #'] || '',
+    type: r['Property Type'] || r['Type'] || '',  // 🔥 Column D: Property Type
+    grantor: r['Grantor (Seller)'] || r['Grantor'] || '',
+    grantee: r['Grantee (Buyer)'] || r['Grantee'] || '',
+    date: r['Transfer Date'] || r['Date'] || ''  // 🔥 Column B: Transfer Date
+  }));
 
-    const mappedCases = cases.map(r => ({
-      caseNo: r['Case #'] || '', type: r['Type'] || '',
+  // 🔥 PROFESSIONAL REGISTRY - CORRECT COLUMN MAPPINGS 🔥
+  const mappedProfessionals = professionals.map(r => ({
+    entity: r['Entity Name'] || r['Entity'] || '',  // 🔥 Column F: Entity Name
+    type: r['TYPE'] || r['Type'] || r['License Type'] || '',  // 🔥 Column D: TYPE
+    owner: r['Owner Name'] || r['Owner'] || '',  // 🔥 Column H: Owner Name
+    license: r['Registration #'] || r['License #'] || '',  // 🔥 Column M: Registration #
+    expires: r['Expires'] || '',
+    notes: r['Notes'] || '',
+    status: r['Status'] || ''
+  }));
+
+  // 🔥 CASE DOCKET - CORRECT COLUMN MAPPINGS 🔥
+  const mappedCases = cases.map(r => {
+    let judgeDisplay = r['Judge'] || r['Assigned Judge'] || 'Pending';
+    // 🔥 If judge is "[Enter Assigned Judge]" show "Pending"
+    if (judgeDisplay === '[Enter Assigned Judge]' || !judgeDisplay || judgeDisplay.trim() === '') {
+      judgeDisplay = 'Pending';
+    }
+    return {
+      caseNo: r['Case #'] || r['CaseNumber'] || '',
+      type: r['Case Type'] || r['Type'] || '',  // 🔥 Column E: Case Type
       plaintiff: r['Plaintiff/Petitioner'] || r['Plaintiff'] || '',
       defendant: r['Defendant/Respondent'] || r['Defendant'] || '',
-      judge: (r['Judge'] || r['Assigned Judge'] || 'Pending'),
+      judge: judgeDisplay,
       courtLevel: r['Court Level'] || '',
-      filedDate: r['Filing Timestamp'] || r['Filed Date'] || '',
+      filedDate: r['Filing Timestamp'] || r['Filed Date'] || r['Date'] || '',
       status: r['Status'] || ''
-    }));
+    };
+  });
 
-    const mappedProfessionals = professionals.map(r => ({
-      entity: r['Entity'] || '', type: r['Type'] || '', owner: r['Owner'] || '',
-      license: r['License #'] || '', expires: r['Expires'] || '',
-      notes: r['Notes'] || '', status: r['Status'] || ''
-    }));
+  window.publicData = { marriages: mappedMarriages, properties: mappedProperties, cases: mappedCases, professionals: mappedProfessionals };
 
-    window.publicData = { marriages: mappedMarriages, properties: mappedProperties, cases: mappedCases, professionals: mappedProfessionals };
+  // Render each table with correct headers and field mappings
+  renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], {
+    'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status'
+  }, 'Status');
+  
+  renderTable('propertyTable', mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], {
+    'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date'
+  });
+  
+  renderTable('professionalTable', mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], {
+    'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status'
+  }, 'Status');
+  
+  renderTable('casesTable', mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], {
+    'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status'
+  });
 
-    renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], {
-      'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status'
-    }, 'Status');
-    
-    renderTable('propertyTable', mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], {
-      'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date'
-    });
-    
-    renderTable('casesTable', mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], {
-      'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status'
-    });
-    
-    renderTable('professionalTable', mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], {
-      'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status'
-    }, 'Status');
-
-    const searchInput = document.getElementById('searchInput');
-    function filterTable(records, headers, fieldMap, searchTerm) {
-      const term = searchTerm.toLowerCase();
-      return records.filter(record => headers.some(h => String(record[fieldMap[h]] || '').toLowerCase().includes(term)));
-    }
-    
-    searchInput.addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      const activeTab = document.querySelector('.tab-content.active').id;
-      if (activeTab === 'marriageTab') {
-        const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], { 'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status' }, term);
-        renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], { 'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status' }, 'Status');
-      } else if (activeTab === 'propertyTab') {
-        const filtered = filterTable(mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' }, term);
-        renderTable('propertyTable', filtered, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' });
-      } else if (activeTab === 'casesTab') {
-        const filtered = filterTable(mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' }, term);
-        renderTable('casesTable', filtered, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' });
-      } else if (activeTab === 'professionalTab') {
-        const filtered = filterTable(mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' }, term);
-        renderTable('professionalTable', filtered, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' }, 'Status');
-      }
-    });
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tab = btn.dataset.tab;
-        document.querySelectorAll('.tab-content').forEach(c => { c.classList.remove('active'); c.classList.add('hidden'); });
-        const selected = document.getElementById(`${tab}Tab`);
-        selected.classList.remove('hidden'); selected.classList.add('active');
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        searchInput.dispatchEvent(new Event('input'));
-      });
-    });
-    lucide.createIcons();
+  // Search functionality
+  const searchInput = document.getElementById('searchInput');
+  
+  function filterTable(records, headers, fieldMap, searchTerm) {
+    const term = searchTerm.toLowerCase();
+    return records.filter(record => headers.some(h => String(record[fieldMap[h]] || '').toLowerCase().includes(term)));
   }
+  
+  searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const activeTab = document.querySelector('.tab-content.active').id;
+    
+    if (activeTab === 'marriageTab') {
+      const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], { 
+        'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status' 
+      }, term);
+      renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], { 
+        'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status' 
+      }, 'Status');
+    } else if (activeTab === 'propertyTab') {
+      const filtered = filterTable(mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 
+        'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' 
+      }, term);
+      renderTable('propertyTable', filtered, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 
+        'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' 
+      });
+    } else if (activeTab === 'professionalTab') {
+      const filtered = filterTable(mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 
+        'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' 
+      }, term);
+      renderTable('professionalTable', filtered, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 
+        'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' 
+      }, 'Status');
+    } else if (activeTab === 'casesTab') {
+      const filtered = filterTable(mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 
+        'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' 
+      }, term);
+      renderTable('casesTable', filtered, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 
+        'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' 
+      });
+    }
+  });
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-content').forEach(c => { c.classList.remove('active'); c.classList.add('hidden'); });
+      const selected = document.getElementById(`${tab}Tab`);
+      selected.classList.remove('hidden'); selected.classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      searchInput.dispatchEvent(new Event('input'));
+    });
+  });
+  
+  lucide.createIcons();
+}
 
   async function updateHomeStats() {
     try {
