@@ -136,8 +136,9 @@
   // CONFIGURATION
   // ============================================
   const API_URL = 'https://script.google.com/macros/s/AKfycbzgzdEqYc9iL-7GYVov0hNaJQAxEwQzCncuaJx9Zjq4pnpdK0NFTtB3IP4aOuQ-alnzUw/exec';
+  const PENAL_CODE_API_URL = 'https://script.google.com/macros/s/AKfycbzgzdEqYc9iL-7GYVov0hNaJQAxEwQzCncuaJx9Zjq4pnpdK0NFTtB3IP4aOuQ-alnzUw/exec';
   const DOJ_DB_SPREADSHEET_ID = '12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE';
-  const DOJ_ADMIN_OPS_SPREADSHEET_ID = '12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE'; // Same sheet
+  const PENAL_CODE_SPREADSHEET_ID = '13rXMZSkgeN0o0mHUAwnNs4ccm_nNuNJdbVvSl9UJjyQ';
   const SHEETS_API_KEY = 'AIzaSyBnYHCjyUxDmoN5w_u4DMO48KX9dONogr4';
   const discordTicketUrl = "https://discordapp.com/channels/1236403436199739525/1479222084952395776";
   const offlineDuesSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1869397302#gid=1869397302";
@@ -173,8 +174,8 @@
   // ============================================
   // API CALL HELPER
   // ============================================
-  async function apiCall(action, params = {}) {
-    const url = new URL(API_URL);
+  async function apiCall(action, params = {}, baseUrl = API_URL) {
+    const url = new URL(baseUrl);
     url.searchParams.append('action', action);
     for (const [key, value] of Object.entries(params)) {
       if (typeof value === 'object') {
@@ -192,17 +193,18 @@
   // ============================================
   // GOOGLE SHEETS API (public records)
   // ============================================
-  async function fetchSheetData(sheetName) {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}!A6:ZZ?key=${SHEETS_API_KEY}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    const rows = data.values || [];
-    
-    // Get headers from row 5
-    const headerUrl = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}!A5:ZZ5?key=${SHEETS_API_KEY}`;
+  async function fetchSheetData(sheetName, spreadsheetId = DOJ_DB_SPREADSHEET_ID) {
+    // Fetch headers from row 5
+    const headerUrl = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A5:ZZ5?key=${SHEETS_API_KEY}`;
     const headerResponse = await fetch(headerUrl);
     const headerData = await headerResponse.json();
     const headers = headerData.values && headerData.values[0] ? headerData.values[0] : [];
+    
+    // Fetch data from row 6 onwards
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}!A6:ZZ?key=${SHEETS_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const rows = data.values || [];
     
     if (rows.length === 0) return [];
     
@@ -264,7 +266,7 @@
         let value = record[fieldMap[h]] || 'N/A';
         
         // Format dates
-        if (h.toLowerCase().includes('date')) {
+        if (h.toLowerCase().includes('date') || h.toLowerCase().includes('timestamp')) {
           value = formatDate(value);
         }
         
@@ -392,25 +394,27 @@
       status: r['Status'] || ''
     }));
 
+    // Property Registry - CORRECT COLUMN MAPPINGS
     const mappedProperties = properties.map(r => ({
-      deed: r['Deed #'] || r['DeedNumber'] || r['Deed'] || '',
+      deed: r['Deed/Transfer #'] || r['Deed #'] || r['DeedNumber'] || r['Deed'] || '',
       type: r['Type'] || r['Property Type'] || '',
-      grantor: r['Grantor'] || '',
-      grantee: r['Grantee'] || '',
+      grantor: r['Grantor (Seller)'] || r['Grantor'] || '',
+      grantee: r['Grantee (Buyer)'] || r['Grantee'] || '',
       date: r['Date'] || r['Transfer Date'] || ''
     }));
 
+    // Case Registry - CORRECT COLUMN MAPPINGS
     const mappedCases = cases.map(r => {
       let judgeDisplay = r['Judge'] || r['Assigned Judge'] || 'N/A';
       if (judgeDisplay === '[Enter Assigned Judge]' || !judgeDisplay) judgeDisplay = 'Pending';
       return {
         caseNo: r['Case #'] || r['CaseNumber'] || '',
         type: r['Type'] || r['Case Type'] || '',
-        plaintiff: r['Plaintiff'] || '',
-        defendant: r['Defendant'] || '',
+        plaintiff: r['Plaintiff/Petitioner'] || r['Plaintiff'] || '',
+        defendant: r['Defendant/Respondent'] || r['Defendant'] || '',
         judge: judgeDisplay,
         courtLevel: r['Court Level'] || '',
-        filedDate: r['Filed Date'] || r['Date'] || '',
+        filedDate: r['Filing Timestamp'] || r['Filed Date'] || r['Date'] || '',
         status: r['Status'] || ''
       };
     });
@@ -546,7 +550,7 @@
   }
 
   // ============================================
-  // PENAL CODE
+  // PENAL CODE - Using separate spreadsheet and API
   // ============================================
   async function renderPenalCode() {
     const penalDiv = document.getElementById('penalCodeSection');
@@ -563,58 +567,40 @@
     document.getElementById('openManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/edit?usp=sharing', '_blank'));
 
     try {
-      // Fetch directly from Google Sheets - PenalCode tab
-      const url = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_ADMIN_OPS_SPREADSHEET_ID}/values/PenalCode?key=${SHEETS_API_KEY}`;
-      const response = await fetch(url);
-      const data = await response.json();
+      // Use the provided API endpoint for Penal Code
+      const result = await apiCall('getPenalCode', {}, PENAL_CODE_API_URL);
       
-      if (!data.values || data.values.length < 2) {
-        throw new Error('No penal code data found');
-      }
-      
-      const rows = data.values;
-      const headers = rows[0]; // First row is headers
-      const codes = [];
-      
-      // Parse rows starting from row 2
-      for (let i = 1; i < rows.length; i++) {
-        const row = rows[i];
-        const code = {};
-        headers.forEach((h, idx) => {
-          code[h] = row[idx] || '';
-        });
-        codes.push(code);
-      }
-      
-      if (codes.length > 0) {
+      if (result.success && result.codes && result.codes.length > 0) {
+        const codes = result.codes;
         const grouped = {};
         codes.forEach(c => {
-          let title = c['Title'] || c['title'] || 'Uncategorized';
+          let title = c.Title || c.title || 'Uncategorized';
           if (!grouped[title]) grouped[title] = [];
           grouped[title].push({
-            Code: c['Code'] || '',
-            Offense: c['Offense'] || '',
-            Level: c['Level'] || '',
-            Jail: c['Jail (month)'] || c['Jail'] || '',
-            Fine: c['Fine ($)'] || c['Fine'] || ''
+            Code: c.Code || '',
+            Offense: c.Offense || '',
+            Level: c.Level || '',
+            Jail: c.Jail || c['Jail (month)'] || '',
+            Fine: c.Fine || c['Fine ($)'] || ''
           });
         });
         renderPenalCodeAccordion(grouped);
       } else {
-        throw new Error('No penal code entries found');
+        throw new Error('No penal code data found');
       }
     } catch (err) {
-      console.warn('Could not load penal code from sheet:', err);
+      console.warn('Could not load penal code:', err);
       document.getElementById('penalCodeAccordion').innerHTML = `
         <div class="text-red-400 p-4">
           <p class="font-semibold mb-2">Error loading penal code.</p>
           <p class="text-sm">Please ensure:</p>
           <ul class="list-disc pl-5 mt-2 text-sm">
-            <li>The "PenalCode" tab exists in the spreadsheet</li>
+            <li>The "PenalCode" tab exists in spreadsheet: ${PENAL_CODE_SPREADSHEET_ID}</li>
             <li>Row 1 has headers: Title, Code, Offense, Level, Description, Jail (month), Fine ($)</li>
-            <li>Data starts from row 2</li>
-            <li>The spreadsheet is shared publicly or API key has access</li>
+            <li>Google Apps Script is deployed and accessible</li>
+            <li>The script's doGet/doPost functions are properly configured</li>
           </ul>
+          <p class="mt-2 text-xs text-gray-500">Error: ${err.message}</p>
         </div>`;
     }
   }
@@ -796,7 +782,7 @@
   }
 
   // ============================================
-  // GLOBAL STATE
+  // GLOBAL STATE (rest of the code remains the same...)
   // ============================================
   let currentUser = null;
   let userAvailability = {};
@@ -804,7 +790,6 @@
   let chargedCases = [];
   let dojNotifications = [];
 
-  // Mock data for dashboards
   const mockAssignedCases = [
     { caseNo: "CIV-SC-03-2026-338", parties: "Thomas Anderson v. William Clark", status: "Pre-Trial", judge: "Judge Roberts", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" },
     { caseNo: "FAM-P2-03-2026-208", parties: "Jessica White v. Kevin Harris", status: "Pre-Trial", judge: "Judge Chen", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" }
@@ -826,7 +811,6 @@
     chief_justice: [ { id:1, task:"Review judicial conduct reports", due:"Today", status:"pending" }, { id:2, task:"Oversee case assignments", due:"Today", status:"pending" } ]
   };
 
-  // Helper: two‑week pay period
   function getPayPeriodDates() {
     const today = new Date();
     const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -852,7 +836,6 @@
     return { week1, week2 };
   }
 
-  // Notifications
   async function loadNotifications() {
     try {
       const result = await apiCall('getNotifications', { user_name: currentUser.name });
@@ -895,7 +878,6 @@
     apiCall('sendMessage', { recipientNames: [role], message, sender: 'System' });
   }
 
-  // Availability
   async function loadUserAvailability() {
     const { start, end } = getPayPeriodDates();
     const result = await apiCall('getUserAvailability', { user_name: currentUser.name, startDate: start.toISOString().slice(0,10), endDate: end.toISOString().slice(0,10) });
@@ -907,7 +889,6 @@
     await apiCall('saveUserAvailability', { user_name: currentUser.name, availabilityList });
   }
 
-  // Scheduling UI
   function renderScheduling() {
     const { week1, week2 } = getTwoWeekCalendar();
     const avail = userAvailability[currentUser?.name] || {};
@@ -966,7 +947,6 @@
     });
   }
   
-  // Communication modal
   function showCommunicationModal(targetRole, targetLabel) {
     showModal(`
       <h3 class="text-xl font-bold mb-4 text-white">Send Message to ${targetLabel}</h3>
@@ -1005,7 +985,6 @@
     });
   }
 
-  // Training modal
   function showTrainingModal(role) {
     const modal = document.getElementById('trainingModal');
     const title = document.getElementById('trainingModalTitle');
@@ -1027,7 +1006,6 @@
     modal.classList.remove('hidden');
   }
 
-  // Report forms (police/PD)
   function addChargeRow(containerId) {
     const container = document.getElementById(containerId);
     const row = document.createElement('div');
@@ -1137,7 +1115,6 @@
     });
   }
 
-  // DA dashboard (dynamic)
   async function renderDADashboard() {
     const pending = await apiCall('getPendingReports');
     const charged = await apiCall('getChargedCases');
@@ -1204,16 +1181,12 @@
     document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
   }
   
-  // Other role forms
   function showRecusalForm() { alert('Recusal request form (mock)'); }
   function showSentencingForm() { alert('Sentencing form (mock)'); }
   function showOfficialLetterForm() { alert('Official letter form (mock)'); }
   function showTrustWithdrawalForm() { alert('Trust withdrawal form (mock)'); }
   function showTrustDepositForm() { alert('Trust deposit form (mock)'); }
 
-  // ============================================
-  // DASHBOARD RENDERING (all roles)
-  // ============================================
   function renderDashboardByRole() {
     const role = currentUser.role;
     const roleContent = document.getElementById('roleContent');
@@ -1243,7 +1216,6 @@
       <div id="dojNotificationsContainer"></div>
     </div>`;
 
-    // Communication buttons
     let commButtons = '';
     if (role === 'clerk') {
       commButtons = `<div class="flex flex-wrap gap-3">
@@ -1511,7 +1483,6 @@
 
     roleContent.innerHTML = tasksHtml + notifHtml + commHtml + roleSpecific + scheduleHtml + trainingHtml;
 
-    // Attach event listeners
     if (role !== 'police') {
       document.getElementById('refreshTasks')?.addEventListener('click', () => alert('Refresh tasks'));
       document.querySelectorAll('.task-checkbox')?.forEach(cb => cb.addEventListener('change', () => alert('Task updated')));
@@ -1548,7 +1519,6 @@
       document.getElementById('cjUserMgmtBtn')?.addEventListener('click', () => window.open(usersSheetUrl,'_blank'));
     }
 
-    // Communication buttons
     document.getElementById('sendToClerkBtn')?.addEventListener('click', () => showCommunicationModal('clerk', 'Clerk'));
     document.getElementById('sendToMasterClerkBtn')?.addEventListener('click', () => showCommunicationModal('admin', 'Master Clerk'));
     document.getElementById('sendToDABtn')?.addEventListener('click', () => showCommunicationModal('district_attorney', 'District Attorney'));
@@ -1579,9 +1549,6 @@
     `).join('');
   }
 
-  // ============================================
-  // MODAL HELPERS
-  // ============================================
   function closeModal(modalId) {
     document.getElementById(modalId).classList.add('hidden');
   }
@@ -1594,9 +1561,6 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal('globalModal'); });
   }
 
-  // ============================================
-  // NAVIGATION
-  // ============================================
   function showHome() { 
     document.getElementById('homeSection').classList.remove('hidden'); 
     document.getElementById('publicRecordsSection').classList.add('hidden'); 
@@ -1644,9 +1608,6 @@
     renderDashboardByRole(); 
   }
 
-  // ============================================
-  // LOGIN (Mock – replace with real API)
-  // ============================================
   const users = {
     "CLERK123": { name: "Clerk Johnson", role: "clerk", courtLevel: null },
     "JUDGE123": { name: "Judge Roberts", role: "judge", courtLevel: "Superior" },
@@ -1682,9 +1643,6 @@
     showHome();
   }
 
-  // ============================================
-  // EVENT LISTENERS
-  // ============================================
   document.getElementById('homeNavBtn').addEventListener('click', showHome);
   document.getElementById('publicRecordsNavBtn').addEventListener('click', showPublicRecords);
   document.getElementById('penalCodeNavBtn').addEventListener('click', showPenalCode);
