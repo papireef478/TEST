@@ -216,13 +216,19 @@
     window.publicData = { marriages: mappedMarriages, properties: mappedProperties, cases: mappedCases, professionals: mappedProfessionals };
 
     function renderTable(tableId, records, headers, fieldMap) {
-      const table = document.getElementById(tableId);
-      if (!table) return;
-      const thead = table.querySelector('thead');
-      const tbody = table.querySelector('tbody');
-      thead.innerHTML = `  <tr>${headers.map(h => `<th>${h}</th>`).join('')}   `;
-      tbody.innerHTML = records.map(record => `  <tr>${headers.map(h => `<td>${record[fieldMap[h]] || ''}   `).join('')}   `).join('');
-    }
+  const table = document.getElementById(tableId);
+  if (!table) return;
+  const thead = table.querySelector('thead');
+  const tbody = table.querySelector('tbody');
+  
+  // Fix thead - properly close the tags
+  thead.innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+  
+  // Fix tbody - properly close the tags  
+  tbody.innerHTML = records.map(record => 
+    `<tr>${headers.map(h => `<td>${record[fieldMap[h]] || ''}</td>`).join('')}</tr>`
+  ).join('');
+}
 
     renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], {
       'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant'
