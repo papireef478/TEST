@@ -69,11 +69,60 @@
     <div id="roleContent"></div>
   </div>
 </div>
+
 <!-- Modals -->
-<div id="loginModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700"><h2 class="text-2xl font-bold text-center mb-6 text-white">DOJ Portal Login</h2><p class="text-gray-400 text-center mb-6">Enter your passcode</p><input type="password" id="loginPasscode" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg mb-4 text-white"><div id="loginError" class="text-red-500 text-sm mb-4 hidden">Invalid passcode</div><div class="flex gap-3"><button id="loginSubmitBtn" class="btn-primary flex-1 py-2 rounded-lg">Login</button><button id="loginCancelBtn" class="btn-secondary flex-1 py-2 rounded-lg">Cancel</button></div><div class="mt-4 text-center"><button id="forgotPasswordBtn" class="text-sm text-gray-400 hover:text-[#facc15]">Forgot password?</button></div></div></div>
-<div id="quickGuideModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">Quick Guide</h3><button onclick="closeModal('quickGuideModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div class="aspect-w-16 aspect-h-9 mb-4"><iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe></div><div class="prose max-w-none text-gray-300"><p>This is the official quick guide for the San Junipero Department of Justice. It explains the basics of interacting with the DOJ, filing cases, and understanding your rights.</p><ul class="list-disc pl-5 mt-2 text-gray-400"><li>All legal matters must be filed through a DOJ Ticket in Discord.</li><li>Clerks are available to assist with paperwork and fees.</li><li>Court schedules are posted daily in #court-docket.</li><li>Evidence requires screenshots or video (Rule 12.6).</li></ul></div></div></div>
-<div id="trainingModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 id="trainingModalTitle" class="text-xl font-bold text-white"></h3><button onclick="closeModal('trainingModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div id="trainingModalContent"></div></div></div>
-<div id="globalModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700"><div id="modalContent"></div></div></div>
+<div id="loginModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+  <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700">
+    <h2 class="text-2xl font-bold text-center mb-6 text-white">DOJ Portal Login</h2>
+    <p class="text-gray-400 text-center mb-6">Enter your passcode</p>
+    <input type="password" id="loginPasscode" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg mb-4 text-white">
+    <div id="loginError" class="text-red-500 text-sm mb-4 hidden">Invalid passcode</div>
+    <div class="flex gap-3">
+      <button id="loginSubmitBtn" class="btn-primary flex-1 py-2 rounded-lg">Login</button>
+      <button id="loginCancelBtn" class="btn-secondary flex-1 py-2 rounded-lg">Cancel</button>
+    </div>
+    <div class="mt-4 text-center">
+      <button id="forgotPasswordBtn" class="text-sm text-gray-400 hover:text-[#facc15]">Forgot password?</button>
+    </div>
+  </div>
+</div>
+
+<div id="quickGuideModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+  <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold text-white">Quick Guide</h3>
+      <button onclick="closeModal('quickGuideModal')" class="text-gray-400 hover:text-gray-200">&times;</button>
+    </div>
+    <div class="aspect-w-16 aspect-h-9 mb-4">
+      <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="prose max-w-none text-gray-300">
+      <p>This is the official quick guide for the San Junipero Department of Justice. It explains the basics of interacting with the DOJ, filing cases, and understanding your rights.</p>
+      <ul class="list-disc pl-5 mt-2 text-gray-400">
+        <li>All legal matters must be filed through a DOJ Ticket in Discord.</li>
+        <li>Clerks are available to assist with paperwork and fees.</li>
+        <li>Court schedules are posted daily in #court-docket.</li>
+        <li>Evidence requires screenshots or video (Rule 12.6).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="trainingModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+  <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700">
+    <div class="flex justify-between items-center mb-4">
+      <h3 id="trainingModalTitle" class="text-xl font-bold text-white"></h3>
+      <button onclick="closeModal('trainingModal')" class="text-gray-400 hover:text-gray-200">&times;</button>
+    </div>
+    <div id="trainingModalContent"></div>
+  </div>
+</div>
+
+<div id="globalModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay">
+  <div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700">
+    <div id="modalContent"></div>
+  </div>
+</div>
 
 <script>
   // ============================================
@@ -101,6 +150,7 @@
       document.getElementById('mainContent').style.display = 'block';
     });
   }
+  
   if (sessionStorage.getItem('doj_entered')) {
     document.getElementById('mainContent').style.display = 'block';
   } else {
@@ -131,23 +181,51 @@
   // GOOGLE SHEETS API (public records)
   // ============================================
   async function fetchSheetData(sheetName) {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}?key=${SHEETS_API_KEY}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}!A6:ZZ?key=${SHEETS_API_KEY}`;
     const response = await fetch(url);
     const data = await response.json();
     const rows = data.values || [];
-    if (rows.length < 2) return [];
-    const headers = rows[0];
+    
+    // Get headers from row 5 (index 4 if we started from 0, but we're starting from row 6)
+    const headerUrl = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}!A5:ZZ5?key=${SHEETS_API_KEY}`;
+    const headerResponse = await fetch(headerUrl);
+    const headerData = await headerResponse.json();
+    const headers = headerData.values && headerData.values[0] ? headerData.values[0] : [];
+    
+    if (rows.length === 0) return [];
+    
     const records = [];
-    for (let i = 1; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
       const row = rows[i];
       const obj = {};
-      headers.forEach((h, idx) => { obj[h] = row[idx]; });
+      headers.forEach((h, idx) => { 
+        obj[h] = row[idx] || ''; 
+      });
       records.push(obj);
     }
     return records;
   }
+
   // ============================================
-  // PUBLIC RECORDS (with exact column mapping)
+  // RENDER TABLE FUNCTION
+  // ============================================
+  function renderTable(tableId, records, headers, fieldMap) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+    const tbody = table.querySelector('tbody');
+    
+    if (!records || records.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="${headers.length}" class="text-center text-gray-500 py-4">No records found</td></tr>`;
+      return;
+    }
+    
+    tbody.innerHTML = records.map(record => 
+      `<tr>${headers.map(h => `<td>${record[fieldMap[h]] || 'N/A'}</td>`).join('')}</tr>`
+    ).join('');
+  }
+
+  // ============================================
+  // PUBLIC RECORDS
   // ============================================
   async function renderPublicRecords() {
     const recordsDiv = document.getElementById('publicRecordsSection');
@@ -159,13 +237,89 @@
           <button class="tab-btn" data-tab="cases">Case Docket</button>
           <button class="tab-btn" data-tab="professional">Professional Registry</button>
         </div>
-        <div class="mb-4"><input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
-        <div id="marriageTab" class="tab-content active"><div class="overflow-x-auto"><table class="data-table" id="marriageTable"><thead></thead><tbody></tbody> </div></div>
-        <div id="propertyTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="propertyTable"><thead></thead><tbody></tbody> </div></div>
-        <div id="casesTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="casesTable"><thead></thead><tbody></tbody> </div></div>
-        <div id="professionalTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="professionalTable"><thead></thead><tbody></tbody> </div></div>
+        <div class="mb-4">
+          <input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        </div>
+        
+        <!-- Marriage Registry Tab -->
+        <div id="marriageTab" class="tab-content active">
+          <div class="overflow-x-auto">
+            <table class="data-table" id="marriageTable">
+              <thead>
+                <tr>
+                  <th>Certificate #</th>
+                  <th>Spouse 1</th>
+                  <th>Spouse 2</th>
+                  <th>Date</th>
+                  <th>Officiant</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Property Registry Tab -->
+        <div id="propertyTab" class="tab-content hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table" id="propertyTable">
+              <thead>
+                <tr>
+                  <th>Deed #</th>
+                  <th>Type</th>
+                  <th>Grantor</th>
+                  <th>Grantee</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Case Docket Tab -->
+        <div id="casesTab" class="tab-content hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table" id="casesTable">
+              <thead>
+                <tr>
+                  <th>Case #</th>
+                  <th>Type</th>
+                  <th>Plaintiff</th>
+                  <th>Defendant</th>
+                  <th>Judge</th>
+                  <th>Court Level</th>
+                  <th>Filed Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Professional Registry Tab -->
+        <div id="professionalTab" class="tab-content hidden">
+          <div class="overflow-x-auto">
+            <table class="data-table" id="professionalTable">
+              <thead>
+                <tr>
+                  <th>Entity</th>
+                  <th>Type</th>
+                  <th>Owner</th>
+                  <th>License #</th>
+                  <th>Expires</th>
+                  <th>Notes</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </div>`;
 
+    // Fetch data from Google Sheets
     const marriages = await fetchSheetData('MarriageRegistry');
     const properties = await fetchSheetData('PropertyRegistry');
     const cases = await fetchSheetData('CaseRegistry');
@@ -176,7 +330,7 @@
       cert: r['Certificate #'] || r['CertificateNumber'] || '',
       spouse1: r['Spouse 1'] || r['Spouse1'] || '',
       spouse2: r['Spouse 2'] || r['Spouse2'] || '',
-      date: r['Marriage Date'] || r['Date'] || '',
+      date: r['Date'] || r['Marriage Date'] || '',
       officiant: r['Officiant'] || ''
     }));
 
@@ -185,15 +339,15 @@
       type: r['Type'] || '',
       grantor: r['Grantor'] || '',
       grantee: r['Grantee'] || '',
-      date: r['Transfer Date'] || r['Date'] || ''
+      date: r['Date'] || r['Transfer Date'] || ''
     }));
 
     const mappedCases = cases.map(r => {
-      let judgeDisplay = r['Assigned Judge'] || r['Judge'] || 'N/A';
-      if (judgeDisplay === '[Enter Assigned Judge]') judgeDisplay = 'Pending Judge Selection';
+      let judgeDisplay = r['Judge'] || r['Assigned Judge'] || 'N/A';
+      if (judgeDisplay === '[Enter Assigned Judge]' || !judgeDisplay) judgeDisplay = 'Pending';
       return {
         caseNo: r['Case #'] || r['CaseNumber'] || '',
-        type: r['Case Type'] || r['Type'] || '',
+        type: r['Type'] || r['Case Type'] || '',
         plaintiff: r['Plaintiff'] || '',
         defendant: r['Defendant'] || '',
         judge: judgeDisplay,
@@ -207,7 +361,7 @@
       entity: r['Entity'] || r['Entity Name'] || '',
       type: r['Type'] || r['License Type'] || '',
       owner: r['Owner'] || r['Owner Name'] || '',
-      license: r['Registration #'] || r['License #'] || '',
+      license: r['License #'] || r['Registration #'] || '',
       expires: r['Expires'] || '',
       notes: r['Notes'] || '',
       status: r['Status'] || ''
@@ -215,70 +369,95 @@
 
     window.publicData = { marriages: mappedMarriages, properties: mappedProperties, cases: mappedCases, professionals: mappedProfessionals };
 
-    function renderTable(tableId, records, headers, fieldMap) {
-  const table = document.getElementById(tableId);
-  if (!table) return;
-  const thead = table.querySelector('thead');
-  const tbody = table.querySelector('tbody');
-  
-  // Fix thead - properly close the tags
-  thead.innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
-  
-  // Fix tbody - properly close the tags  
-  tbody.innerHTML = records.map(record => 
-    `<tr>${headers.map(h => `<td>${record[fieldMap[h]] || ''}</td>`).join('')}</tr>`
-  ).join('');
-}
-
+    // Render each table
     renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], {
       'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant'
     });
+    
     renderTable('propertyTable', mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], {
       'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date'
     });
+    
     renderTable('casesTable', mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], {
       'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status'
     });
+    
     renderTable('professionalTable', mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], {
       'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status'
     });
 
+    // Search functionality
     const searchInput = document.getElementById('searchInput');
+    
     function filterTable(records, headers, fieldMap, searchTerm) {
       const term = searchTerm.toLowerCase();
       return records.filter(record => headers.some(h => String(record[fieldMap[h]] || '').toLowerCase().includes(term)));
     }
+    
     searchInput.addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase();
       const activeTab = document.querySelector('.tab-content.active').id;
+      
       if (activeTab === 'marriageTab') {
-        const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' }, term);
-        renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' });
+        const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 
+          'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' 
+        }, term);
+        renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 
+          'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' 
+        });
       } else if (activeTab === 'propertyTab') {
-        const filtered = filterTable(mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' }, term);
-        renderTable('propertyTable', filtered, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' });
+        const filtered = filterTable(mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 
+          'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' 
+        }, term);
+        renderTable('propertyTable', filtered, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 
+          'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' 
+        });
       } else if (activeTab === 'casesTab') {
-        const filtered = filterTable(mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' }, term);
-        renderTable('casesTable', filtered, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' });
+        const filtered = filterTable(mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 
+          'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' 
+        }, term);
+        renderTable('casesTable', filtered, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 
+          'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' 
+        });
       } else if (activeTab === 'professionalTab') {
-        const filtered = filterTable(mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' }, term);
-        renderTable('professionalTable', filtered, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' });
+        const filtered = filterTable(mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 
+          'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' 
+        }, term);
+        renderTable('professionalTable', filtered, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 
+          'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' 
+        });
       }
     });
 
+    // Tab switching
     const tabs = document.querySelectorAll('.tab-btn');
     tabs.forEach(btn => {
       btn.addEventListener('click', () => {
         const tab = btn.dataset.tab;
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.getElementById(`${tab}Tab`).classList.add('active');
+        
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(c => {
+          c.classList.remove('active');
+          c.classList.add('hidden');
+        });
+        
+        // Show selected tab
+        const selectedTab = document.getElementById(`${tab}Tab`);
+        selectedTab.classList.remove('hidden');
+        selectedTab.classList.add('active');
+        
+        // Update button states
         tabs.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+        
+        // Trigger search to refresh current table
         searchInput.dispatchEvent(new Event('input'));
       });
     });
+    
     lucide.createIcons();
   }
+
   // ============================================
   // HOME PAGE STATS
   // ============================================
@@ -296,7 +475,7 @@
   }
 
   // ============================================
-  // PENAL CODE (load from sheet)
+  // PENAL CODE
   // ============================================
   async function renderPenalCode() {
     const penalDiv = document.getElementById('penalCodeSection');
@@ -343,9 +522,39 @@
     const container = document.getElementById('penalCodeAccordion');
     container.innerHTML = Object.entries(grouped).map(([title, rows], idx) => `
       <div class="border border-gray-700 rounded-lg overflow-hidden">
-        <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}"><span>${title}</span><i data-lucide="chevron-down" class="w-5 h-5"></i></div>
-        <div class="accordion-content" data-idx="${idx}"><div class="overflow-x-auto"><table class="data-table w-full"><thead> <th>Code</th><th>Offense</th><th>Level</th><th>Jail (months)</th><th>Fine</th> </thead><tbody>${rows.map(r => `   <tr>${['Code','Offense','Level','Jail','Fine'].map(k => `<td>${r[k] || ''}</td>`).join('')}</tr>`).join('')}</tbody> </div></div>
-      </div>`).join('');
+        <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}">
+          <span>${title}</span>
+          <i data-lucide="chevron-down" class="w-5 h-5"></i>
+        </div>
+        <div class="accordion-content" data-idx="${idx}">
+          <div class="overflow-x-auto">
+            <table class="data-table w-full">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Offense</th>
+                  <th>Level</th>
+                  <th>Jail (months)</th>
+                  <th>Fine</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(r => `
+                  <tr>
+                    <td>${r.Code || ''}</td>
+                    <td>${r.Offense || ''}</td>
+                    <td>${r.Level || ''}</td>
+                    <td>${r.Jail || ''}</td>
+                    <td>${r.Fine || ''}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
     document.querySelectorAll('.accordion-header').forEach(header => {
       header.addEventListener('click', () => {
         const idx = header.dataset.idx;
@@ -365,16 +574,96 @@
   function renderHome() {
     const homeDiv = document.getElementById('homeSection');
     homeDiv.innerHTML = `
-      <div class="text-center mb-12"><h2 class="text-3xl font-bold text-white mb-2">San Junipero Department of Justice</h2><p class="text-gray-400 max-w-2xl mx-auto">Upholding justice, serving the community, and ensuring equal protection under the law.</p></div>
-      <div class="grid md:grid-cols-3 gap-6 mb-12">
-        <div class="card p-6 text-center"><div class="text-3xl mb-2">📋</div><div class="text-2xl font-bold text-white" id="statCases">0</div><div class="text-gray-400">Active Cases</div></div>
-        <div class="card p-6 text-center"><div class="text-3xl mb-2">💍</div><div class="text-2xl font-bold text-white" id="statMarriages">0</div><div class="text-gray-400">Active Marriages</div></div>
-        <div class="card p-6 text-center"><div class="text-3xl mb-2">🏠</div><div class="text-2xl font-bold text-white" id="statProperties">0</div><div class="text-gray-400">Registered Properties</div></div>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-2">San Junipero Department of Justice</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Upholding justice, serving the community, and ensuring equal protection under the law.</p>
       </div>
-      <div class="card p-6 mb-12 bg-blue-900/30 border border-blue-700"><div class="flex items-center gap-3"><i data-lucide="info" class="w-6 h-6 text-blue-400"></i><div><h3 class="font-semibold text-lg">Start a New Filing</h3><p class="text-gray-300">Open a <strong class="text-blue-400">DOJ Assistance</strong> ticket on Discord. Briefly explain what you need, and a clerk will contact you within 24 hours to assist with filing.</p><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-2 text-blue-400 hover:text-blue-300">Open Discord Ticket →</a></div></div></div>
-      <div class="card p-6 mb-12 border-yellow-600/50"><div class="flex items-center gap-3"><i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-500"></i><div><h3 class="font-semibold text-lg">Whistleblower Information</h3><p class="text-gray-300">If you have a complaint about a DOJ member, open a <strong class="text-blue-400">DOJ Assistant</strong> ticket and mark it as "Confidential – DOJ Complaint". Your report will be handled discreetly by the Chief Justice.</p></div></div></div>
-      <div class="card p-6 mb-12"><div class="flex flex-col md:flex-row gap-6"><div class="md:w-1/4 flex justify-center items-center"><div class="w-40 h-40 bg-yellow-100 rounded-full flex items-center justify-center text-6xl font-bold text-[#e94560] shadow-lg">⚖️</div></div><div class="md:w-3/4"><div class="mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="target"></i> Our Mission</div><p class="text-gray-300">To provide a fair, efficient, and accessible justice system that upholds the rule of law, protects the rights of all citizens, and strengthens public trust through transparency and integrity.</p></div><div><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="heart"></i> Our Values</div><ul class="list-disc pl-5 text-gray-300"><li>Integrity – Acting with honesty and moral clarity</li><li>Fairness – Equal treatment for all</li><li>Transparency – Open records and clear processes</li><li>Service – Putting the community first</li></ul></div></div></div></div>
-      <div class="grid md:grid-cols-3 gap-6"><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="scale"></i> Quick Guide</div><p class="text-gray-400 mb-4">Essential information for citizens interacting with the DOJ.</p><button id="quickGuideBtn" class="btn-secondary py-2 px-4 rounded-lg">Read the Quick Guide →</button></div><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book-open"></i> Full Manual</div><p class="text-gray-400 mb-4">Complete DOJ Manual (PDF) including Penal Code and procedures.</p><button id="downloadManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Download PDF →</button></div><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="clipboard"></i> Bar Exam</div><p class="text-gray-400 mb-4">Take the official Bar Examination to become an attorney.</p><a href="https://sjrpbar.netlify.app/" target="_blank" class="btn-primary py-2 px-4 rounded-lg inline-block">Go to Bar Exam Site →</a></div></div>`;
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <div class="card p-6 text-center">
+          <div class="text-3xl mb-2">📋</div>
+          <div class="text-2xl font-bold text-white" id="statCases">0</div>
+          <div class="text-gray-400">Active Cases</div>
+        </div>
+        <div class="card p-6 text-center">
+          <div class="text-3xl mb-2">💍</div>
+          <div class="text-2xl font-bold text-white" id="statMarriages">0</div>
+          <div class="text-gray-400">Active Marriages</div>
+        </div>
+        <div class="card p-6 text-center">
+          <div class="text-3xl mb-2">🏠</div>
+          <div class="text-2xl font-bold text-white" id="statProperties">0</div>
+          <div class="text-gray-400">Registered Properties</div>
+        </div>
+      </div>
+      <div class="card p-6 mb-12 bg-blue-900/30 border border-blue-700">
+        <div class="flex items-center gap-3">
+          <i data-lucide="info" class="w-6 h-6 text-blue-400"></i>
+          <div>
+            <h3 class="font-semibold text-lg">Start a New Filing</h3>
+            <p class="text-gray-300">Open a <strong class="text-blue-400">DOJ Assistance</strong> ticket on Discord. Briefly explain what you need, and a clerk will contact you within 24 hours to assist with filing.</p>
+            <a href="${discordTicketUrl}" target="_blank" class="inline-block mt-2 text-blue-400 hover:text-blue-300">Open Discord Ticket →</a>
+          </div>
+        </div>
+      </div>
+      <div class="card p-6 mb-12 border-yellow-600/50">
+        <div class="flex items-center gap-3">
+          <i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-500"></i>
+          <div>
+            <h3 class="font-semibold text-lg">Whistleblower Information</h3>
+            <p class="text-gray-300">If you have a complaint about a DOJ member, open a <strong class="text-blue-400">DOJ Assistant</strong> ticket and mark it as "Confidential – DOJ Complaint". Your report will be handled discreetly by the Chief Justice.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card p-6 mb-12">
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="md:w-1/4 flex justify-center items-center">
+            <div class="w-40 h-40 bg-yellow-100 rounded-full flex items-center justify-center text-6xl font-bold text-[#e94560] shadow-lg">⚖️</div>
+          </div>
+          <div class="md:w-3/4">
+            <div class="mb-6">
+              <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+                <i data-lucide="target"></i> Our Mission
+              </div>
+              <p class="text-gray-300">To provide a fair, efficient, and accessible justice system that upholds the rule of law, protects the rights of all citizens, and strengthens public trust through transparency and integrity.</p>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+                <i data-lucide="heart"></i> Our Values
+              </div>
+              <ul class="list-disc pl-5 text-gray-300">
+                <li>Integrity – Acting with honesty and moral clarity</li>
+                <li>Fairness – Equal treatment for all</li>
+                <li>Transparency – Open records and clear processes</li>
+                <li>Service – Putting the community first</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card p-6">
+          <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+            <i data-lucide="scale"></i> Quick Guide
+          </div>
+          <p class="text-gray-400 mb-4">Essential information for citizens interacting with the DOJ.</p>
+          <button id="quickGuideBtn" class="btn-secondary py-2 px-4 rounded-lg">Read the Quick Guide →</button>
+        </div>
+        <div class="card p-6">
+          <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+            <i data-lucide="book-open"></i> Full Manual
+          </div>
+          <p class="text-gray-400 mb-4">Complete DOJ Manual (PDF) including Penal Code and procedures.</p>
+          <button id="downloadManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Download PDF →</button>
+        </div>
+        <div class="card p-6">
+          <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+            <i data-lucide="clipboard"></i> Bar Exam
+          </div>
+          <p class="text-gray-400 mb-4">Take the official Bar Examination to become an attorney.</p>
+          <a href="https://sjrpbar.netlify.app/" target="_blank" class="btn-primary py-2 px-4 rounded-lg inline-block">Go to Bar Exam Site →</a>
+        </div>
+      </div>`;
+    
     document.getElementById('quickGuideBtn').addEventListener('click', () => document.getElementById('quickGuideModal').classList.remove('hidden'));
     document.getElementById('downloadManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf', '_blank'));
     updateHomeStats();
@@ -386,9 +675,25 @@
   // ============================================
   function renderCareers() {
     const careersDiv = document.getElementById('careersSection');
-    careersDiv.innerHTML = `<div class="card p-8 max-w-3xl mx-auto"><h2 class="text-2xl font-bold text-white mb-4">Join the Department of Justice</h2><p class="text-gray-300 mb-4">The San Junipero DOJ is always looking for dedicated individuals to serve as Clerks, Judges, Attorneys, and support staff.</p><div class="bg-gray-700/50 p-4 rounded-lg mb-6"><h3 class="text-lg font-semibold text-[#facc15] mb-2">How to Apply</h3><p class="text-gray-300">Submit a <strong class="text-blue-400">DOJ Assistance</strong> ticket in Discord with the subject "Job Application – [Position]". Include:</p><ul class="list-disc pl-5 mt-2 text-gray-300"><li>Your character name and Discord ID</li><li>Position you're applying for</li><li>A brief statement of interest and relevant experience (IC or OOC)</li><li>Your availability (days/times you can be active)</li></ul><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-4 btn-primary py-2 px-4 rounded-lg">Open DOJ Ticket on Discord</a></div></div>`;
+    careersDiv.innerHTML = `
+      <div class="card p-8 max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold text-white mb-4">Join the Department of Justice</h2>
+        <p class="text-gray-300 mb-4">The San Junipero DOJ is always looking for dedicated individuals to serve as Clerks, Judges, Attorneys, and support staff.</p>
+        <div class="bg-gray-700/50 p-4 rounded-lg mb-6">
+          <h3 class="text-lg font-semibold text-[#facc15] mb-2">How to Apply</h3>
+          <p class="text-gray-300">Submit a <strong class="text-blue-400">DOJ Assistance</strong> ticket in Discord with the subject "Job Application – [Position]". Include:</p>
+          <ul class="list-disc pl-5 mt-2 text-gray-300">
+            <li>Your character name and Discord ID</li>
+            <li>Position you're applying for</li>
+            <li>A brief statement of interest and relevant experience (IC or OOC)</li>
+            <li>Your availability (days/times you can be active)</li>
+          </ul>
+          <a href="${discordTicketUrl}" target="_blank" class="inline-block mt-4 btn-primary py-2 px-4 rounded-lg">Open DOJ Ticket on Discord</a>
+        </div>
+      </div>`;
     lucide.createIcons();
   }
+
   // ============================================
   // GLOBAL STATE
   // ============================================
@@ -431,6 +736,7 @@
     end.setDate(start.getDate() + 13);
     return { start, end };
   }
+  
   function getTwoWeekCalendar() {
     const { start } = getPayPeriodDates();
     const week1 = [], week2 = [];
@@ -454,12 +760,14 @@
       renderNotificationPanel();
     } catch (err) { console.error(err); }
   }
+  
   function updateNotificationBadge() {
     const unread = dojNotifications.filter(n => !n.read).length;
     const badge = document.getElementById('notifBadge');
     if (unread > 0) { badge.innerText = unread; badge.classList.remove('hidden'); }
     else badge.classList.add('hidden');
   }
+  
   function renderNotificationPanel() {
     const list = document.getElementById('notifList');
     if (!list) return;
@@ -481,6 +789,7 @@
       });
     }
   }
+  
   function addDojNotification(role, message) {
     apiCall('sendMessage', { recipientNames: [role], message, sender: 'System' });
   }
@@ -492,6 +801,7 @@
     if (!userAvailability[currentUser.name]) userAvailability[currentUser.name] = {};
     userAvailability[currentUser.name] = result.availability;
   }
+  
   async function saveUserAvailability(availabilityList) {
     await apiCall('saveUserAvailability', { user_name: currentUser.name, availabilityList });
   }
@@ -500,21 +810,52 @@
   function renderScheduling() {
     const { week1, week2 } = getTwoWeekCalendar();
     const avail = userAvailability[currentUser?.name] || {};
-    return `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Scheduling</div><div class="space-y-4">
-      <div class="grid grid-cols-7 gap-2 text-center text-sm">${week1.map(d => `<div class="font-semibold">${d.label}</div>`).join('')}</div>
-      <div class="grid grid-cols-7 gap-2 text-center text-xs">${week1.map(d => `<div class="bg-gray-700 rounded p-1">${avail[d.dateStr] || '—'}</div>`).join('')}</div>
-      <div class="grid grid-cols-7 gap-2 text-center text-sm">${week2.map(d => `<div class="font-semibold">${d.label}</div>`).join('')}</div>
-      <div class="grid grid-cols-7 gap-2 text-center text-xs">${week2.map(d => `<div class="bg-gray-700 rounded p-1">${avail[d.dateStr] || '—'}</div>`).join('')}</div>
-      <div class="text-xs text-gray-500 mt-2">Pay period: ${getPayPeriodDates().start.toLocaleDateString()} – ${getPayPeriodDates().end.toLocaleDateString()}</div>
-      <div class="flex flex-wrap gap-3 mt-2"><button id="loaBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Leave</button><button id="availabilityBtn" class="btn-secondary py-2 px-4 rounded-lg">Update Availability</button></div>
-    </div></div>`;
+    return `<div class="card p-6 mb-6">
+      <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+        <i data-lucide="calendar"></i> Scheduling
+      </div>
+      <div class="space-y-4">
+        <div class="grid grid-cols-7 gap-2 text-center text-sm">
+          ${week1.map(d => `<div class="font-semibold">${d.label}</div>`).join('')}
+        </div>
+        <div class="grid grid-cols-7 gap-2 text-center text-xs">
+          ${week1.map(d => `<div class="bg-gray-700 rounded p-1">${avail[d.dateStr] || '—'}</div>`).join('')}
+        </div>
+        <div class="grid grid-cols-7 gap-2 text-center text-sm">
+          ${week2.map(d => `<div class="font-semibold">${d.label}</div>`).join('')}
+        </div>
+        <div class="grid grid-cols-7 gap-2 text-center text-xs">
+          ${week2.map(d => `<div class="bg-gray-700 rounded p-1">${avail[d.dateStr] || '—'}</div>`).join('')}
+        </div>
+        <div class="text-xs text-gray-500 mt-2">Pay period: ${getPayPeriodDates().start.toLocaleDateString()} – ${getPayPeriodDates().end.toLocaleDateString()}</div>
+        <div class="flex flex-wrap gap-3 mt-2">
+          <button id="loaBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Leave</button>
+          <button id="availabilityBtn" class="btn-secondary py-2 px-4 rounded-lg">Update Availability</button>
+        </div>
+      </div>
+    </div>`;
   }
+  
   function showAvailabilityForm() {
     const { week1, week2 } = getTwoWeekCalendar();
     const allDays = [...week1, ...week2];
     const avail = userAvailability[currentUser.name] || {};
     const options = ['Morning', 'Afternoon', 'Evening', 'All Day', 'Not Available'];
-    showModal(`<h3 class="text-xl font-bold mb-4 text-white">Update Availability</h3><div class="space-y-2 max-h-64 overflow-y-auto">${allDays.map(d => `<div class="flex items-center gap-2"><div class="w-24 text-gray-300">${d.label}</div><select id="avail_${d.dateStr}" class="flex-1 p-1 bg-gray-700 border border-gray-600 rounded text-white">${options.map(opt => `<option ${avail[d.dateStr] === opt ? 'selected' : ''}>${opt}</option>`).join('')}</select></div>`).join('')}</div><div class="flex gap-2 mt-4"><button id="saveAvailability" class="btn-primary py-2 px-4 rounded-lg">Save</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>`);
+    showModal(`<h3 class="text-xl font-bold mb-4 text-white">Update Availability</h3>
+      <div class="space-y-2 max-h-64 overflow-y-auto">
+        ${allDays.map(d => `
+          <div class="flex items-center gap-2">
+            <div class="w-24 text-gray-300">${d.label}</div>
+            <select id="avail_${d.dateStr}" class="flex-1 p-1 bg-gray-700 border border-gray-600 rounded text-white">
+              ${options.map(opt => `<option ${avail[d.dateStr] === opt ? 'selected' : ''}>${opt}</option>`).join('')}
+            </select>
+          </div>
+        `).join('')}
+      </div>
+      <div class="flex gap-2 mt-4">
+        <button id="saveAvailability" class="btn-primary py-2 px-4 rounded-lg">Save</button>
+        <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
+      </div>`);
     document.getElementById('saveAvailability').addEventListener('click', async () => {
       const availabilityList = allDays.map(d => ({ date: d.dateStr, availability: document.getElementById(`avail_${d.dateStr}`).value }));
       await saveUserAvailability(availabilityList);
@@ -523,15 +864,28 @@
       renderDashboardByRole();
     });
   }
+  
   // Communication modal
   function showCommunicationModal(targetRole, targetLabel) {
     showModal(`
       <h3 class="text-xl font-bold mb-4 text-white">Send Message to ${targetLabel}</h3>
       <div class="space-y-3">
-        <div><label class="block text-gray-300 mb-1">To:</label><input type="text" id="recipientInput" placeholder="Enter name (or 'all')" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
-        <div><label class="block text-gray-300 mb-1">Subject (optional):</label><input type="text" id="messageSubject" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" placeholder="Subject"></div>
-        <div><label class="block text-gray-300 mb-1">Message:</label><textarea id="messageBody" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="4" placeholder="Type your message..."></textarea></div>
-        <div class="flex gap-2 mt-2"><button id="sendMessageBtn" class="btn-primary py-2 px-4 rounded-lg">Send</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>
+        <div>
+          <label class="block text-gray-300 mb-1">To:</label>
+          <input type="text" id="recipientInput" placeholder="Enter name (or 'all')" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1">Subject (optional):</label>
+          <input type="text" id="messageSubject" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" placeholder="Subject">
+        </div>
+        <div>
+          <label class="block text-gray-300 mb-1">Message:</label>
+          <textarea id="messageBody" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="4" placeholder="Type your message..."></textarea>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button id="sendMessageBtn" class="btn-primary py-2 px-4 rounded-lg">Send</button>
+          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
+        </div>
       </div>`);
     document.getElementById('sendMessageBtn').addEventListener('click', async () => {
       const recipient = document.getElementById('recipientInput').value.trim();
@@ -557,8 +911,18 @@
     const content = document.getElementById('trainingModalContent');
     title.innerText = `${role.charAt(0).toUpperCase() + role.slice(1)} Training`;
     content.innerHTML = `
-      <div class="mb-4"><iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe></div>
-      <div class="prose max-w-none text-gray-300"><p>This is the training guide for ${role}. It covers essential duties, procedures, and best practices.</p><ul class="list-disc pl-5 mt-2"><li>Role-specific responsibility overview</li><li>How to use the DOJ Portal for this role</li><li>Common workflows and tasks</li><li>Where to find additional help</li></ul></div>`;
+      <div class="mb-4">
+        <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="prose max-w-none text-gray-300">
+        <p>This is the training guide for ${role}. It covers essential duties, procedures, and best practices.</p>
+        <ul class="list-disc pl-5 mt-2">
+          <li>Role-specific responsibility overview</li>
+          <li>How to use the DOJ Portal for this role</li>
+          <li>Common workflows and tasks</li>
+          <li>Where to find additional help</li>
+        </ul>
+      </div>`;
     modal.classList.remove('hidden');
   }
 
@@ -568,13 +932,19 @@
     const row = document.createElement('div');
     row.className = 'charge-row flex gap-2 mb-2';
     row.innerHTML = `
-      <select class="chargeCode w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"><option value="">Select Penal Code</option><option value="(1)01">(1)01 Murder, First Degree</option><option value="(2)01">(2)01 Robbery</option><option value="(2)13">(2)13 Grand Theft Auto</option></select>
+      <select class="chargeCode w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        <option value="">Select Penal Code</option>
+        <option value="(1)01">(1)01 Murder, First Degree</option>
+        <option value="(2)01">(2)01 Robbery</option>
+        <option value="(2)13">(2)13 Grand Theft Auto</option>
+      </select>
       <textarea placeholder="Description" class="chargeDesc w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="1"></textarea>
       <button type="button" class="remove-charge text-red-400 hover:text-red-300">✖</button>`;
     container.appendChild(row);
     row.querySelector('.remove-charge').addEventListener('click', () => row.remove());
     updateReportBail();
   }
+  
   function updateReportBail() {
     let total = 0;
     document.querySelectorAll('.charge-row').forEach(row => {
@@ -587,6 +957,7 @@
     const bailInput = document.getElementById('bailTotal');
     if (bailInput) bailInput.value = total;
   }
+  
   function showPoliceReportForm() {
     showModal(`
       <h3 class="text-xl font-bold mb-4 text-white">File Criminal Report (Police)</h3>
@@ -595,9 +966,15 @@
         <input type="text" id="caseNo" placeholder="Case # (if known)" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
         <div id="chargesContainer" class="space-y-2"></div>
         <button type="button" id="addChargeBtn" class="btn-secondary text-sm py-1 px-2 rounded-lg">+ Add Another Charge</button>
-        <div class="border-t border-gray-600 pt-2 mt-2"><p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p><input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly></div>
+        <div class="border-t border-gray-600 pt-2 mt-2">
+          <p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p>
+          <input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly>
+        </div>
         <input type="url" id="bodycamUrl" placeholder="Body Camera Footage URL" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <div class="flex gap-2 mt-2"><button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>
+        <div class="flex gap-2 mt-2">
+          <button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button>
+          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
+        </div>
       </div>`);
     const container = document.getElementById('chargesContainer');
     const addBtn = document.getElementById('addChargeBtn');
@@ -620,6 +997,7 @@
       closeModal('globalModal');
     });
   }
+  
   function showPDReportForm() {
     showModal(`
       <h3 class="text-xl font-bold mb-4 text-white">Submit Criminal Report to DA (Public Defender)</h3>
@@ -628,8 +1006,14 @@
         <input type="text" id="caseNo" placeholder="Case # (if known)" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
         <div id="chargesContainer" class="space-y-2"></div>
         <button type="button" id="addChargeBtn" class="btn-secondary text-sm py-1 px-2 rounded-lg">+ Add Another Charge</button>
-        <div class="border-t border-gray-600 pt-2 mt-2"><p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p><input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly></div>
-        <div class="flex gap-2 mt-2"><button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>
+        <div class="border-t border-gray-600 pt-2 mt-2">
+          <p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p>
+          <input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button>
+          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
+        </div>
       </div>`);
     const container = document.getElementById('chargesContainer');
     const addBtn = document.getElementById('addChargeBtn');
@@ -658,16 +1042,42 @@
     const charged = await apiCall('getChargedCases');
     const pendingHtml = pending.reports.length === 0 ? '<div class="text-gray-400">No pending reports</div>' : pending.reports.map(r => `
       <div class="border border-gray-700 rounded p-3 mb-2" data-id="${r.id}">
-        <div class="flex justify-between"><div><strong>${r.defendant}</strong> (${r.type.toUpperCase()})</div><div>Bail: $${r.bailTotal}</div></div>
+        <div class="flex justify-between">
+          <div><strong>${r.defendant}</strong> (${r.type.toUpperCase()})</div>
+          <div>Bail: $${r.bailTotal}</div>
+        </div>
         <div class="text-sm text-gray-400">Charges: ${r.charges.map(c => c.code).join(', ')}</div>
         <div class="text-xs text-gray-500">Submitted by ${r.submittedBy} on ${new Date(r.timestamp).toLocaleString()}</div>
-        <div class="flex gap-2 mt-2"><button class="btn-primary text-sm py-1 px-2 rounded approve-report" data-id="${r.id}">Approve & File Charges</button><button class="btn-secondary text-sm py-1 px-2 rounded edit-report" data-id="${r.id}">Edit</button><button class="btn-secondary text-sm py-1 px-2 rounded deny-report" data-id="${r.id}">Deny</button></div>
+        <div class="flex gap-2 mt-2">
+          <button class="btn-primary text-sm py-1 px-2 rounded approve-report" data-id="${r.id}">Approve & File Charges</button>
+          <button class="btn-secondary text-sm py-1 px-2 rounded edit-report" data-id="${r.id}">Edit</button>
+          <button class="btn-secondary text-sm py-1 px-2 rounded deny-report" data-id="${r.id}">Deny</button>
+        </div>
       </div>`).join('');
     const chargedHtml = charged.cases.length === 0 ? '<div class="text-gray-400">No charged cases yet</div>' : charged.cases.map(c => `
-      <div class="border border-green-700 rounded p-3 mb-2"><div><strong>${c.defendant}</strong> (Case #: ${c.caseNo || 'TBD'})</div><div>Charges: ${c.charges.map(ch => ch.code).join(', ')}</div><div>Bail: $${c.bailTotal}</div><div class="text-xs text-gray-500">Approved by ${c.approvedBy} on ${new Date(c.approvedAt).toLocaleString()}</div></div>`).join('');
+      <div class="border border-green-700 rounded p-3 mb-2">
+        <div><strong>${c.defendant}</strong> (Case #: ${c.caseNo || 'TBD'})</div>
+        <div>Charges: ${c.charges.map(ch => ch.code).join(', ')}</div>
+        <div>Bail: $${c.bailTotal}</div>
+        <div class="text-xs text-gray-500">Approved by ${c.approvedBy} on ${new Date(c.approvedAt).toLocaleString()}</div>
+      </div>`).join('');
     return `
-      <div class="grid md:grid-cols-2 gap-6"><div class="card p-6"><h3 class="text-lg font-semibold text-[#facc15] mb-3">Pending Reports</h3><div id="pendingReportsList" class="max-h-96 overflow-y-auto">${pendingHtml}</div></div><div class="card p-6"><h3 class="text-lg font-semibold text-[#facc15] mb-3">Charged Cases</h3><div id="chargedCasesList" class="max-h-96 overflow-y-auto">${chargedHtml}</div></div></div>
-      <div class="card p-6 mt-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="message-square"></i> Communications</div><button id="sendToPoliceBtn" class="btn-secondary py-2 px-4 rounded-lg">Send Message to Police</button></div>`;
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-[#facc15] mb-3">Pending Reports</h3>
+          <div id="pendingReportsList" class="max-h-96 overflow-y-auto">${pendingHtml}</div>
+        </div>
+        <div class="card p-6">
+          <h3 class="text-lg font-semibold text-[#facc15] mb-3">Charged Cases</h3>
+          <div id="chargedCasesList" class="max-h-96 overflow-y-auto">${chargedHtml}</div>
+        </div>
+      </div>
+      <div class="card p-6 mt-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="message-square"></i> Communications
+        </div>
+        <button id="sendToPoliceBtn" class="btn-secondary py-2 px-4 rounded-lg">Send Message to Police</button>
+      </div>`;
   }
 
   function attachDAEventListeners() {
@@ -692,6 +1102,7 @@
     });
     document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
   }
+  
   // Other role forms
   function showRecusalForm() { alert('Recusal request form (mock)'); }
   function showSentencingForm() { alert('Sentencing form (mock)'); }
@@ -706,59 +1117,296 @@
     const role = currentUser.role;
     const roleContent = document.getElementById('roleContent');
     const tasks = roleTasks[role] || [];
-    const tasksHtml = role !== 'police' ? `<div class="card p-6 mb-6"><div class="flex justify-between items-center mb-4"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg"><i data-lucide="check-square"></i> Daily Tasks</div><button id="refreshTasks" class="btn-secondary text-sm py-1 px-3 rounded-lg">Refresh</button></div><ul id="tasksList" class="space-y-2">${tasks.map(task => `<li class="flex items-center gap-2"><input type="checkbox" ${task.status==='done'?'checked':''} data-id="${task.id}" class="task-checkbox"><span class="flex-1">${task.task}</span><span class="text-xs text-gray-500">${task.due}</span></li>`).join('')}</ul></div>` : '';
-    const notifHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="bell"></i> DOJ Notifications</div><div id="dojNotificationsContainer"></div></div>`;
+    const tasksHtml = role !== 'police' ? `<div class="card p-6 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg">
+          <i data-lucide="check-square"></i> Daily Tasks
+        </div>
+        <button id="refreshTasks" class="btn-secondary text-sm py-1 px-3 rounded-lg">Refresh</button>
+      </div>
+      <ul id="tasksList" class="space-y-2">
+        ${tasks.map(task => `
+          <li class="flex items-center gap-2">
+            <input type="checkbox" ${task.status==='done'?'checked':''} data-id="${task.id}" class="task-checkbox">
+            <span class="flex-1">${task.task}</span>
+            <span class="text-xs text-gray-500">${task.due}</span>
+          </li>
+        `).join('')}
+      </ul>
+    </div>` : '';
+    
+    const notifHtml = `<div class="card p-6 mb-6">
+      <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+        <i data-lucide="bell"></i> DOJ Notifications
+      </div>
+      <div id="dojNotificationsContainer"></div>
+    </div>`;
 
     // Communication buttons
     let commButtons = '';
     if (role === 'clerk') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button>
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'judge') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'attorney') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'public_defender') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'district_attorney') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button><button id="sendToPoliceBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Police</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button>
+        <button id="sendToPoliceBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Police</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'bailiff') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'reporter') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'admin') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button>
+        <button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button>
+      </div>`;
     } else if (role === 'chief_justice') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Clerk</button>
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button>
+        <button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button>
+      </div>`;
     } else if (role === 'police') {
-      commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to District Attorney</button></div>`;
+      commButtons = `<div class="flex flex-wrap gap-3">
+        <button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to District Attorney</button>
+      </div>`;
     }
-    const commHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="message-square"></i> Communications</div>${commButtons}</div>`;
+    const commHtml = `<div class="card p-6 mb-6">
+      <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+        <i data-lucide="message-square"></i> Communications
+      </div>
+      ${commButtons}
+    </div>`;
 
     let roleSpecific = '';
     if (role === 'clerk') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="file-plus"></i> New Filing</div><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=59417065" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📄 Case Filing</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1895005036" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💍 Marriage</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1376146295" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🚗 Property</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1538730298" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🏢 Professional</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1478971826" target="_blank" class="btn-secondary text-center py-2 rounded-lg">👶 Paternity</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1874312862" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📜 Will</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=318970083" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💰 Treasury</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📊 All Sheets</a></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Financial Tools</div><div class="flex flex-wrap gap-3"><a href="${offlineDuesSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Manage Offline Dues</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">View All Filings (Audit)</a></div></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="file-plus"></i> New Filing
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=59417065" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📄 Case Filing</a>
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1895005036" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💍 Marriage</a>
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1376146295" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🚗 Property</a>
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1538730298" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🏢 Professional</a>
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1478971826" target="_blank" class="btn-secondary text-center py-2 rounded-lg">👶 Paternity</a>
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1874312862" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📜 Will</a>
+          <a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=318970083" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💰 Treasury</a>
+          <a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📊 All Sheets</a>
+        </div>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="dollar-sign"></i> Financial Tools
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="${offlineDuesSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Manage Offline Dues</a>
+          <a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">View All Filings (Audit)</a>
+        </div>
+      </div>`;
     } else if (role === 'judge') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Court Level: ${currentUser.courtLevel}</div><div id="judgeCasesList" class="space-y-2">${mockAssignedCases.filter(c=>c.judge===currentUser.name).map(c=>`<div class="border border-gray-700 rounded p-3 flex justify-between items-center"><div><strong>${c.caseNo}</strong> - ${c.parties}<br><span class="text-sm text-gray-400">Status: ${c.status}</span></div><a href="${c.url}" target="_blank" class="btn-secondary text-sm py-1 px-3 rounded-lg">View Case</a></div>`).join('')}</div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="sentencingBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Sentencing</button><button id="officialLetterBtn" class="btn-secondary py-2 px-4 rounded-lg">Official Letter</button></div></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="gavel"></i> Court Level: ${currentUser.courtLevel}
+        </div>
+        <div id="judgeCasesList" class="space-y-2">
+          ${mockAssignedCases.filter(c=>c.judge===currentUser.name).map(c=>`
+            <div class="border border-gray-700 rounded p-3 flex justify-between items-center">
+              <div>
+                <strong>${c.caseNo}</strong> - ${c.parties}<br>
+                <span class="text-sm text-gray-400">Status: ${c.status}</span>
+              </div>
+              <a href="${c.url}" target="_blank" class="btn-secondary text-sm py-1 px-3 rounded-lg">View Case</a>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="calendar"></i> Court Schedule
+        </div>
+        <ul>
+          ${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}
+        </ul>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="settings"></i> Actions
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button>
+          <button id="sentencingBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Sentencing</button>
+          <button id="officialLetterBtn" class="btn-secondary py-2 px-4 rounded-lg">Official Letter</button>
+        </div>
+      </div>`;
     } else if (role === 'attorney') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="folder"></i> My Cases</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}</div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Trust Account</div><div class="flex flex-wrap gap-3"><button id="trustWithdrawalBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Withdrawal</button><button id="trustDepositBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Deposit</button></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="folder"></i> My Cases
+        </div>
+        ${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="dollar-sign"></i> Trust Account
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button id="trustWithdrawalBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Withdrawal</button>
+          <button id="trustDepositBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Deposit</button>
+        </div>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="settings"></i> Actions
+        </div>
+        <button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button>
+      </div>`;
     } else if (role === 'public_defender') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Assigned Clients</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}<div class="mt-3 pt-3 border-t border-gray-700"><div class="text-sm">Case Count (this pay period): <span class="font-bold text-[#facc15]">${mockAssignedCases.length}</span></div><div class="text-xs text-gray-500">Bi-weekly compensation: $${mockAssignedCases.length*500}</div></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="pdReportBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Criminal Report to DA</button></div></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="users"></i> Assigned Clients
+        </div>
+        ${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}
+        <div class="mt-3 pt-3 border-t border-gray-700">
+          <div class="text-sm">Case Count (this pay period): <span class="font-bold text-[#facc15]">${mockAssignedCases.length}</span></div>
+          <div class="text-xs text-gray-500">Bi-weekly compensation: $${mockAssignedCases.length*500}</div>
+        </div>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="settings"></i> Actions
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button>
+          <button id="pdReportBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Criminal Report to DA</button>
+        </div>
+      </div>`;
     } else if (role === 'district_attorney') {
       roleSpecific = renderDADashboard();
     } else if (role === 'police') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="badge-check"></i> Police Dashboard</div><p class="text-gray-300 mb-4">File criminal reports for review by the District Attorney.</p><button id="policeReportBtn" class="btn-secondary py-2 px-4 rounded-lg">File Criminal Report</button></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="badge-check"></i> Police Dashboard
+        </div>
+        <p class="text-gray-300 mb-4">File criminal reports for review by the District Attorney.</p>
+        <button id="policeReportBtn" class="btn-secondary py-2 px-4 rounded-lg">File Criminal Report</button>
+      </div>`;
     } else if (role === 'bailiff') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="shield"></i> Civil Process</div><button id="serviceProcessBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Service of Process</button></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="calendar"></i> Court Schedule
+        </div>
+        <ul>
+          ${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}
+        </ul>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="shield"></i> Civil Process
+        </div>
+        <button id="serviceProcessBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Service of Process</button>
+      </div>`;
     } else if (role === 'reporter') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="upload"></i> Transcripts</div><button id="uploadTranscriptBtn" class="btn-secondary py-2 px-4 rounded-lg">Upload Transcript URL</button></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="calendar"></i> Court Schedule
+        </div>
+        <ul>
+          ${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}
+        </ul>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="upload"></i> Transcripts
+        </div>
+        <button id="uploadTranscriptBtn" class="btn-secondary py-2 px-4 rounded-lg">Upload Transcript URL</button>
+      </div>`;
     } else if (role === 'admin') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> User Management</div><button id="userMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Users</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Judge Assignment</div><button id="assignJudgeBtn" class="btn-secondary py-2 px-4 rounded-lg">Auto-Assign Unassigned Cases</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Recusal Queue</div><button id="recusalQueueBtn" class="btn-secondary py-2 px-4 rounded-lg">View Queue</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="chart-line"></i> Audit Tools</div><div class="flex flex-wrap gap-3"><button id="financialAuditBtn" class="btn-secondary py-2 px-4 rounded-lg">Financial Summary</button><button id="offlineDuesBtn" class="btn-secondary py-2 px-4 rounded-lg">Offline Dues</button><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Audit Log (All Filings)</a></div></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="users"></i> User Management
+        </div>
+        <button id="userMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Users</button>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="refresh-cw"></i> Judge Assignment
+        </div>
+        <button id="assignJudgeBtn" class="btn-secondary py-2 px-4 rounded-lg">Auto-Assign Unassigned Cases</button>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="refresh-cw"></i> Recusal Queue
+        </div>
+        <button id="recusalQueueBtn" class="btn-secondary py-2 px-4 rounded-lg">View Queue</button>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="chart-line"></i> Audit Tools
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button id="financialAuditBtn" class="btn-secondary py-2 px-4 rounded-lg">Financial Summary</button>
+          <button id="offlineDuesBtn" class="btn-secondary py-2 px-4 rounded-lg">Offline Dues</button>
+          <a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Audit Log (All Filings)</a>
+        </div>
+      </div>`;
     } else if (role === 'chief_justice') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Judicial Oversight</div><div class="space-y-2"><button id="cjViewRecusalsBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Recusal Queue</button><button id="cjAssignJudgeBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">Manually Assign Judge to Case</button><button id="cjViewAuditBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Audit Log (All Filings)</button></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Manage Users</div><button id="cjUserMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Edit User Roles</button></div>`;
+      roleSpecific = `<div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="gavel"></i> Judicial Oversight
+        </div>
+        <div class="space-y-2">
+          <button id="cjViewRecusalsBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Recusal Queue</button>
+          <button id="cjAssignJudgeBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">Manually Assign Judge to Case</button>
+          <button id="cjViewAuditBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Audit Log (All Filings)</button>
+        </div>
+      </div>
+      <div class="card p-6 mb-6">
+        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+          <i data-lucide="users"></i> Manage Users
+        </div>
+        <button id="cjUserMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Edit User Roles</button>
+      </div>`;
     }
 
     const scheduleHtml = role !== 'police' ? renderScheduling() : '';
-    const trainingHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book"></i> Training Guide</div><button id="trainingBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Training Materials</button></div>`;
+    const trainingHtml = `<div class="card p-6 mb-6">
+      <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3">
+        <i data-lucide="book"></i> Training Guide
+      </div>
+      <button id="trainingBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Training Materials</button>
+    </div>`;
 
     roleContent.innerHTML = tasksHtml + notifHtml + commHtml + roleSpecific + scheduleHtml + trainingHtml;
 
@@ -818,8 +1466,16 @@
     const container = document.getElementById('dojNotificationsContainer');
     if (!container) return;
     const notifs = dojNotifications.filter(n => n.role === currentUser.role);
-    if (notifs.length === 0) { container.innerHTML = '<div class="text-gray-400 text-sm">No internal notifications</div>'; return; }
-    container.innerHTML = notifs.slice(0,5).map(n => `<div class="flex justify-between items-start py-2 border-b border-gray-700 text-sm ${!n.read ? 'bg-gray-700/30' : ''}"><div>${n.message}</div><div class="text-xs text-gray-500">${new Date(n.timestamp).toLocaleTimeString()}</div></div>`).join('');
+    if (notifs.length === 0) { 
+      container.innerHTML = '<div class="text-gray-400 text-sm">No internal notifications</div>'; 
+      return; 
+    }
+    container.innerHTML = notifs.slice(0,5).map(n => `
+      <div class="flex justify-between items-start py-2 border-b border-gray-700 text-sm ${!n.read ? 'bg-gray-700/30' : ''}">
+        <div>${n.message}</div>
+        <div class="text-xs text-gray-500">${new Date(n.timestamp).toLocaleTimeString()}</div>
+      </div>
+    `).join('');
   }
 
   // ============================================
@@ -828,6 +1484,7 @@
   function closeModal(modalId) {
     document.getElementById(modalId).classList.add('hidden');
   }
+  
   function showModal(contentHtml) {
     const modal = document.getElementById('globalModal');
     const modalContent = document.getElementById('modalContent');
@@ -839,11 +1496,52 @@
   // ============================================
   // NAVIGATION
   // ============================================
-  function showHome() { document.getElementById('homeSection').classList.remove('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderHome(); }
-  function showPublicRecords() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.remove('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderPublicRecords(); }
-  function showPenalCode() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.remove('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderPenalCode(); }
-  function showCareers() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.remove('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderCareers(); }
-  function showDashboard() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden'); document.getElementById('dashboardTitle').innerText = `${currentUser.name} (${currentUser.role.replace('_',' ')})`; if (!userAvailability[currentUser.name]) userAvailability[currentUser.name] = {}; renderDashboardByRole(); }
+  function showHome() { 
+    document.getElementById('homeSection').classList.remove('hidden'); 
+    document.getElementById('publicRecordsSection').classList.add('hidden'); 
+    document.getElementById('penalCodeSection').classList.add('hidden'); 
+    document.getElementById('careersSection').classList.add('hidden'); 
+    document.getElementById('dashboardSection').classList.add('hidden'); 
+    renderHome(); 
+  }
+  
+  function showPublicRecords() { 
+    document.getElementById('homeSection').classList.add('hidden'); 
+    document.getElementById('publicRecordsSection').classList.remove('hidden'); 
+    document.getElementById('penalCodeSection').classList.add('hidden'); 
+    document.getElementById('careersSection').classList.add('hidden'); 
+    document.getElementById('dashboardSection').classList.add('hidden'); 
+    renderPublicRecords(); 
+  }
+  
+  function showPenalCode() { 
+    document.getElementById('homeSection').classList.add('hidden'); 
+    document.getElementById('publicRecordsSection').classList.add('hidden'); 
+    document.getElementById('penalCodeSection').classList.remove('hidden'); 
+    document.getElementById('careersSection').classList.add('hidden'); 
+    document.getElementById('dashboardSection').classList.add('hidden'); 
+    renderPenalCode(); 
+  }
+  
+  function showCareers() { 
+    document.getElementById('homeSection').classList.add('hidden'); 
+    document.getElementById('publicRecordsSection').classList.add('hidden'); 
+    document.getElementById('penalCodeSection').classList.add('hidden'); 
+    document.getElementById('careersSection').classList.remove('hidden'); 
+    document.getElementById('dashboardSection').classList.add('hidden'); 
+    renderCareers(); 
+  }
+  
+  function showDashboard() { 
+    document.getElementById('homeSection').classList.add('hidden'); 
+    document.getElementById('publicRecordsSection').classList.add('hidden'); 
+    document.getElementById('penalCodeSection').classList.add('hidden'); 
+    document.getElementById('careersSection').classList.add('hidden'); 
+    document.getElementById('dashboardSection').classList.remove('hidden'); 
+    document.getElementById('dashboardTitle').innerText = `${currentUser.name} (${currentUser.role.replace('_',' ')})`; 
+    if (!userAvailability[currentUser.name]) userAvailability[currentUser.name] = {}; 
+    renderDashboardByRole(); 
+  }
 
   // ============================================
   // LOGIN (Mock – replace with real API)
@@ -874,6 +1572,7 @@
       document.getElementById('loginError').classList.remove('hidden');
     }
   }
+  
   function logout() {
     currentUser = null;
     sessionStorage.removeItem('doj_user');
@@ -890,10 +1589,16 @@
   document.getElementById('penalCodeNavBtn').addEventListener('click', showPenalCode);
   document.getElementById('careersNavBtn').addEventListener('click', showCareers);
   document.getElementById('loginNavBtn').addEventListener('click', () => document.getElementById('loginModal').classList.remove('hidden'));
-  document.getElementById('loginSubmitBtn').addEventListener('click', () => { const pass = document.getElementById('loginPasscode').value.trim(); if (pass) handleLogin(pass); });
+  document.getElementById('loginSubmitBtn').addEventListener('click', () => { 
+    const pass = document.getElementById('loginPasscode').value.trim(); 
+    if (pass) handleLogin(pass); 
+  });
   document.getElementById('loginCancelBtn').addEventListener('click', () => document.getElementById('loginModal').classList.add('hidden'));
   document.getElementById('logoutBtn').addEventListener('click', logout);
-  document.getElementById('forgotPasswordBtn')?.addEventListener('click', () => { addDojNotification('admin', 'Password reset request'); alert('Request sent'); });
+  document.getElementById('forgotPasswordBtn')?.addEventListener('click', () => { 
+    addDojNotification('admin', 'Password reset request'); 
+    alert('Request sent'); 
+  });
 
   const notifBtn = document.getElementById('notifBtn'), notifPanel = document.getElementById('notifPanel');
   if (notifBtn && notifPanel) {
@@ -903,8 +1608,17 @@
 
   const saved = sessionStorage.getItem('doj_user');
   if (saved) {
-    try { currentUser = JSON.parse(saved); document.getElementById('loginNavBtn').classList.add('hidden'); document.getElementById('logoutBtn').classList.remove('hidden'); showDashboard(); } catch(e) { showHome(); }
-  } else { showHome(); }
+    try { 
+      currentUser = JSON.parse(saved); 
+      document.getElementById('loginNavBtn').classList.add('hidden'); 
+      document.getElementById('logoutBtn').classList.remove('hidden'); 
+      showDashboard(); 
+    } catch(e) { 
+      showHome(); 
+    }
+  } else { 
+    showHome(); 
+  }
   lucide.createIcons();
 </script>
 </body>
