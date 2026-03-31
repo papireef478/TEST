@@ -33,6 +33,13 @@
     .accordion-content.active { display: block; }
     #splashScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 1000; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s; }
     #mainContent { display: none; }
+    
+    /* Status colors */
+    .status-active { color: #22c55e; font-weight: 600; }
+    .status-pending { color: #eab308; font-weight: 600; }
+    .status-dissolved { color: #ef4444; font-weight: 600; }
+    .status-separation { color: #f97316; font-weight: 600; }
+    .status-expired { color: #ef4444; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -130,11 +137,16 @@
   // ============================================
   const API_URL = 'https://script.google.com/macros/s/AKfycbzgzdEqYc9iL-7GYVov0hNaJQAxEwQzCncuaJx9Zjq4pnpdK0NFTtB3IP4aOuQ-alnzUw/exec';
   const DOJ_DB_SPREADSHEET_ID = '12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE';
+  const DOJ_ADMIN_OPS_SPREADSHEET_ID = '12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE'; // Same sheet
   const SHEETS_API_KEY = 'AIzaSyBnYHCjyUxDmoN5w_u4DMO48KX9dONogr4';
   const discordTicketUrl = "https://discordapp.com/channels/1236403436199739525/1479222084952395776";
   const offlineDuesSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1869397302#gid=1869397302";
   const allFilingsSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=394849338#gid=394849338";
   const usersSheetUrl = "https://docs.google.com/spreadsheets/d/13rXMZSkgeN0o0mHUAwnNs4ccm_nNuNJdbVvSl9UJjyQ/edit?gid=0#gid=0";
+
+  // Active case statuses
+  const ACTIVE_CASE_STATUSES = ['Filed', 'Pre-trial', 'Pending Payment', 'Trial Scheduled', 'In Trial', 'Awaiting Judgment', 'Appealed', 'Judgement Issued'];
+  const ACTIVE_MARRIAGE_STATUSES = ['pending', 'active'];
 
   // ============================================
   // SPLASH SCREEN
@@ -186,7 +198,7 @@
     const data = await response.json();
     const rows = data.values || [];
     
-    // Get headers from row 5 (index 4 if we started from 0, but we're starting from row 6)
+    // Get headers from row 5
     const headerUrl = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}!A5:ZZ5?key=${SHEETS_API_KEY}`;
     const headerResponse = await fetch(headerUrl);
     const headerData = await headerResponse.json();
@@ -206,10 +218,38 @@
     return records;
   }
 
+  // Format date to MM/DD/YYYY
+  function formatDate(dateStr) {
+    if (!dateStr) return 'N/A';
+    // If it's already in correct format
+    if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateStr)) return dateStr;
+    
+    // Try to parse various date formats
+    try {
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return dateStr;
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    } catch (e) {
+      return dateStr;
+    }
+  }
+
+  // Get status class for styling
+  function getStatusClass(status) {
+    if (!status) return '';
+    const s = status.toLowerCase();
+    if (s === 'active') return 'status-active';
+    if (s === 'pending') return 'status-pending';
+    if (s === 'dissolved') return 'status-dissolved';
+    if (s === 'separation') return 'status-separation';
+    if (s === 'expired') return 'status-expired';
+    return '';
+  }
+
   // ============================================
   // RENDER TABLE FUNCTION
   // ============================================
-  function renderTable(tableId, records, headers, fieldMap) {
+  function renderTable(tableId, records, headers, fieldMap, statusField = null) {
     const table = document.getElementById(tableId);
     if (!table) return;
     const tbody = table.querySelector('tbody');
@@ -219,9 +259,25 @@
       return;
     }
     
-    tbody.innerHTML = records.map(record => 
-      `<tr>${headers.map(h => `<td>${record[fieldMap[h]] || 'N/A'}</td>`).join('')}</tr>`
-    ).join('');
+    tbody.innerHTML = records.map(record => {
+      const cells = headers.map(h => {
+        let value = record[fieldMap[h]] || 'N/A';
+        
+        // Format dates
+        if (h.toLowerCase().includes('date')) {
+          value = formatDate(value);
+        }
+        
+        // Add status styling if this is the status field
+        if (statusField && h.toLowerCase() === statusField.toLowerCase()) {
+          const statusClass = getStatusClass(value);
+          return `<td class="${statusClass}">${value}</td>`;
+        }
+        
+        return `<td>${value}</td>`;
+      });
+      return `<tr>${cells.join('')}</tr>`;
+    }).join('');
   }
 
   // ============================================
@@ -252,6 +308,7 @@
                   <th>Spouse 2</th>
                   <th>Date</th>
                   <th>Officiant</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -331,12 +388,13 @@
       spouse1: r['Spouse 1'] || r['Spouse1'] || '',
       spouse2: r['Spouse 2'] || r['Spouse2'] || '',
       date: r['Date'] || r['Marriage Date'] || '',
-      officiant: r['Officiant'] || ''
+      officiant: r['Officiant'] || '',
+      status: r['Status'] || ''
     }));
 
     const mappedProperties = properties.map(r => ({
-      deed: r['Deed #'] || r['DeedNumber'] || '',
-      type: r['Type'] || '',
+      deed: r['Deed #'] || r['DeedNumber'] || r['Deed'] || '',
+      type: r['Type'] || r['Property Type'] || '',
       grantor: r['Grantor'] || '',
       grantee: r['Grantee'] || '',
       date: r['Date'] || r['Transfer Date'] || ''
@@ -370,9 +428,9 @@
     window.publicData = { marriages: mappedMarriages, properties: mappedProperties, cases: mappedCases, professionals: mappedProfessionals };
 
     // Render each table
-    renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], {
-      'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant'
-    });
+    renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], {
+      'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status'
+    }, 'Status');
     
     renderTable('propertyTable', mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], {
       'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date'
@@ -384,7 +442,7 @@
     
     renderTable('professionalTable', mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], {
       'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status'
-    });
+    }, 'Status');
 
     // Search functionality
     const searchInput = document.getElementById('searchInput');
@@ -399,12 +457,12 @@
       const activeTab = document.querySelector('.tab-content.active').id;
       
       if (activeTab === 'marriageTab') {
-        const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 
-          'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' 
+        const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], { 
+          'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status'
         }, term);
-        renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 
-          'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' 
-        });
+        renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant', 'Status'], { 
+          'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant', 'Status': 'status'
+        }, 'Status');
       } else if (activeTab === 'propertyTab') {
         const filtered = filterTable(mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 
           'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' 
@@ -425,7 +483,7 @@
         }, term);
         renderTable('professionalTable', filtered, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 
           'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' 
-        });
+        }, 'Status');
       }
     });
 
@@ -466,8 +524,21 @@
       const cases = await fetchSheetData('CaseRegistry');
       const marriages = await fetchSheetData('MarriageRegistry');
       const properties = await fetchSheetData('PropertyRegistry');
-      document.getElementById('statCases').innerText = cases.length;
-      document.getElementById('statMarriages').innerText = marriages.length;
+      
+      // Count only active cases
+      const activeCases = cases.filter(c => {
+        const status = (c['Status'] || '').toLowerCase();
+        return ACTIVE_CASE_STATUSES.some(s => s.toLowerCase() === status);
+      }).length;
+      
+      // Count only active/pending marriages
+      const activeMarriages = marriages.filter(m => {
+        const status = (m['Status'] || '').toLowerCase();
+        return ACTIVE_MARRIAGE_STATUSES.includes(status);
+      }).length;
+      
+      document.getElementById('statCases').innerText = activeCases;
+      document.getElementById('statMarriages').innerText = activeMarriages;
       document.getElementById('statProperties').innerText = properties.length;
     } catch (err) {
       console.error('Failed to load home stats', err);
@@ -492,29 +563,59 @@
     document.getElementById('openManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/edit?usp=sharing', '_blank'));
 
     try {
-      const result = await apiCall('getPenalCode');
-      if (result.success && result.codes && result.codes.length) {
-        const codes = result.codes;
+      // Fetch directly from Google Sheets - PenalCode tab
+      const url = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_ADMIN_OPS_SPREADSHEET_ID}/values/PenalCode?key=${SHEETS_API_KEY}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (!data.values || data.values.length < 2) {
+        throw new Error('No penal code data found');
+      }
+      
+      const rows = data.values;
+      const headers = rows[0]; // First row is headers
+      const codes = [];
+      
+      // Parse rows starting from row 2
+      for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const code = {};
+        headers.forEach((h, idx) => {
+          code[h] = row[idx] || '';
+        });
+        codes.push(code);
+      }
+      
+      if (codes.length > 0) {
         const grouped = {};
         codes.forEach(c => {
-          let title = c.Title;
-          if (!title) return;
+          let title = c['Title'] || c['title'] || 'Uncategorized';
           if (!grouped[title]) grouped[title] = [];
           grouped[title].push({
-            Code: c.Code,
-            Offense: c.Offense,
-            Level: c.Level,
-            Jail: c.Jail,
-            Fine: c.Fine
+            Code: c['Code'] || '',
+            Offense: c['Offense'] || '',
+            Level: c['Level'] || '',
+            Jail: c['Jail (month)'] || c['Jail'] || '',
+            Fine: c['Fine ($)'] || c['Fine'] || ''
           });
         });
         renderPenalCodeAccordion(grouped);
       } else {
-        throw new Error('No sheet data');
+        throw new Error('No penal code entries found');
       }
     } catch (err) {
       console.warn('Could not load penal code from sheet:', err);
-      document.getElementById('penalCodeAccordion').innerHTML = '<div class="text-red-400">Error loading penal code. Please ensure the PenalCode sheet exists in DOJ_Admin_Ops.</div>';
+      document.getElementById('penalCodeAccordion').innerHTML = `
+        <div class="text-red-400 p-4">
+          <p class="font-semibold mb-2">Error loading penal code.</p>
+          <p class="text-sm">Please ensure:</p>
+          <ul class="list-disc pl-5 mt-2 text-sm">
+            <li>The "PenalCode" tab exists in the spreadsheet</li>
+            <li>Row 1 has headers: Title, Code, Offense, Level, Description, Jail (month), Fine ($)</li>
+            <li>Data starts from row 2</li>
+            <li>The spreadsheet is shared publicly or API key has access</li>
+          </ul>
+        </div>`;
     }
   }
 
