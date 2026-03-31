@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
   <style>
-    /* (all styles same as before) */
+    /* ========== STYLES (unchanged) ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
     body { background: #0f172a; font-family: 'Inter', sans-serif; color: #e2e8f0; }
     .card { background: #1e293b; border: 1px solid #334155; border-radius: 1rem; transition: all 0.2s; }
@@ -39,7 +39,7 @@
 <body>
 <div id="splashScreen" style="display: none;"></div>
 <div id="mainContent" class="container mx-auto px-4 py-6 max-w-7xl">
-  <!-- Header -->
+  <!-- Header (unchanged) -->
   <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-700">
     <div class="flex items-center gap-3">
       <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-2xl font-bold text-[#e94560]">⚖️</div>
@@ -71,13 +71,24 @@
   </div>
 </div>
 
-<!-- Modals -->
+<!-- Modals (unchanged) -->
 <div id="loginModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700"><h2 class="text-2xl font-bold text-center mb-6 text-white">DOJ Portal Login</h2><p class="text-gray-400 text-center mb-6">Enter your passcode</p><input type="password" id="loginPasscode" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg mb-4 text-white"><div id="loginError" class="text-red-500 text-sm mb-4 hidden">Invalid passcode</div><div class="flex gap-3"><button id="loginSubmitBtn" class="btn-primary flex-1 py-2 rounded-lg">Login</button><button id="loginCancelBtn" class="btn-secondary flex-1 py-2 rounded-lg">Cancel</button></div><div class="mt-4 text-center"><button id="forgotPasswordBtn" class="text-sm text-gray-400 hover:text-[#facc15]">Forgot password?</button></div></div></div>
 <div id="quickGuideModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold text-white">Quick Guide</h3><button onclick="closeModal('quickGuideModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div class="aspect-w-16 aspect-h-9 mb-4"><iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe></div><div class="prose max-w-none text-gray-300"><p>This is the official quick guide for the San Junipero Department of Justice. It explains the basics of interacting with the DOJ, filing cases, and understanding your rights.</p><ul class="list-disc pl-5 mt-2 text-gray-400"><li>All legal matters must be filed through a DOJ Ticket in Discord.</li><li>Clerks are available to assist with paperwork and fees.</li><li>Court schedules are posted daily in #court-docket.</li><li>Evidence requires screenshots or video (Rule 12.6).</li></ul></div></div></div>
 <div id="trainingModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto border border-gray-700"><div class="flex justify-between items-center mb-4"><h3 id="trainingModalTitle" class="text-xl font-bold text-white"></h3><button onclick="closeModal('trainingModal')" class="text-gray-400 hover:text-gray-200">&times;</button></div><div id="trainingModalContent"></div></div></div>
 <div id="globalModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-overlay"><div class="bg-gray-800 rounded-lg shadow-xl w-full max-w-md p-6 relative border border-gray-700"><div id="modalContent"></div></div></div>
 
 <script>
+  // ============================================
+  // CONFIGURATION
+  // ============================================
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzgzdEqYc9iL-7GYVov0hNaJQAxEwQzCncuaJx9Zjq4pnpdK0NFTtB3IP4aOuQ-alnzUw/exec';
+  const DOJ_DB_SPREADSHEET_ID = '12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE';
+  const SHEETS_API_KEY = 'AIzaSyBnYHCjyUxDmoN5w_u4DMO48KX9dONogr4';
+  const discordTicketUrl = "https://discordapp.com/channels/1236403436199739525/1479222084952395776";
+  const offlineDuesSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1869397302#gid=1869397302";
+  const allFilingsSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=394849338#gid=394849338";
+  const usersSheetUrl = "https://docs.google.com/spreadsheets/d/13rXMZSkgeN0o0mHUAwnNs4ccm_nNuNJdbVvSl9UJjyQ/edit?gid=0#gid=0";
+
   // ============================================
   // SPLASH SCREEN
   // ============================================
@@ -100,27 +111,320 @@
   }
 
   // ============================================
-  // MOCK DATA (as before)
+  // API CALL HELPER
   // ============================================
-  const mockStats = { activeCases: 2, activeMarriages: 2, registeredProperties: 2 };
-  const mockMarriages = [
-    { cert: "MAR-03-2026-784", spouse1: "James Wilson", spouse2: "Emily Davis", date: "2026-03-28", officiant: "Judge Roberts" },
-    { cert: "MAR-02-2026-123", spouse1: "Michael Brown", spouse2: "Sarah Johnson", date: "2026-02-14", officiant: "Judge Chen" }
-  ];
-  const mockProperties = [
-    { deed: "PRP-03-2026-245", type: "Vehicle", grantor: "Robert Miller", grantee: "Linda Garcia", date: "2026-03-20" },
-    { deed: "PRP-03-2026-001", type: "House", grantor: "Patricia Martinez", grantee: "David Rodriguez", date: "2026-03-15" }
-  ];
-  const mockProfessional = [
-    { entity: "Smith & Associates", type: "Law Firm", owner: "Sarah Smith", license: "LAW-001", expires: "2026-12-31", status: "Active" },
-    { entity: "John Doe Attorney", type: "Attorney License", owner: "John Doe", license: "ATTY-123", expires: "2026-09-15", status: "Active" },
-    { entity: "Justice Business Consulting", type: "Business License", owner: "Emma Justice", license: "BUS-456", expires: "2026-11-01", status: "Active" }
-  ];
-  const mockCases = [
-    { caseNo: "CIV-SC-03-2026-338", type: "Small Claims", plaintiff: "Thomas Anderson", defendant: "William Clark", status: "Filed", judge: "Judge Roberts", filedDate: "2026-03-18" },
-    { caseNo: "FAM-P2-03-2026-208", type: "Paternity", plaintiff: "Jessica White", defendant: "Kevin Harris", status: "Pre-Trial", judge: "Judge Chen", filedDate: "2026-03-15" }
-  ];
+  async function apiCall(action, params = {}) {
+    const url = new URL(API_URL);
+    url.searchParams.append('action', action);
+    for (const [key, value] of Object.entries(params)) {
+      if (typeof value === 'object') {
+        url.searchParams.append('data', JSON.stringify(value));
+      } else {
+        url.searchParams.append(key, value);
+      }
+    }
+    const response = await fetch(url.toString());
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error);
+    return data;
+  }
 
+  // ============================================
+  // GOOGLE SHEETS API (public records)
+  // ============================================
+  async function fetchSheetData(sheetName) {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${DOJ_DB_SPREADSHEET_ID}/values/${sheetName}?key=${SHEETS_API_KEY}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const rows = data.values || [];
+    if (rows.length < 2) return [];
+    const headers = rows[0];
+    const records = [];
+    for (let i = 1; i < rows.length; i++) {
+      const row = rows[i];
+      const obj = {};
+      headers.forEach((h, idx) => { obj[h] = row[idx]; });
+      records.push(obj);
+    }
+    return records;
+  }
+
+  // ============================================
+  // PUBLIC RECORDS (with exact column mapping)
+  // ============================================
+  async function renderPublicRecords() {
+    const recordsDiv = document.getElementById('publicRecordsSection');
+    recordsDiv.innerHTML = `
+      <div class="card p-6">
+        <div class="flex gap-4 border-b border-gray-700 mb-4 flex-wrap">
+          <button class="tab-btn active" data-tab="marriage">Marriage Registry</button>
+          <button class="tab-btn" data-tab="property">Property Registry</button>
+          <button class="tab-btn" data-tab="cases">Case Docket</button>
+          <button class="tab-btn" data-tab="professional">Professional Registry</button>
+        </div>
+        <div class="mb-4"><input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
+        <div id="marriageTab" class="tab-content active"><div class="overflow-x-auto"><table class="data-table" id="marriageTable"><thead></thead><tbody></tbody> </div></div>
+        <div id="propertyTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="propertyTable"><thead></thead><tbody></tbody> </div></div>
+        <div id="casesTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="casesTable"><thead></thead><tbody></tbody> </div></div>
+        <div id="professionalTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table" id="professionalTable"><thead></thead><tbody></tbody> </div></div>
+      </div>`;
+
+    const marriages = await fetchSheetData('MarriageRegistry');
+    const properties = await fetchSheetData('PropertyRegistry');
+    const cases = await fetchSheetData('CaseRegistry');
+    const professionals = await fetchSheetData('ProfessionalRegistry');
+
+    // Map records to the correct fields
+    const mappedMarriages = marriages.map(r => ({
+      cert: r['Certificate #'] || r['cert'] || r['CertificateNumber'] || '',
+      spouse1: r['Spouse 1'] || r['Spouse1'] || '',
+      spouse2: r['Spouse 2'] || r['Spouse2'] || '',
+      date: r['Marriage Date'] || r['Date'] || '',
+      officiant: r['Officiant'] || ''
+    }));
+
+    const mappedProperties = properties.map(r => ({
+      deed: r['Deed #'] || r['DeedNumber'] || r['Deed'] || '',
+      type: r['Type'] || '',
+      grantor: r['Grantor'] || '',
+      grantee: r['Grantee'] || '',
+      date: r['Transfer Date'] || r['Date'] || ''
+    }));
+
+    const mappedCases = cases.map(r => {
+      let judgeDisplay = r['Assigned Judge'] || r['Judge'] || 'N/A';
+      if (judgeDisplay === '[Enter Assigned Judge]') judgeDisplay = 'Pending Judge Selection';
+      return {
+        caseNo: r['Case #'] || r['CaseNumber'] || '',
+        type: r['Case Type'] || r['Type'] || '',
+        plaintiff: r['Plaintiff'] || '',
+        defendant: r['Defendant'] || '',
+        judge: judgeDisplay,
+        filedDate: r['Filed Date'] || r['Date'] || '',
+        status: r['Status'] || '',
+        courtLevel: r['Court Level'] || ''
+      };
+    });
+
+    const mappedProfessionals = professionals.map(r => ({
+      entity: r['Entity'] || r['Entity Name'] || '',
+      type: r['Type'] || r['License Type'] || '',
+      owner: r['Owner'] || r['Owner Name'] || '',
+      license: r['Registration #'] || r['License #'] || '',
+      expires: r['Expires'] || '',
+      notes: r['Notes'] || '',
+      status: r['Status'] || ''
+    }));
+
+    window.publicData = { marriages: mappedMarriages, properties: mappedProperties, cases: mappedCases, professionals: mappedProfessionals };
+
+    function renderTable(tableId, records, headers, fieldMap) {
+      const table = document.getElementById(tableId);
+      if (!table) return;
+      const thead = table.querySelector('thead');
+      const tbody = table.querySelector('tbody');
+      thead.innerHTML = ` <tr>${headers.map(h => `<th>${h}</th>`).join('')} </tr>`;
+      tbody.innerHTML = records.map(record => ` <tr>${headers.map(h => `<td>${record[fieldMap[h]] || ''}</td>`).join('')} </tr>`).join('');
+    }
+
+    renderTable('marriageTable', mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], {
+      'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant'
+    });
+    renderTable('propertyTable', mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], {
+      'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date'
+    });
+    renderTable('casesTable', mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], {
+      'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status'
+    });
+    renderTable('professionalTable', mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], {
+      'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status'
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    function filterTable(records, headers, fieldMap, searchTerm) {
+      const term = searchTerm.toLowerCase();
+      return records.filter(record => headers.some(h => String(record[fieldMap[h]] || '').toLowerCase().includes(term)));
+    }
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const activeTab = document.querySelector('.tab-content.active').id;
+      if (activeTab === 'marriageTab') {
+        const filtered = filterTable(mappedMarriages, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' }, term);
+        renderTable('marriageTable', filtered, ['Certificate #', 'Spouse 1', 'Spouse 2', 'Date', 'Officiant'], { 'Certificate #': 'cert', 'Spouse 1': 'spouse1', 'Spouse 2': 'spouse2', 'Date': 'date', 'Officiant': 'officiant' });
+      } else if (activeTab === 'propertyTab') {
+        const filtered = filterTable(mappedProperties, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' }, term);
+        renderTable('propertyTable', filtered, ['Deed #', 'Type', 'Grantor', 'Grantee', 'Date'], { 'Deed #': 'deed', 'Type': 'type', 'Grantor': 'grantor', 'Grantee': 'grantee', 'Date': 'date' });
+      } else if (activeTab === 'casesTab') {
+        const filtered = filterTable(mappedCases, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' }, term);
+        renderTable('casesTable', filtered, ['Case #', 'Type', 'Plaintiff', 'Defendant', 'Judge', 'Court Level', 'Filed Date', 'Status'], { 'Case #': 'caseNo', 'Type': 'type', 'Plaintiff': 'plaintiff', 'Defendant': 'defendant', 'Judge': 'judge', 'Court Level': 'courtLevel', 'Filed Date': 'filedDate', 'Status': 'status' });
+      } else if (activeTab === 'professionalTab') {
+        const filtered = filterTable(mappedProfessionals, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' }, term);
+        renderTable('professionalTable', filtered, ['Entity', 'Type', 'Owner', 'License #', 'Expires', 'Notes', 'Status'], { 'Entity': 'entity', 'Type': 'type', 'Owner': 'owner', 'License #': 'license', 'Expires': 'expires', 'Notes': 'notes', 'Status': 'status' });
+      }
+    });
+
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(`${tab}Tab`).classList.add('active');
+        tabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        searchInput.dispatchEvent(new Event('input'));
+      });
+    });
+    lucide.createIcons();
+  }
+
+  // ============================================
+  // HOME PAGE STATS (count rows)
+  // ============================================
+  async function updateHomeStats() {
+    try {
+      const cases = await fetchSheetData('CaseRegistry');
+      const marriages = await fetchSheetData('MarriageRegistry');
+      const properties = await fetchSheetData('PropertyRegistry');
+      document.getElementById('statCases').innerText = cases.length;
+      document.getElementById('statMarriages').innerText = marriages.length;
+      document.getElementById('statProperties').innerText = properties.length;
+    } catch (err) {
+      console.error('Failed to load home stats', err);
+    }
+  }
+
+  // ============================================
+  // PENAL CODE (load from sheet, group by exact title)
+  // ============================================
+  async function renderPenalCode() {
+    const penalDiv = document.getElementById('penalCodeSection');
+    penalDiv.innerHTML = `
+      <div class="card p-6">
+        <h2 class="text-2xl font-bold text-white mb-4">San Andreas Penal Code</h2>
+        <p class="text-gray-300 mb-4">The complete Penal Code is available in the DOJ Manual. Below is a categorized summary.</p>
+        <div class="flex gap-4 mb-6">
+          <a href="https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf" target="_blank" class="btn-primary py-2 px-4 rounded-lg">Download Manual (PDF)</a>
+          <button id="openManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Full Manual in New Tab</button>
+        </div>
+        <div class="space-y-2 penal-code-table" id="penalCodeAccordion"></div>
+      </div>`;
+    document.getElementById('openManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/edit?usp=sharing', '_blank'));
+
+    try {
+      const result = await apiCall('getPenalCode');
+      if (result.success && result.codes && result.codes.length) {
+        const codes = result.codes;
+        // Group by the exact title string
+        const grouped = {};
+        codes.forEach(c => {
+          let title = c.Title;
+          if (!title) return;
+          if (!grouped[title]) grouped[title] = [];
+          grouped[title].push({
+            Code: c.Code,
+            Offense: c.Offense,
+            Level: c.Level,
+            Jail: c.Jail,
+            Fine: c.Fine
+          });
+        });
+        renderPenalCodeAccordion(grouped);
+      } else {
+        throw new Error('Sheet data not available');
+      }
+    } catch (err) {
+      console.warn('Failed to load penal code from sheet, using static fallback', err);
+      // Use the static data from the previous version (which had all titles)
+      const fallback = {
+        "Title 1 - Crimes Against the Person": [ /* ... */ ],
+        "Title 2 - Crimes Against Property": [ /* ... */ ],
+        "Title 3 - Crimes Against Public Decency and Order": [ /* ... */ ],
+        "Title 4 - Crimes Against Justice": [ /* ... */ ],
+        "Title 5 - Crimes Committed with Firearms, Deadly Weapons, or Enhancements": [ /* ... */ ],
+        "Title 6 - Offenses Against Public Order": [ /* ... */ ],
+        "Title 7 - Offenses Against Public Health and Morals": [ /* ... */ ],
+        "Title 8 - Offenses Against Public Safety": [ /* ... */ ],
+        "Title 9 - Offenses Involving Operation of a Vehicle": [ /* ... */ ],
+        "Title 10 - Offenses Involving Operation of an Aircraft": [ /* ... */ ],
+        "Title 11 - Wildlife Laws": [ /* ... */ ],
+        "Vehicle Code – Division 1 through 5": [ /* ... */ ]
+      };
+      renderPenalCodeAccordion(fallback);
+    }
+  }
+
+  function renderPenalCodeAccordion(grouped) {
+    const container = document.getElementById('penalCodeAccordion');
+    container.innerHTML = Object.entries(grouped).map(([title, rows], idx) => `
+      <div class="border border-gray-700 rounded-lg overflow-hidden">
+        <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}"><span>${title}</span><i data-lucide="chevron-down" class="w-5 h-5"></i></div>
+        <div class="accordion-content" data-idx="${idx}"><div class="overflow-x-auto"><table class="data-table w-full"><thead> <th>Code</th><th>Offense</th><th>Level</th><th>Jail (months)</th><th>Fine</th> </thead><tbody>${rows.map(r => ` <tr><td>${r.Code || ''}</td><td>${r.Offense || ''}</td><td>${r.Level || ''}</td><td>${r.Jail || ''}</td><td>${r.Fine || ''}</td></tr>`).join('')}</tbody> </div></div>
+      </div>`).join('');
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const idx = header.dataset.idx;
+        const content = document.querySelector(`.accordion-content[data-idx="${idx}"]`);
+        content.classList.toggle('active');
+        const icon = header.querySelector('i');
+        if (icon) icon.setAttribute('data-lucide', content.classList.contains('active') ? 'chevron-up' : 'chevron-down');
+        lucide.createIcons();
+      });
+    });
+    lucide.createIcons();
+  }
+
+  // ============================================
+  // HOME PAGE (rest)
+  // ============================================
+  function renderHome() {
+    const homeDiv = document.getElementById('homeSection');
+    homeDiv.innerHTML = `
+      <div class="text-center mb-12"><h2 class="text-3xl font-bold text-white mb-2">San Junipero Department of Justice</h2><p class="text-gray-400 max-w-2xl mx-auto">Upholding justice, serving the community, and ensuring equal protection under the law.</p></div>
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        <div class="card p-6 text-center"><div class="text-3xl mb-2">📋</div><div class="text-2xl font-bold text-white" id="statCases">0</div><div class="text-gray-400">Active Cases</div></div>
+        <div class="card p-6 text-center"><div class="text-3xl mb-2">💍</div><div class="text-2xl font-bold text-white" id="statMarriages">0</div><div class="text-gray-400">Active Marriages</div></div>
+        <div class="card p-6 text-center"><div class="text-3xl mb-2">🏠</div><div class="text-2xl font-bold text-white" id="statProperties">0</div><div class="text-gray-400">Registered Properties</div></div>
+      </div>
+      <div class="card p-6 mb-12 bg-blue-900/30 border border-blue-700"><div class="flex items-center gap-3"><i data-lucide="info" class="w-6 h-6 text-blue-400"></i><div><h3 class="font-semibold text-lg">Start a New Filing</h3><p class="text-gray-300">Open a <strong class="text-blue-400">DOJ Assistance</strong> ticket on Discord. Briefly explain what you need, and a clerk will contact you within 24 hours to assist with filing.</p><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-2 text-blue-400 hover:text-blue-300">Open Discord Ticket →</a></div></div></div>
+      <div class="card p-6 mb-12 border-yellow-600/50"><div class="flex items-center gap-3"><i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-500"></i><div><h3 class="font-semibold text-lg">Whistleblower Information</h3><p class="text-gray-300">If you have a complaint about a DOJ member, open a <strong class="text-blue-400">DOJ Assistant</strong> ticket and mark it as "Confidential – DOJ Complaint". Your report will be handled discreetly by the Chief Justice.</p></div></div></div>
+      <div class="card p-6 mb-12"><div class="flex flex-col md:flex-row gap-6"><div class="md:w-1/4 flex justify-center items-center"><div class="w-40 h-40 bg-yellow-100 rounded-full flex items-center justify-center text-6xl font-bold text-[#e94560] shadow-lg">⚖️</div></div><div class="md:w-3/4"><div class="mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="target"></i> Our Mission</div><p class="text-gray-300">To provide a fair, efficient, and accessible justice system that upholds the rule of law, protects the rights of all citizens, and strengthens public trust through transparency and integrity.</p></div><div><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="heart"></i> Our Values</div><ul class="list-disc pl-5 text-gray-300"><li>Integrity – Acting with honesty and moral clarity</li><li>Fairness – Equal treatment for all</li><li>Transparency – Open records and clear processes</li><li>Service – Putting the community first</li></ul></div></div></div></div>
+      <div class="grid md:grid-cols-3 gap-6"><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="scale"></i> Quick Guide</div><p class="text-gray-400 mb-4">Essential information for citizens interacting with the DOJ.</p><button id="quickGuideBtn" class="btn-secondary py-2 px-4 rounded-lg">Read the Quick Guide →</button></div><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book-open"></i> Full Manual</div><p class="text-gray-400 mb-4">Complete DOJ Manual (PDF) including Penal Code and procedures.</p><button id="downloadManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Download PDF →</button></div><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="clipboard"></i> Bar Exam</div><p class="text-gray-400 mb-4">Take the official Bar Examination to become an attorney.</p><a href="https://sjrpbar.netlify.app/" target="_blank" class="btn-primary py-2 px-4 rounded-lg inline-block">Go to Bar Exam Site →</a></div></div>`;
+    document.getElementById('quickGuideBtn').addEventListener('click', () => document.getElementById('quickGuideModal').classList.remove('hidden'));
+    document.getElementById('downloadManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf', '_blank'));
+    updateHomeStats();
+    lucide.createIcons();
+  }
+
+  // ============================================
+  // CAREERS
+  // ============================================
+  function renderCareers() {
+    const careersDiv = document.getElementById('careersSection');
+    careersDiv.innerHTML = `<div class="card p-8 max-w-3xl mx-auto"><h2 class="text-2xl font-bold text-white mb-4">Join the Department of Justice</h2><p class="text-gray-300 mb-4">The San Junipero DOJ is always looking for dedicated individuals to serve as Clerks, Judges, Attorneys, and support staff.</p><div class="bg-gray-700/50 p-4 rounded-lg mb-6"><h3 class="text-lg font-semibold text-[#facc15] mb-2">How to Apply</h3><p class="text-gray-300">Submit a <strong class="text-blue-400">DOJ Assistance</strong> ticket in Discord with the subject "Job Application – [Position]". Include:</p><ul class="list-disc pl-5 mt-2 text-gray-300"><li>Your character name and Discord ID</li><li>Position you're applying for</li><li>A brief statement of interest and relevant experience (IC or OOC)</li><li>Your availability (days/times you can be active)</li></ul><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-4 btn-primary py-2 px-4 rounded-lg">Open DOJ Ticket on Discord</a></div></div>`;
+    lucide.createIcons();
+  }
+
+  <script>
+  // ============================================
+  // DASHBOARD FUNCTIONS (all roles, tasks, reports, etc.)
+  // ============================================
+
+  // Global state
+  let currentUser = null;
+  let userAvailability = {};
+  let pendingReports = [];
+  let chargedCases = [];
+  let dojNotifications = [];
+
+  // Mock data for dashboards (you can replace with API later)
+  const mockAssignedCases = [
+    { caseNo: "CIV-SC-03-2026-338", parties: "Thomas Anderson v. William Clark", status: "Pre-Trial", judge: "Judge Roberts", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" },
+    { caseNo: "FAM-P2-03-2026-208", parties: "Jessica White v. Kevin Harris", status: "Pre-Trial", judge: "Judge Chen", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" }
+  ];
+  const mockSchedule = [
+    { time: "10:00 AM", case: "CIV-SC-03-2026-338", room: "Courtroom A" },
+    { time: "2:00 PM", case: "FAM-P2-03-2026-208", room: "Courtroom B" }
+  ];
   const roleTasks = {
     clerk: [ { id:1, task:"Check Discord tickets", due:"Today", status:"pending" }, { id:2, task:"Process new filings", due:"Within 24h", status:"pending" }, { id:3, task:"Update daily docket by 9PM", due:"Today", status:"pending" }, { id:4, task:"Follow up on offline dues", due:"Weekly", status:"pending" } ],
     judge: [ { id:1, task:"Review assigned cases", due:"Today", status:"pending" }, { id:2, task:"Prepare rulings", due:"Today", status:"pending" }, { id:3, task:"Review new filings", due:"Today", status:"pending" } ],
@@ -133,42 +437,6 @@
     admin: [ { id:1, task:"Review user access requests", due:"Today", status:"pending" }, { id:2, task:"Run monthly audit", due:"End of week", status:"pending" } ],
     chief_justice: [ { id:1, task:"Review judicial conduct reports", due:"Today", status:"pending" }, { id:2, task:"Oversee case assignments", due:"Today", status:"pending" } ]
   };
-
-  const mockSchedule = [
-    { time: "10:00 AM", case: "CIV-SC-03-2026-338", room: "Courtroom A" },
-    { time: "2:00 PM", case: "FAM-P2-03-2026-208", room: "Courtroom B" }
-  ];
-  const mockAssignedCases = [
-    { caseNo: "CIV-SC-03-2026-338", parties: "Thomas Anderson v. William Clark", status: "Pre-Trial", judge: "Judge Roberts", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" },
-    { caseNo: "FAM-P2-03-2026-208", parties: "Jessica White v. Kevin Harris", status: "Pre-Trial", judge: "Judge Chen", url: "https://drive.google.com/file/d/1q9ILntWIP6PTWdp2tv9QP_xVMF_v6XTf/view?usp=drive_link" }
-  ];
-  let recusalQueue = [ { id: 1, caseId: "FAM-P2-03-2026-208", judge: "Judge Chen", reason: "Conflict of interest", status: "Pending" } ];
-  const offlineDuesSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1869397302#gid=1869397302";
-  const allFilingsSheetUrl = "https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=394849338#gid=394849338";
-  const usersSheetUrl = "https://docs.google.com/spreadsheets/d/13rXMZSkgeN0o0mHUAwnNs4ccm_nNuNJdbVvSl9UJjyQ/edit?gid=0#gid=0";
-  const discordTicketUrl = "https://discordapp.com/channels/1236403436199739525/1479222084952395776";
-
-  const users = {
-    "CLERK123": { name: "Clerk Johnson", role: "clerk", courtLevel: null },
-    "JUDGE123": { name: "Judge Roberts", role: "judge", courtLevel: "Superior" },
-    "ATTY123": { name: "Attorney Miller", role: "attorney", courtLevel: null },
-    "PD123": { name: "Public Defender Williams", role: "public_defender", courtLevel: null },
-    "DA123": { name: "DA Martinez", role: "district_attorney", courtLevel: null },
-    "POLICE123": { name: "Officer Davis", role: "police", courtLevel: null },
-    "BAILIFF123": { name: "Bailiff Davis", role: "bailiff", courtLevel: null },
-    "REPORTER123": { name: "Court Reporter Garcia", role: "reporter", courtLevel: null },
-    "ADMIN123": { name: "Master Clerk Wilson", role: "admin", courtLevel: null },
-    "CJ123": { name: "Chief Justice Taylor", role: "chief_justice", courtLevel: "Supreme" }
-  };
-
-  let dojNotifications = {
-    clerk: [], judge: [], attorney: [], public_defender: [], district_attorney: [], police: [], bailiff: [], reporter: [], admin: [], chief_justice: []
-  };
-  let pendingReports = [];
-  let chargedCases = [];
-
-  let currentUser = null;
-  let userAvailability = {};
 
   // Helper: two‑week pay period
   function getPayPeriodDates() {
@@ -196,487 +464,57 @@
   }
 
   // Notifications
-  function renderDojNotifications() {
-    const container = document.getElementById('dojNotificationsContainer');
-    if (!container) return;
-    const notifs = dojNotifications[currentUser?.role] || [];
-    if (notifs.length === 0) { container.innerHTML = '<div class="text-gray-400 text-sm">No internal notifications</div>'; return; }
-    container.innerHTML = notifs.slice(0,5).map(n => `<div class="flex justify-between items-start py-2 border-b border-gray-700 text-sm ${!n.read ? 'bg-gray-700/30' : ''}"><div>${n.message}</div><div class="text-xs text-gray-500">${new Date(n.timestamp).toLocaleTimeString()}</div></div>`).join('');
+  async function loadNotifications() {
+    try {
+      const result = await apiCall('getNotifications', { user_name: currentUser.name });
+      dojNotifications = result.notifications.map(n => ({ ...n, read: n.read === 'TRUE' }));
+      updateNotificationBadge();
+      renderNotificationPanel();
+    } catch (err) { console.error(err); }
+  }
+  function updateNotificationBadge() {
+    const unread = dojNotifications.filter(n => !n.read).length;
+    const badge = document.getElementById('notifBadge');
+    if (unread > 0) { badge.innerText = unread; badge.classList.remove('hidden'); }
+    else badge.classList.add('hidden');
+  }
+  function renderNotificationPanel() {
+    const list = document.getElementById('notifList');
+    if (!list) return;
+    if (dojNotifications.length === 0) list.innerHTML = '<div class="p-3 text-gray-400">No notifications</div>';
+    else {
+      list.innerHTML = dojNotifications.map(n => `
+        <div class="p-3 border-b border-gray-700 hover:bg-gray-700 cursor-pointer" data-id="${n.id}">
+          <div class="text-sm">${n.text}</div>
+          <div class="text-xs text-gray-500">${new Date(n.created_at).toLocaleTimeString()}</div>
+        </div>`).join('');
+      list.querySelectorAll('[data-id]').forEach(el => {
+        el.addEventListener('click', async () => {
+          const id = parseInt(el.dataset.id);
+          await apiCall('markNotificationRead', { id });
+          const notif = dojNotifications.find(n => n.id === id);
+          if (notif) notif.read = true;
+          updateNotificationBadge();
+        });
+      });
+    }
   }
   function addDojNotification(role, message) {
-    const notif = { id: Date.now(), message, read: false, timestamp: new Date().toISOString() };
-    if (dojNotifications[role]) dojNotifications[role].unshift(notif);
-    if (currentUser && currentUser.role === role) renderDojNotifications();
+    apiCall('sendMessage', { recipientNames: [role], message, sender: 'System' });
   }
 
-  // ============================================
-  // PUBLIC RECORDS (fully implemented)
-  // ============================================
-  function renderPublicRecords() {
-    const recordsDiv = document.getElementById('publicRecordsSection');
-    recordsDiv.innerHTML = `
-      <div class="card p-6">
-        <div class="flex gap-4 border-b border-gray-700 mb-4 flex-wrap">
-          <button class="tab-btn active" data-tab="marriage">Marriage Registry</button>
-          <button class="tab-btn" data-tab="property">Property Registry</button>
-          <button class="tab-btn" data-tab="cases">Case Docket</button>
-          <button class="tab-btn" data-tab="professional">Professional Registry</button>
-        </div>
-        <div class="mb-4"><input type="text" id="searchInput" placeholder="Search..." class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
-        <div id="marriageTab" class="tab-content active"><div class="overflow-x-auto"><table class="data-table"><thead><th>Certificate #</th><th>Spouse 1</th><th>Spouse 2</th><th>Date</th><th>Officiant</th></thead><tbody id="marriageTableBody"></tbody>    </table></div></div>
-        <div id="propertyTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Deed #</th><th>Type</th><th>Grantor</th><th>Grantee</th><th>Date</th></thead><tbody id="propertyTableBody"></tbody>    </table></div></div>
-        <div id="casesTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Case #</th><th>Type</th><th>Plaintiff</th><th>Defendant</th><th>Judge</th><th>Filed Date</th><th>Status</th></thead><tbody id="casesTableBody"></tbody>    </table></div></div>
-        <div id="professionalTab" class="tab-content hidden"><div class="overflow-x-auto"><table class="data-table"><thead><th>Entity</th><th>Type</th><th>Owner</th><th>License #</th><th>Expires</th><th>Status</th></thead><tbody id="professionalTableBody"></tbody>    </table></div></div>
-      </div>`;
-    updatePublicTables('');
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', (e) => updatePublicTables(e.target.value.toLowerCase()));
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => {
-      const tab = btn.dataset.tab;
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      document.getElementById(`${tab}Tab`).classList.add('active');
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      updatePublicTables(searchInput.value.toLowerCase());
-    }));
-    lucide.createIcons();
+  // Availability
+  async function loadUserAvailability() {
+    const { start, end } = getPayPeriodDates();
+    const result = await apiCall('getUserAvailability', { user_name: currentUser.name, startDate: start.toISOString().slice(0,10), endDate: end.toISOString().slice(0,10) });
+    if (!userAvailability[currentUser.name]) userAvailability[currentUser.name] = {};
+    userAvailability[currentUser.name] = result.availability;
+  }
+  async function saveUserAvailability(availabilityList) {
+    await apiCall('saveUserAvailability', { user_name: currentUser.name, availabilityList });
   }
 
-  function updatePublicTables(searchTerm) {
-    const term = searchTerm.toLowerCase();
-    const activeTab = document.querySelector('.tab-content.active').id;
-    if (activeTab === 'marriageTab') {
-      const filtered = mockMarriages.filter(m => m.cert.toLowerCase().includes(term) || m.spouse1.toLowerCase().includes(term) || m.spouse2.toLowerCase().includes(term) || m.date.includes(term) || m.officiant.toLowerCase().includes(term));
-      document.getElementById('marriageTableBody').innerHTML = filtered.map(m => `<tr><td>${m.cert}</td><td>${m.spouse1}</td><td>${m.spouse2}</td><td>${m.date}</td><td>${m.officiant}</td></tr>`).join('');
-    } else if (activeTab === 'propertyTab') {
-      const filtered = mockProperties.filter(p => p.deed.toLowerCase().includes(term) || p.type.toLowerCase().includes(term) || p.grantor.toLowerCase().includes(term) || p.grantee.toLowerCase().includes(term) || p.date.includes(term));
-      document.getElementById('propertyTableBody').innerHTML = filtered.map(p => `<tr><td>${p.deed}</td><td>${p.type}</td><td>${p.grantor}</td><td>${p.grantee}</td><td>${p.date}</td></tr>`).join('');
-    } else if (activeTab === 'casesTab') {
-      const filtered = mockCases.filter(c => c.caseNo.toLowerCase().includes(term) || c.type.toLowerCase().includes(term) || c.plaintiff.toLowerCase().includes(term) || c.defendant.toLowerCase().includes(term) || c.status.toLowerCase().includes(term) || c.judge.toLowerCase().includes(term) || c.filedDate.includes(term));
-      document.getElementById('casesTableBody').innerHTML = filtered.map(c => `<tr><td>${c.caseNo}</td><td>${c.type}</td><td>${c.plaintiff}</td><td>${c.defendant}</td><td>${c.judge}</td><td>${c.filedDate}</td><td>${c.status}</td></tr>`).join('');
-    } else if (activeTab === 'professionalTab') {
-      const filtered = mockProfessional.filter(p => p.entity.toLowerCase().includes(term) || p.type.toLowerCase().includes(term) || p.owner.toLowerCase().includes(term) || p.license.toLowerCase().includes(term) || p.expires.includes(term) || p.status.toLowerCase().includes(term));
-      document.getElementById('professionalTableBody').innerHTML = filtered.map(p => `<tr><td>${p.entity}</td><td>${p.type}</td><td>${p.owner}</td><td>${p.license}</td><td>${p.expires}</td><td class="${p.status==='Active'?'text-green-400':'text-red-400'}">${p.status}</td></tr>`).join('');
-    }
-  }
-
-  // ============================================
-  // PENAL CODE (accordion)
-  // ============================================
-  function renderPenalCode() {
-    const penalDiv = document.getElementById('penalCodeSection');
-    penalDiv.innerHTML = `
-      <div class="card p-6">
-        <h2 class="text-2xl font-bold text-white mb-4">San Andreas Penal Code</h2>
-        <p class="text-gray-300 mb-4">The complete Penal Code is available in the DOJ Manual. Below is a categorized summary.</p>
-        <div class="flex gap-4 mb-6">
-          <a href="https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf" target="_blank" class="btn-primary py-2 px-4 rounded-lg">Download Manual (PDF)</a>
-          <button id="openManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Full Manual in New Tab</button>
-        </div>
-        <div class="space-y-2 penal-code-table" id="penalCodeAccordion"></div>
-      </div>`;
-    document.getElementById('openManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/edit?usp=sharing', '_blank'));
-    const titles = [
-      { title: "Title 1 - Crimes Against the Person", rows: [ ["(1)01","Murder, First Degree","Felony","100","$75,000"], ["(1)03","Murder, Second Degree","Felony","50","$40,000"], ["(1)05","Attempted Murder","Felony","40","$19,000"] ] },
-      { title: "Title 2 - Crimes Against Property", rows: [ ["(2)01","Robbery","Felony","25","$10,000"], ["(2)13","Grand Theft Auto","Felony","20","$10,000"], ["(2)23","Larceny","Misdemeanor","5","$2,000"] ] },
-      { title: "Title 6 - Offenses Against Public Order", rows: [ ["(6)01","Evading Arrest","Felony","20","$14,000"], ["(6)29","Jaywalking","Infraction","-","$1,000"] ] },
-      { title: "Title 7 - Offenses Against Public Health", rows: [ ["(7)13","DUI","Misdemeanor","15","$4,000"] ] }
-    ];
-    const container = document.getElementById('penalCodeAccordion');
-    container.innerHTML = titles.map((t, idx) => `
-      <div class="border border-gray-700 rounded-lg overflow-hidden">
-        <div class="accordion-header bg-gray-800 p-3 font-semibold flex justify-between items-center" data-idx="${idx}"><span>${t.title}</span><i data-lucide="chevron-down" class="w-5 h-5"></i></div>
-        <div class="accordion-content" data-idx="${idx}"><div class="overflow-x-auto"><table class="data-table w-full"><thead><tr><th>Code</th><th>Offense</th><th>Level</th><th>Jail (months)</th><th>Fine</th></tr></thead><tbody>${t.rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>
-      </div>`).join('');
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const idx = header.dataset.idx;
-        const content = document.querySelector(`.accordion-content[data-idx="${idx}"]`);
-        content.classList.toggle('active');
-        const icon = header.querySelector('i');
-        if (icon) icon.setAttribute('data-lucide', content.classList.contains('active') ? 'chevron-up' : 'chevron-down');
-        lucide.createIcons();
-      });
-    });
-    lucide.createIcons();
-  }
-
-  // ============================================
-  // HOME PAGE
-  // ============================================
-  function renderHome() {
-    const homeDiv = document.getElementById('homeSection');
-    homeDiv.innerHTML = `
-      <div class="text-center mb-12"><h2 class="text-3xl font-bold text-white mb-2">San Junipero Department of Justice</h2><p class="text-gray-400 max-w-2xl mx-auto">Upholding justice, serving the community, and ensuring equal protection under the law.</p></div>
-      <div class="grid md:grid-cols-3 gap-6 mb-12"><div class="card p-6 text-center"><div class="text-3xl mb-2">📋</div><div class="text-2xl font-bold text-white">${mockStats.activeCases}</div><div class="text-gray-400">Active Cases</div></div><div class="card p-6 text-center"><div class="text-3xl mb-2">💍</div><div class="text-2xl font-bold text-white">${mockStats.activeMarriages}</div><div class="text-gray-400">Active Marriages</div></div><div class="card p-6 text-center"><div class="text-3xl mb-2">🏠</div><div class="text-2xl font-bold text-white">${mockStats.registeredProperties}</div><div class="text-gray-400">Registered Properties</div></div></div>
-      <div class="card p-6 mb-12 bg-blue-900/30 border border-blue-700"><div class="flex items-center gap-3"><i data-lucide="info" class="w-6 h-6 text-blue-400"></i><div><h3 class="font-semibold text-lg">Start a New Filing</h3><p class="text-gray-300">Open a <strong class="text-blue-400">DOJ Assistance</strong> ticket on Discord. Briefly explain what you need, and a clerk will contact you within 24 hours to assist with filing.</p><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-2 text-blue-400 hover:text-blue-300">Open Discord Ticket →</a></div></div></div>
-      <div class="card p-6 mb-12 border-yellow-600/50"><div class="flex items-center gap-3"><i data-lucide="alert-triangle" class="w-6 h-6 text-yellow-500"></i><div><h3 class="font-semibold text-lg">Whistleblower Information</h3><p class="text-gray-300">If you have a complaint about a DOJ member, open a <strong class="text-blue-400">DOJ Assistant</strong> ticket and mark it as "Confidential – DOJ Complaint". Your report will be handled discreetly by the Chief Justice.</p></div></div></div>
-      <div class="card p-6 mb-12"><div class="flex flex-col md:flex-row gap-6"><div class="md:w-1/4 flex justify-center items-center"><div class="w-40 h-40 bg-yellow-100 rounded-full flex items-center justify-center text-6xl font-bold text-[#e94560] shadow-lg">⚖️</div></div><div class="md:w-3/4"><div class="mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="target"></i> Our Mission</div><p class="text-gray-300">To provide a fair, efficient, and accessible justice system that upholds the rule of law, protects the rights of all citizens, and strengthens public trust through transparency and integrity.</p></div><div><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="heart"></i> Our Values</div><ul class="list-disc pl-5 text-gray-300"><li>Integrity – Acting with honesty and moral clarity</li><li>Fairness – Equal treatment for all</li><li>Transparency – Open records and clear processes</li><li>Service – Putting the community first</li></ul></div></div></div></div>
-      <div class="grid md:grid-cols-3 gap-6"><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="scale"></i> Quick Guide</div><p class="text-gray-400 mb-4">Essential information for citizens interacting with the DOJ.</p><button id="quickGuideBtn" class="btn-secondary py-2 px-4 rounded-lg">Read the Quick Guide →</button></div><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book-open"></i> Full Manual</div><p class="text-gray-400 mb-4">Complete DOJ Manual (PDF) including Penal Code and procedures.</p><button id="downloadManualBtn" class="btn-secondary py-2 px-4 rounded-lg">Download PDF →</button></div><div class="card p-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="clipboard"></i> Bar Exam</div><p class="text-gray-400 mb-4">Take the official Bar Examination to become an attorney.</p><a href="https://sjrpbar.netlify.app/" target="_blank" class="btn-primary py-2 px-4 rounded-lg inline-block">Go to Bar Exam Site →</a></div></div>`;
-    document.getElementById('quickGuideBtn').addEventListener('click', () => document.getElementById('quickGuideModal').classList.remove('hidden'));
-    document.getElementById('downloadManualBtn').addEventListener('click', () => window.open('https://docs.google.com/document/d/1d8A8j_Yl-hikWGq3_rYCCcvVir5sEfvY73NuRt7XEM0/export?format=pdf', '_blank'));
-    lucide.createIcons();
-  }
-
-  // ============================================
-  // CAREERS
-  // ============================================
-  function renderCareers() {
-    const careersDiv = document.getElementById('careersSection');
-    careersDiv.innerHTML = `<div class="card p-8 max-w-3xl mx-auto"><h2 class="text-2xl font-bold text-white mb-4">Join the Department of Justice</h2><p class="text-gray-300 mb-4">The San Junipero DOJ is always looking for dedicated individuals to serve as Clerks, Judges, Attorneys, and support staff.</p><div class="bg-gray-700/50 p-4 rounded-lg mb-6"><h3 class="text-lg font-semibold text-[#facc15] mb-2">How to Apply</h3><p class="text-gray-300">Submit a <strong class="text-blue-400">DOJ Assistance</strong> ticket in Discord with the subject "Job Application – [Position]". Include:</p><ul class="list-disc pl-5 mt-2 text-gray-300"><li>Your character name and Discord ID</li><li>Position you're applying for</li><li>A brief statement of interest and relevant experience (IC or OOC)</li><li>Your availability (days/times you can be active)</li></ul><a href="${discordTicketUrl}" target="_blank" class="inline-block mt-4 btn-primary py-2 px-4 rounded-lg">Open DOJ Ticket on Discord</a></div></div>`;
-    lucide.createIcons();
-  }
-
-  // ============================================
-  // MODAL FORMS (multiple charges, case number)
-  // ============================================
-  function showModal(contentHtml) {
-    const modal = document.getElementById('globalModal');
-    const modalContent = document.getElementById('modalContent');
-    modalContent.innerHTML = contentHtml;
-    modal.classList.remove('hidden');
-    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal('globalModal'); });
-  }
-  function closeModal(modalId) {
-    document.getElementById(modalId).classList.add('hidden');
-  }
-
-  function addChargeRow(containerId, chargeCodeVal = '', chargeDescVal = '') {
-    const container = document.getElementById(containerId);
-    const row = document.createElement('div');
-    row.className = 'charge-row flex gap-2 mb-2';
-    row.innerHTML = `
-      <select class="chargeCode w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <option value="">Select Penal Code</option>
-        <option value="(1)01" ${chargeCodeVal === '(1)01' ? 'selected' : ''}>(1)01 Murder, First Degree</option>
-        <option value="(2)01" ${chargeCodeVal === '(2)01' ? 'selected' : ''}>(2)01 Robbery</option>
-        <option value="(2)13" ${chargeCodeVal === '(2)13' ? 'selected' : ''}>(2)13 Grand Theft Auto</option>
-      </select>
-      <textarea placeholder="Description" class="chargeDesc w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="1">${chargeDescVal}</textarea>
-      <button type="button" class="remove-charge text-red-400 hover:text-red-300">✖</button>
-    `;
-    container.appendChild(row);
-    row.querySelector('.remove-charge').addEventListener('click', () => row.remove());
-  }
-
-  function showPoliceReportForm() {
-    showModal(`
-      <h3 class="text-xl font-bold mb-4 text-white">File Criminal Report (Police)</h3>
-      <div class="space-y-3 max-h-[60vh] overflow-y-auto">
-        <input type="text" id="defendant" placeholder="Defendant Name" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <input type="text" id="caseNo" placeholder="Case # (if known)" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <div id="chargesContainer" class="space-y-2"></div>
-        <button type="button" id="addChargeBtn" class="btn-secondary text-sm py-1 px-2 rounded-lg">+ Add Another Charge</button>
-        <div class="border-t border-gray-600 pt-2 mt-2">
-          <p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p>
-          <input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly>
-          <p class="text-xs text-gray-500 mt-1">Bail per charge: Murder $100k, Robbery $50k, GTA $25k, other $25k.</p>
-        </div>
-        <input type="url" id="bodycamUrl" placeholder="Body Camera Footage URL" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <div class="flex gap-2 mt-2">
-          <button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button>
-          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
-        </div>
-      </div>
-    `);
-    const chargesContainer = document.getElementById('chargesContainer');
-    const addBtn = document.getElementById('addChargeBtn');
-    const bailTotalInput = document.getElementById('bailTotal');
-    function updateBail() {
-      let total = 0;
-      document.querySelectorAll('.charge-row').forEach(row => {
-        const codeSelect = row.querySelector('.chargeCode');
-        const code = codeSelect ? codeSelect.value : '';
-        if (code.includes('Murder')) total += 100000;
-        else if (code.includes('Robbery')) total += 50000;
-        else if (code.includes('Grand Theft Auto')) total += 25000;
-        else if (code) total += 25000;
-      });
-      bailTotalInput.value = total;
-    }
-    addChargeRow('chargesContainer');
-    chargesContainer.querySelector('.charge-row .chargeCode').addEventListener('change', updateBail);
-    addBtn.addEventListener('click', () => {
-      addChargeRow('chargesContainer');
-      const newRow = chargesContainer.lastElementChild;
-      newRow.querySelector('.chargeCode').addEventListener('change', updateBail);
-      updateBail();
-    });
-    document.getElementById('submitReport').addEventListener('click', () => {
-      const defendant = document.getElementById('defendant').value;
-      const caseNo = document.getElementById('caseNo').value;
-      const charges = [];
-      document.querySelectorAll('.charge-row').forEach(row => {
-        const code = row.querySelector('.chargeCode').value;
-        const desc = row.querySelector('.chargeDesc').value;
-        if (code) charges.push({ code, description: desc || 'No details' });
-      });
-      const bailTotal = parseInt(bailTotalInput.value) || 0;
-      const bodycam = document.getElementById('bodycamUrl').value;
-      if (!defendant || charges.length === 0) {
-        alert('Please fill defendant name and at least one charge');
-        return;
-      }
-      const report = {
-        id: Date.now(),
-        type: 'police',
-        defendant,
-        caseNo,
-        charges,
-        bailTotal,
-        bodycam,
-        submittedBy: currentUser.name,
-        timestamp: new Date().toISOString(),
-        status: 'pending'
-      };
-      pendingReports.push(report);
-      addDojNotification('district_attorney', `New police report for ${defendant} (${charges.length} charges, bail $${bailTotal})`);
-      alert('Report submitted to DA for review.');
-      closeModal('globalModal');
-    });
-  }
-
-  function showPDReportForm() {
-    showModal(`
-      <h3 class="text-xl font-bold mb-4 text-white">Submit Criminal Report to DA (Public Defender)</h3>
-      <div class="space-y-3 max-h-[60vh] overflow-y-auto">
-        <input type="text" id="defendant" placeholder="Defendant Name" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <input type="text" id="caseNo" placeholder="Case # (if known)" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-        <div id="chargesContainer" class="space-y-2"></div>
-        <button type="button" id="addChargeBtn" class="btn-secondary text-sm py-1 px-2 rounded-lg">+ Add Another Charge</button>
-        <div class="border-t border-gray-600 pt-2 mt-2">
-          <p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p>
-          <input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly>
-        </div>
-        <div class="flex gap-2 mt-2">
-          <button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button>
-          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
-        </div>
-      </div>
-    `);
-    const chargesContainer = document.getElementById('chargesContainer');
-    const addBtn = document.getElementById('addChargeBtn');
-    const bailTotalInput = document.getElementById('bailTotal');
-    function updateBail() {
-      let total = 0;
-      document.querySelectorAll('.charge-row').forEach(row => {
-        const codeSelect = row.querySelector('.chargeCode');
-        const code = codeSelect ? codeSelect.value : '';
-        if (code.includes('Murder')) total += 100000;
-        else if (code.includes('Robbery')) total += 50000;
-        else if (code.includes('Grand Theft Auto')) total += 25000;
-        else if (code) total += 25000;
-      });
-      bailTotalInput.value = total;
-    }
-    addChargeRow('chargesContainer');
-    chargesContainer.querySelector('.charge-row .chargeCode').addEventListener('change', updateBail);
-    addBtn.addEventListener('click', () => {
-      addChargeRow('chargesContainer');
-      const newRow = chargesContainer.lastElementChild;
-      newRow.querySelector('.chargeCode').addEventListener('change', updateBail);
-      updateBail();
-    });
-    document.getElementById('submitReport').addEventListener('click', () => {
-      const defendant = document.getElementById('defendant').value;
-      const caseNo = document.getElementById('caseNo').value;
-      const charges = [];
-      document.querySelectorAll('.charge-row').forEach(row => {
-        const code = row.querySelector('.chargeCode').value;
-        const desc = row.querySelector('.chargeDesc').value;
-        if (code) charges.push({ code, description: desc || 'No details' });
-      });
-      const bailTotal = parseInt(bailTotalInput.value) || 0;
-      if (!defendant || charges.length === 0) {
-        alert('Please fill defendant name and at least one charge');
-        return;
-      }
-      const report = {
-        id: Date.now(),
-        type: 'pd',
-        defendant,
-        caseNo,
-        charges,
-        bailTotal,
-        submittedBy: currentUser.name,
-        timestamp: new Date().toISOString(),
-        status: 'pending'
-      };
-      pendingReports.push(report);
-      addDojNotification('district_attorney', `New PD report for ${defendant} (${charges.length} charges, bail $${bailTotal})`);
-      alert('Report submitted to DA for review.');
-      closeModal('globalModal');
-    });
-  }
-
-  // ============================================
-  // DA DASHBOARD
-  // ============================================
-  function renderDADashboard() {
-    const pendingHtml = pendingReports.length === 0 ? '<div class="text-gray-400">No pending reports</div>' : pendingReports.map(r => `
-      <div class="border border-gray-700 rounded p-3 mb-2" data-id="${r.id}">
-        <div class="flex justify-between">
-          <div><strong>${r.defendant}</strong> (${r.type.toUpperCase()})</div>
-          <div>Bail: $${r.bailTotal}</div>
-        </div>
-        <div class="text-sm text-gray-400">Charges: ${r.charges.map(c => c.code).join(', ')}</div>
-        <div class="text-xs text-gray-500">Submitted by ${r.submittedBy} on ${new Date(r.timestamp).toLocaleString()}</div>
-        <div class="flex gap-2 mt-2">
-          <button class="btn-primary text-sm py-1 px-2 rounded approve-report" data-id="${r.id}">Approve & File Charges</button>
-          <button class="btn-secondary text-sm py-1 px-2 rounded edit-report" data-id="${r.id}">Edit</button>
-          <button class="btn-secondary text-sm py-1 px-2 rounded deny-report" data-id="${r.id}">Deny</button>
-        </div>
-      </div>
-    `).join('');
-    const chargedHtml = chargedCases.length === 0 ? '<div class="text-gray-400">No charged cases yet</div>' : chargedCases.map(c => `
-      <div class="border border-green-700 rounded p-3 mb-2">
-        <div><strong>${c.defendant}</strong> (Case #: ${c.caseNo || 'TBD'})</div>
-        <div>Charges: ${c.charges.map(ch => ch.code).join(', ')}</div>
-        <div>Bail: $${c.bailTotal}</div>
-        <div class="text-xs text-gray-500">Approved by ${c.approvedBy} on ${new Date(c.approvedAt).toLocaleString()}</div>
-      </div>
-    `).join('');
-    return `
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card p-6">
-          <h3 class="text-lg font-semibold text-[#facc15] mb-3">Pending Reports</h3>
-          <div id="pendingReportsList" class="max-h-96 overflow-y-auto">${pendingHtml}</div>
-        </div>
-        <div class="card p-6">
-          <h3 class="text-lg font-semibold text-[#facc15] mb-3">Charged Cases</h3>
-          <div id="chargedCasesList" class="max-h-96 overflow-y-auto">${chargedHtml}</div>
-        </div>
-      </div>
-      <div class="card p-6 mt-6">
-        <div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="message-square"></i> Communications</div>
-        <button id="sendToPoliceBtn" class="btn-secondary py-2 px-4 rounded-lg">Send Message to Police</button>
-      </div>
-    `;
-  }
-
-  function attachDAEventListeners() {
-    document.querySelectorAll('.approve-report').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(e.currentTarget.dataset.id);
-        const report = pendingReports.find(r => r.id === id);
-        if (report) {
-          const charged = {
-            ...report,
-            approvedBy: currentUser.name,
-            approvedAt: new Date().toISOString(),
-            caseNo: report.caseNo || `CRI-${Math.floor(Math.random()*1000)}`
-          };
-          chargedCases.push(charged);
-          const index = pendingReports.findIndex(r => r.id === id);
-          pendingReports.splice(index, 1);
-          addDojNotification('clerk', `DA filed charges for ${charged.defendant} (Case #${charged.caseNo})`);
-          renderDashboardByRole();
-        }
-      });
-    });
-    document.querySelectorAll('.deny-report').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(e.currentTarget.dataset.id);
-        const index = pendingReports.findIndex(r => r.id === id);
-        if (index !== -1) {
-          pendingReports.splice(index, 1);
-          renderDashboardByRole();
-        }
-      });
-    });
-    document.querySelectorAll('.edit-report').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(e.currentTarget.dataset.id);
-        const report = pendingReports.find(r => r.id === id);
-        if (report) {
-          alert(`Edit report for ${report.defendant}\nCharges: ${report.charges.map(c => c.code).join(', ')}\nBail: $${report.bailTotal}\nYou can manually edit the report array via console for now.`);
-        }
-      });
-    });
-    document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
-  }
-
-  // ============================================
-  // COMMUNICATION MODAL (with recipient selection)
-  // ============================================
-  function getUsersByRole(role) {
-    return Object.values(users).filter(u => u.role === role).map(u => u.name);
-  }
-
-  function showCommunicationModal(targetRole, targetLabel) {
-    const usersList = getUsersByRole(targetRole);
-    let recipientOptions = '';
-    if (usersList.length > 1) {
-      recipientOptions = `<option value="all">All ${targetLabel}</option>` + usersList.map(name => `<option value="${name}">${name}</option>`).join('');
-    } else if (usersList.length === 1) {
-      recipientOptions = `<option value="${usersList[0]}">${usersList[0]}</option>`;
-    } else {
-      recipientOptions = `<option value="${targetRole}">All ${targetLabel}</option>`;
-    }
-
-    const modalContent = `
-      <h3 class="text-xl font-bold mb-4 text-white">Send Message to ${targetLabel}</h3>
-      <div class="space-y-3">
-        <div>
-          <label class="block text-gray-300 mb-1">To:</label>
-          <select id="recipientSelect" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
-            ${recipientOptions}
-          </select>
-        </div>
-        <div>
-          <label class="block text-gray-300 mb-1">Subject (optional):</label>
-          <input type="text" id="messageSubject" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" placeholder="Subject">
-        </div>
-        <div>
-          <label class="block text-gray-300 mb-1">Message:</label>
-          <textarea id="messageBody" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="4" placeholder="Type your message..."></textarea>
-        </div>
-        <div class="flex gap-2 mt-2">
-          <button id="sendMessageBtn" class="btn-primary py-2 px-4 rounded-lg">Send</button>
-          <button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button>
-        </div>
-      </div>
-    `;
-    showModal(modalContent);
-    document.getElementById('sendMessageBtn').addEventListener('click', () => {
-      const recipientValue = document.getElementById('recipientSelect').value;
-      const subject = document.getElementById('messageSubject').value;
-      const body = document.getElementById('messageBody').value;
-      if (!body) {
-        alert('Please enter a message.');
-        return;
-      }
-      const fullMessage = subject ? `[${subject}] ${body}` : body;
-
-      if (recipientValue === 'all' || recipientValue === targetRole) {
-        addDojNotification(targetRole, `Message from ${currentUser.name}: ${fullMessage}`);
-        alert(`Message sent to all ${targetLabel}.`);
-      } else {
-        const targetUser = Object.values(users).find(u => u.name === recipientValue);
-        if (targetUser) {
-          addDojNotification(targetUser.role, `Message from ${currentUser.name} (to ${recipientValue}): ${fullMessage}`);
-          alert(`Message sent to ${recipientValue}.`);
-        } else {
-          addDojNotification(targetRole, `Message from ${currentUser.name}: ${fullMessage}`);
-          alert(`Message sent to ${targetLabel}.`);
-        }
-      }
-      closeModal('globalModal');
-    });
-  }
-
-  // ============================================
-  // OTHER MODALS
-  // ============================================
-  function showRecusalForm() { alert('Recusal request form (mock)'); }
-  function showSentencingForm() { alert('Sentencing form (mock)'); }
-  function showOfficialLetterForm() { alert('Official letter form (mock)'); }
-  function showTrustWithdrawalForm() { alert('Trust withdrawal form (mock)'); }
-  function showTrustDepositForm() { alert('Trust deposit form (mock)'); }
-
-  // ============================================
-  // SCHEDULING
-  // ============================================
+  // Scheduling UI
   function renderScheduling() {
     const { week1, week2 } = getTwoWeekCalendar();
     const avail = userAvailability[currentUser?.name] || {};
@@ -695,41 +533,194 @@
     const avail = userAvailability[currentUser.name] || {};
     const options = ['Morning', 'Afternoon', 'Evening', 'All Day', 'Not Available'];
     showModal(`<h3 class="text-xl font-bold mb-4 text-white">Update Availability</h3><div class="space-y-2 max-h-64 overflow-y-auto">${allDays.map(d => `<div class="flex items-center gap-2"><div class="w-24 text-gray-300">${d.label}</div><select id="avail_${d.dateStr}" class="flex-1 p-1 bg-gray-700 border border-gray-600 rounded text-white">${options.map(opt => `<option ${avail[d.dateStr] === opt ? 'selected' : ''}>${opt}</option>`).join('')}</select></div>`).join('')}</div><div class="flex gap-2 mt-4"><button id="saveAvailability" class="btn-primary py-2 px-4 rounded-lg">Save</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>`);
-    document.getElementById('saveAvailability').addEventListener('click', () => {
-      allDays.forEach(d => { const select = document.getElementById(`avail_${d.dateStr}`); userAvailability[currentUser.name][d.dateStr] = select.value; });
+    document.getElementById('saveAvailability').addEventListener('click', async () => {
+      const availabilityList = allDays.map(d => ({ date: d.dateStr, availability: document.getElementById(`avail_${d.dateStr}`).value }));
+      await saveUserAvailability(availabilityList);
       alert('Availability saved');
       closeModal('globalModal');
       renderDashboardByRole();
     });
   }
 
-  // ============================================
-  // TRAINING MODAL
-  // ============================================
+  // Communication modal
+  function showCommunicationModal(targetRole, targetLabel) {
+    showModal(`
+      <h3 class="text-xl font-bold mb-4 text-white">Send Message to ${targetLabel}</h3>
+      <div class="space-y-3">
+        <div><label class="block text-gray-300 mb-1">To:</label><input type="text" id="recipientInput" placeholder="Enter name (or 'all')" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"></div>
+        <div><label class="block text-gray-300 mb-1">Subject (optional):</label><input type="text" id="messageSubject" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" placeholder="Subject"></div>
+        <div><label class="block text-gray-300 mb-1">Message:</label><textarea id="messageBody" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="4" placeholder="Type your message..."></textarea></div>
+        <div class="flex gap-2 mt-2"><button id="sendMessageBtn" class="btn-primary py-2 px-4 rounded-lg">Send</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>
+      </div>`);
+    document.getElementById('sendMessageBtn').addEventListener('click', async () => {
+      const recipient = document.getElementById('recipientInput').value.trim();
+      const subject = document.getElementById('messageSubject').value;
+      const body = document.getElementById('messageBody').value;
+      if (!body) { alert('Please enter a message.'); return; }
+      const fullMessage = subject ? `[${subject}] ${body}` : body;
+      if (recipient.toLowerCase() === 'all') {
+        await apiCall('sendMessage', { recipientNames: [targetRole], message: fullMessage, sender: currentUser.name });
+        alert(`Message sent to all ${targetLabel}.`);
+      } else {
+        await apiCall('sendMessage', { recipientNames: [recipient], message: fullMessage, sender: currentUser.name });
+        alert(`Message sent to ${recipient}.`);
+      }
+      closeModal('globalModal');
+    });
+  }
+
+  // Training modal
   function showTrainingModal(role) {
     const modal = document.getElementById('trainingModal');
     const title = document.getElementById('trainingModalTitle');
     const content = document.getElementById('trainingModalContent');
     title.innerText = `${role.charAt(0).toUpperCase() + role.slice(1)} Training`;
     content.innerHTML = `
-      <div class="mb-4">
-        <iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <div class="prose max-w-none text-gray-300">
-        <p>This is the training guide for ${role}. It covers essential duties, procedures, and best practices.</p>
-        <ul class="list-disc pl-5 mt-2">
-          <li>Role-specific responsibility overview</li>
-          <li>How to use the DOJ Portal for this role</li>
-          <li>Common workflows and tasks</li>
-          <li>Where to find additional help</li>
-        </ul>
-      </div>
-    `;
+      <div class="mb-4"><iframe class="w-full h-64" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&loop=0" frameborder="0" allowfullscreen></iframe></div>
+      <div class="prose max-w-none text-gray-300"><p>This is the training guide for ${role}. It covers essential duties, procedures, and best practices.</p><ul class="list-disc pl-5 mt-2"><li>Role-specific responsibility overview</li><li>How to use the DOJ Portal for this role</li><li>Common workflows and tasks</li><li>Where to find additional help</li></ul></div>`;
     modal.classList.remove('hidden');
   }
 
+  // Report forms (police/PD)
+  function addChargeRow(containerId) {
+    const container = document.getElementById(containerId);
+    const row = document.createElement('div');
+    row.className = 'charge-row flex gap-2 mb-2';
+    row.innerHTML = `
+      <select class="chargeCode w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white"><option value="">Select Penal Code</option><option value="(1)01">(1)01 Murder, First Degree</option><option value="(2)01">(2)01 Robbery</option><option value="(2)13">(2)13 Grand Theft Auto</option></select>
+      <textarea placeholder="Description" class="chargeDesc w-1/2 p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" rows="1"></textarea>
+      <button type="button" class="remove-charge text-red-400 hover:text-red-300">✖</button>`;
+    container.appendChild(row);
+    row.querySelector('.remove-charge').addEventListener('click', () => row.remove());
+    updateReportBail();
+  }
+  function updateReportBail() {
+    let total = 0;
+    document.querySelectorAll('.charge-row').forEach(row => {
+      const code = row.querySelector('.chargeCode').value;
+      if (code.includes('Murder')) total += 100000;
+      else if (code.includes('Robbery')) total += 50000;
+      else if (code.includes('Grand Theft Auto')) total += 25000;
+      else if (code) total += 25000;
+    });
+    const bailInput = document.getElementById('bailTotal');
+    if (bailInput) bailInput.value = total;
+  }
+  function showPoliceReportForm() {
+    showModal(`
+      <h3 class="text-xl font-bold mb-4 text-white">File Criminal Report (Police)</h3>
+      <div class="space-y-3 max-h-[60vh] overflow-y-auto">
+        <input type="text" id="defendant" placeholder="Defendant Name" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        <input type="text" id="caseNo" placeholder="Case # (if known)" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        <div id="chargesContainer" class="space-y-2"></div>
+        <button type="button" id="addChargeBtn" class="btn-secondary text-sm py-1 px-2 rounded-lg">+ Add Another Charge</button>
+        <div class="border-t border-gray-600 pt-2 mt-2"><p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p><input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly></div>
+        <input type="url" id="bodycamUrl" placeholder="Body Camera Footage URL" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        <div class="flex gap-2 mt-2"><button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>
+      </div>`);
+    const container = document.getElementById('chargesContainer');
+    const addBtn = document.getElementById('addChargeBtn');
+    addChargeRow('chargesContainer');
+    addBtn.addEventListener('click', () => { addChargeRow('chargesContainer'); updateReportBail(); });
+    document.getElementById('submitReport').addEventListener('click', async () => {
+      const defendant = document.getElementById('defendant').value;
+      const caseNo = document.getElementById('caseNo').value;
+      const charges = [];
+      document.querySelectorAll('.charge-row').forEach(row => {
+        const code = row.querySelector('.chargeCode').value;
+        const desc = row.querySelector('.chargeDesc').value;
+        if (code) charges.push({ code, description: desc || 'No details' });
+      });
+      const bailTotal = parseInt(document.getElementById('bailTotal').value) || 0;
+      const bodycamUrl = document.getElementById('bodycamUrl').value;
+      if (!defendant || charges.length === 0) { alert('Please fill defendant name and at least one charge'); return; }
+      await apiCall('submitReport', { type: 'police', defendant, caseNo, charges, bailTotal, bodycamUrl, submittedBy: currentUser.name });
+      alert('Report submitted to DA for review.');
+      closeModal('globalModal');
+    });
+  }
+  function showPDReportForm() {
+    showModal(`
+      <h3 class="text-xl font-bold mb-4 text-white">Submit Criminal Report to DA (Public Defender)</h3>
+      <div class="space-y-3 max-h-[60vh] overflow-y-auto">
+        <input type="text" id="defendant" placeholder="Defendant Name" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        <input type="text" id="caseNo" placeholder="Case # (if known)" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white">
+        <div id="chargesContainer" class="space-y-2"></div>
+        <button type="button" id="addChargeBtn" class="btn-secondary text-sm py-1 px-2 rounded-lg">+ Add Another Charge</button>
+        <div class="border-t border-gray-600 pt-2 mt-2"><p class="text-sm text-gray-400 mb-2">Total Bail (calculated automatically):</p><input type="number" id="bailTotal" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" readonly></div>
+        <div class="flex gap-2 mt-2"><button id="submitReport" class="btn-primary py-2 px-4 rounded-lg">Submit to DA</button><button onclick="closeModal('globalModal')" class="btn-secondary py-2 px-4 rounded-lg">Cancel</button></div>
+      </div>`);
+    const container = document.getElementById('chargesContainer');
+    const addBtn = document.getElementById('addChargeBtn');
+    addChargeRow('chargesContainer');
+    addBtn.addEventListener('click', () => { addChargeRow('chargesContainer'); updateReportBail(); });
+    document.getElementById('submitReport').addEventListener('click', async () => {
+      const defendant = document.getElementById('defendant').value;
+      const caseNo = document.getElementById('caseNo').value;
+      const charges = [];
+      document.querySelectorAll('.charge-row').forEach(row => {
+        const code = row.querySelector('.chargeCode').value;
+        const desc = row.querySelector('.chargeDesc').value;
+        if (code) charges.push({ code, description: desc || 'No details' });
+      });
+      const bailTotal = parseInt(document.getElementById('bailTotal').value) || 0;
+      if (!defendant || charges.length === 0) { alert('Please fill defendant name and at least one charge'); return; }
+      await apiCall('submitReport', { type: 'pd', defendant, caseNo, charges, bailTotal, submittedBy: currentUser.name });
+      alert('Report submitted to DA for review.');
+      closeModal('globalModal');
+    });
+  }
+
+  // DA dashboard (dynamic)
+  async function renderDADashboard() {
+    const pending = await apiCall('getPendingReports');
+    const charged = await apiCall('getChargedCases');
+    const pendingHtml = pending.reports.length === 0 ? '<div class="text-gray-400">No pending reports</div>' : pending.reports.map(r => `
+      <div class="border border-gray-700 rounded p-3 mb-2" data-id="${r.id}">
+        <div class="flex justify-between"><div><strong>${r.defendant}</strong> (${r.type.toUpperCase()})</div><div>Bail: $${r.bailTotal}</div></div>
+        <div class="text-sm text-gray-400">Charges: ${r.charges.map(c => c.code).join(', ')}</div>
+        <div class="text-xs text-gray-500">Submitted by ${r.submittedBy} on ${new Date(r.timestamp).toLocaleString()}</div>
+        <div class="flex gap-2 mt-2"><button class="btn-primary text-sm py-1 px-2 rounded approve-report" data-id="${r.id}">Approve & File Charges</button><button class="btn-secondary text-sm py-1 px-2 rounded edit-report" data-id="${r.id}">Edit</button><button class="btn-secondary text-sm py-1 px-2 rounded deny-report" data-id="${r.id}">Deny</button></div>
+      </div>`).join('');
+    const chargedHtml = charged.cases.length === 0 ? '<div class="text-gray-400">No charged cases yet</div>' : charged.cases.map(c => `
+      <div class="border border-green-700 rounded p-3 mb-2"><div><strong>${c.defendant}</strong> (Case #: ${c.caseNo || 'TBD'})</div><div>Charges: ${c.charges.map(ch => ch.code).join(', ')}</div><div>Bail: $${c.bailTotal}</div><div class="text-xs text-gray-500">Approved by ${c.approvedBy} on ${new Date(c.approvedAt).toLocaleString()}</div></div>`).join('');
+    return `
+      <div class="grid md:grid-cols-2 gap-6"><div class="card p-6"><h3 class="text-lg font-semibold text-[#facc15] mb-3">Pending Reports</h3><div id="pendingReportsList" class="max-h-96 overflow-y-auto">${pendingHtml}</div></div><div class="card p-6"><h3 class="text-lg font-semibold text-[#facc15] mb-3">Charged Cases</h3><div id="chargedCasesList" class="max-h-96 overflow-y-auto">${chargedHtml}</div></div></div>
+      <div class="card p-6 mt-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="message-square"></i> Communications</div><button id="sendToPoliceBtn" class="btn-secondary py-2 px-4 rounded-lg">Send Message to Police</button></div>`;
+  }
+
+  function attachDAEventListeners() {
+    document.querySelectorAll('.approve-report').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = parseInt(btn.dataset.id);
+        await apiCall('approveReport', { id, approved_by: currentUser.name });
+        alert('Report approved. Clerk will be notified.');
+        renderDashboardByRole();
+      });
+    });
+    document.querySelectorAll('.deny-report').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id = parseInt(btn.dataset.id);
+        await apiCall('denyReport', { id });
+        alert('Report denied.');
+        renderDashboardByRole();
+      });
+    });
+    document.querySelectorAll('.edit-report').forEach(btn => {
+      btn.addEventListener('click', () => alert('Edit functionality not yet implemented.'));
+    });
+    document.getElementById('sendToPoliceBtn')?.addEventListener('click', () => showCommunicationModal('police', 'Police'));
+  }
+
+  // Other role forms
+  function showRecusalForm() { alert('Recusal request form (mock)'); }
+  function showSentencingForm() { alert('Sentencing form (mock)'); }
+  function showOfficialLetterForm() { alert('Official letter form (mock)'); }
+  function showTrustWithdrawalForm() { alert('Trust withdrawal form (mock)'); }
+  function showTrustDepositForm() { alert('Trust deposit form (mock)'); }
+
   // ============================================
-  // DASHBOARD (full)
+  // DASHBOARD RENDERING (all roles)
   // ============================================
   function renderDashboardByRole() {
     const role = currentUser.role;
@@ -738,7 +729,7 @@
     const tasksHtml = role !== 'police' ? `<div class="card p-6 mb-6"><div class="flex justify-between items-center mb-4"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg"><i data-lucide="check-square"></i> Daily Tasks</div><button id="refreshTasks" class="btn-secondary text-sm py-1 px-3 rounded-lg">Refresh</button></div><ul id="tasksList" class="space-y-2">${tasks.map(task => `<li class="flex items-center gap-2"><input type="checkbox" ${task.status==='done'?'checked':''} data-id="${task.id}" class="task-checkbox"><span class="flex-1">${task.task}</span><span class="text-xs text-gray-500">${task.due}</span></li>`).join('')}</ul></div>` : '';
     const notifHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="bell"></i> DOJ Notifications</div><div id="dojNotificationsContainer"></div></div>`;
 
-    // Communication buttons (all use modal)
+    // Communication buttons
     let commButtons = '';
     if (role === 'clerk') {
       commButtons = `<div class="flex flex-wrap gap-3"><button id="sendToMasterClerkBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Master Clerk</button><button id="sendToDABtn" class="btn-secondary py-2 px-4 rounded-lg">Send to DA</button><button id="sendToCJBtn" class="btn-secondary py-2 px-4 rounded-lg">Send to Chief Justice</button></div>`;
@@ -764,34 +755,64 @@
     const commHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="message-square"></i> Communications</div>${commButtons}</div>`;
 
     let roleSpecific = '';
+
     if (role === 'clerk') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="file-plus"></i> New Filing</div><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=59417065" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📄 Case Filing</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1895005036" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💍 Marriage</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1376146295" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🚗 Property</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1538730298" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🏢 Professional</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1478971826" target="_blank" class="btn-secondary text-center py-2 rounded-lg">👶 Paternity</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1874312862" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📜 Will</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=318970083" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💰 Treasury</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📊 All Sheets</a></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Financial Tools</div><div class="flex flex-wrap gap-3"><a href="${offlineDuesSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Manage Offline Dues</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">View All Filings (Audit)</a></div></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="file-plus"></i> New Filing</div><div class="grid grid-cols-2 md:grid-cols-4 gap-3"><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=59417065" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📄 Case Filing</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1895005036" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💍 Marriage</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1376146295" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🚗 Property</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1538730298" target="_blank" class="btn-secondary text-center py-2 rounded-lg">🏢 Professional</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1478971826" target="_blank" class="btn-secondary text-center py-2 rounded-lg">👶 Paternity</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=1874312862" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📜 Will</a><a href="https://docs.google.com/spreadsheets/d/12lS_UYvFlRPzwZrEgRLVlYfAZxWhfK-cczslEqf9jhE/edit?gid=318970083" target="_blank" class="btn-secondary text-center py-2 rounded-lg">💰 Treasury</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary text-center py-2 rounded-lg">📊 All Sheets</a></div></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Financial Tools</div><div class="flex flex-wrap gap-3"><a href="${offlineDuesSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Manage Offline Dues</a><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">View All Filings (Audit)</a></div></div>
+      `;
     } else if (role === 'judge') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Court Level: ${currentUser.courtLevel}</div><div id="judgeCasesList" class="space-y-2">${mockAssignedCases.filter(c=>c.judge===currentUser.name).map(c=>`<div class="border border-gray-700 rounded p-3 flex justify-between items-center"><div><strong>${c.caseNo}</strong> - ${c.parties}<br><span class="text-sm text-gray-400">Status: ${c.status}</span></div><a href="${c.url}" target="_blank" class="btn-secondary text-sm py-1 px-3 rounded-lg">View Case</a></div>`).join('')}</div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="sentencingBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Sentencing</button><button id="officialLetterBtn" class="btn-secondary py-2 px-4 rounded-lg">Official Letter</button></div></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Court Level: ${currentUser.courtLevel || 'Municipal'}</div><div id="judgeCasesList" class="space-y-2">${mockAssignedCases.filter(c=>c.judge===currentUser.name).map(c=>`<div class="border border-gray-700 rounded p-3 flex justify-between items-center"><div><strong>${c.caseNo}</strong> - ${c.parties}<br><span class="text-sm text-gray-400">Status: ${c.status}</span></div><a href="${c.url}" target="_blank" class="btn-secondary text-sm py-1 px-3 rounded-lg">View Case</a></div>`).join('')}</div></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="sentencingBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Sentencing</button><button id="officialLetterBtn" class="btn-secondary py-2 px-4 rounded-lg">Official Letter</button></div></div>
+      `;
     } else if (role === 'attorney') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="folder"></i> My Cases</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}</div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Trust Account</div><div class="flex flex-wrap gap-3"><button id="trustWithdrawalBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Withdrawal</button><button id="trustDepositBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Deposit</button></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="folder"></i> My Cases</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}</div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="dollar-sign"></i> Trust Account</div><div class="flex flex-wrap gap-3"><button id="trustWithdrawalBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Withdrawal</button><button id="trustDepositBtn" class="btn-secondary py-2 px-4 rounded-lg">Request Deposit</button></div></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="settings"></i> Actions</div><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button></div>
+      `;
     } else if (role === 'public_defender') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Assigned Clients</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}<div class="mt-3 pt-3 border-t border-gray-700"><div class="text-sm">Case Count (this pay period): <span class="font-bold text-[#facc15]">${mockAssignedCases.length}</span></div><div class="text-xs text-gray-500">Bi-weekly compensation: $${mockAssignedCases.length*500}</div></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="pdReportBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Criminal Report to DA</button></div></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Assigned Clients</div>${mockAssignedCases.map(c=>`<div class="border border-gray-700 rounded p-3"><strong>${c.caseNo}</strong> - Client: ${c.parties.split(' v. ')[0]}</div>`).join('')}<div class="mt-3 pt-3 border-t border-gray-700"><div class="text-sm">Case Count (this pay period): <span class="font-bold text-[#facc15]">${mockAssignedCases.length}</span></div><div class="text-xs text-gray-500">Bi-weekly compensation: $${mockAssignedCases.length*500}</div></div></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="settings"></i> Actions</div><div class="flex flex-wrap gap-3"><button id="recusalBtn" class="btn-secondary py-2 px-4 rounded-lg">Recusal Request</button><button id="pdReportBtn" class="btn-secondary py-2 px-4 rounded-lg">Submit Criminal Report to DA</button></div></div>
+      `;
     } else if (role === 'district_attorney') {
-      roleSpecific = renderDADashboard();
+      roleSpecific = `<div id="daDashboardPlaceholder">Loading DA dashboard...</div>`;
     } else if (role === 'police') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="badge-check"></i> Police Dashboard</div><p class="text-gray-300 mb-4">File criminal reports for review by the District Attorney.</p><button id="policeReportBtn" class="btn-secondary py-2 px-4 rounded-lg">File Criminal Report</button></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="badge-check"></i> Police Dashboard</div><p class="text-gray-300 mb-4">File criminal reports for review by the District Attorney.</p><button id="policeReportBtn" class="btn-secondary py-2 px-4 rounded-lg">File Criminal Report</button></div>
+      `;
     } else if (role === 'bailiff') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="shield"></i> Civil Process</div><button id="serviceProcessBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Service of Process</button></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="shield"></i> Civil Process</div><button id="serviceProcessBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Service of Process</button></div>
+      `;
     } else if (role === 'reporter') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="upload"></i> Transcripts</div><button id="uploadTranscriptBtn" class="btn-secondary py-2 px-4 rounded-lg">Upload Transcript URL</button></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="calendar"></i> Court Schedule</div><ul>${mockSchedule.map(s=>`<li>${s.time} - ${s.case} (${s.room})</li>`).join('')}</ul></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="upload"></i> Transcripts</div><button id="uploadTranscriptBtn" class="btn-secondary py-2 px-4 rounded-lg">Upload Transcript URL</button></div>
+      `;
     } else if (role === 'admin') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> User Management</div><button id="userMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Users</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Judge Assignment</div><button id="assignJudgeBtn" class="btn-secondary py-2 px-4 rounded-lg">Auto-Assign Unassigned Cases</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Recusal Queue</div><button id="recusalQueueBtn" class="btn-secondary py-2 px-4 rounded-lg">View Queue</button></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="chart-line"></i> Audit Tools</div><div class="flex flex-wrap gap-3"><button id="financialAuditBtn" class="btn-secondary py-2 px-4 rounded-lg">Financial Summary</button><button id="offlineDuesBtn" class="btn-secondary py-2 px-4 rounded-lg">Offline Dues</button><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Audit Log (All Filings)</a></div></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> User Management</div><button id="userMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Manage Users</button></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Judge Assignment</div><button id="assignJudgeBtn" class="btn-secondary py-2 px-4 rounded-lg">Auto-Assign Unassigned Cases</button></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="refresh-cw"></i> Recusal Queue</div><button id="recusalQueueBtn" class="btn-secondary py-2 px-4 rounded-lg">View Queue</button></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="chart-line"></i> Audit Tools</div><div class="flex flex-wrap gap-3"><button id="financialAuditBtn" class="btn-secondary py-2 px-4 rounded-lg">Financial Summary</button><button id="offlineDuesBtn" class="btn-secondary py-2 px-4 rounded-lg">Offline Dues</button><a href="${allFilingsSheetUrl}" target="_blank" class="btn-secondary py-2 px-4 rounded-lg">Audit Log (All Filings)</a></div></div>
+      `;
     } else if (role === 'chief_justice') {
-      roleSpecific = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Judicial Oversight</div><div class="space-y-2"><button id="cjViewRecusalsBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Recusal Queue</button><button id="cjAssignJudgeBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">Manually Assign Judge to Case</button><button id="cjViewAuditBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Audit Log (All Filings)</button></div></div><div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="users"></i> Manage Users</div><button id="cjUserMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Edit User Roles</button></div>`;
+      roleSpecific = `
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="gavel"></i> Judicial Oversight</div><div class="space-y-2"><button id="cjViewRecusalsBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Recusal Queue</button><button id="cjAssignJudgeBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">Manually Assign Judge to Case</button><button id="cjViewAuditBtn" class="btn-secondary w-full text-left py-2 px-4 rounded-lg">View Audit Log (All Filings)</button></div></div>
+        <div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i数据-lucide="users"></i> Manage Users</div><button id="cjUserMgmtBtn" class="btn-secondary py-2 px-4 rounded-lg">Edit User Roles</button></div>
+      `;
     }
 
-    const scheduleHtml = role !== 'police' ? renderScheduling() : '';
-    const trainingHtml = `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book"></i> Training Guide</div><button id="trainingBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Training Materials</button></div>`;
+    // Build full HTML
+    let fullHtml = tasksHtml + notifHtml + commHtml + roleSpecific + renderScheduling() + `<div class="card p-6 mb-6"><div class="flex items-center gap-2 text-[#facc15] font-semibold text-lg mb-3"><i data-lucide="book"></i> Training Guide</div><button id="trainingBtn" class="btn-secondary py-2 px-4 rounded-lg">Open Training Materials</button></div>`;
+    roleContent.innerHTML = fullHtml;
 
-    roleContent.innerHTML = tasksHtml + notifHtml + commHtml + roleSpecific + scheduleHtml + trainingHtml;
-
-    // Attach event listeners
+    // Attach event listeners after rendering
     if (role !== 'police') {
       document.getElementById('refreshTasks')?.addEventListener('click', () => alert('Refresh tasks'));
       document.querySelectorAll('.task-checkbox')?.forEach(cb => cb.addEventListener('change', () => alert('Task updated')));
@@ -808,7 +829,12 @@
       document.getElementById('recusalBtn')?.addEventListener('click', showRecusalForm);
       document.getElementById('pdReportBtn')?.addEventListener('click', showPDReportForm);
     } else if (role === 'district_attorney') {
-      attachDAEventListeners();
+      (async () => {
+        const daHtml = await renderDADashboard();
+        const daPlaceholder = document.getElementById('daDashboardPlaceholder');
+        if (daPlaceholder) daPlaceholder.outerHTML = daHtml;
+        attachDAEventListeners();
+      })();
     } else if (role === 'police') {
       document.getElementById('policeReportBtn')?.addEventListener('click', showPoliceReportForm);
     } else if (role === 'bailiff') {
@@ -839,6 +865,7 @@
     document.getElementById('loaBtn')?.addEventListener('click', () => alert('LOA request (mock)'));
     document.getElementById('availabilityBtn')?.addEventListener('click', showAvailabilityForm);
 
+    // Update notifications container
     renderDojNotifications();
     lucide.createIcons();
   }
@@ -850,21 +877,23 @@
   function showPublicRecords() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.remove('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderPublicRecords(); }
   function showPenalCode() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.remove('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderPenalCode(); }
   function showCareers() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.remove('hidden'); document.getElementById('dashboardSection').classList.add('hidden'); renderCareers(); }
-  function showDashboard() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden'); document.getElementById('dashboardTitle').innerText = `${currentUser.name} (${currentUser.role.replace('_',' ')})`; if (!userAvailability[currentUser.name]) userAvailability[currentUser.name] = {}; renderDashboardByRole(); }
+  function showDashboard() { document.getElementById('homeSection').classList.add('hidden'); document.getElementById('publicRecordsSection').classList.add('hidden'); document.getElementById('penalCodeSection').classList.add('hidden'); document.getElementById('careersSection').classList.add('hidden'); document.getElementById('dashboardSection').classList.remove('hidden'); document.getElementById('dashboardTitle').innerText = `${currentUser.name} (${currentUser.role.replace('_',' ')})`; renderDashboardByRole(); }
 
   // ============================================
-  // LOGIN
+  // LOGIN/LOGOUT
   // ============================================
-  function handleLogin(passcode) {
-    const user = users[passcode];
-    if (user) {
-      currentUser = user;
+  async function handleLogin(passcode) {
+    try {
+      const result = await apiCall('verifyLogin', { passcode });
+      currentUser = result.user;
       sessionStorage.setItem('doj_user', JSON.stringify(currentUser));
       document.getElementById('loginNavBtn').classList.add('hidden');
       document.getElementById('logoutBtn').classList.remove('hidden');
       document.getElementById('loginModal').classList.add('hidden');
+      await loadUserAvailability();
+      await loadNotifications();
       showDashboard();
-    } else {
+    } catch (err) {
       document.getElementById('loginError').classList.remove('hidden');
     }
   }
@@ -897,7 +926,7 @@
 
   const saved = sessionStorage.getItem('doj_user');
   if (saved) {
-    try { currentUser = JSON.parse(saved); document.getElementById('loginNavBtn').classList.add('hidden'); document.getElementById('logoutBtn').classList.remove('hidden'); showDashboard(); } catch(e) { showHome(); }
+    try { currentUser = JSON.parse(saved); document.getElementById('loginNavBtn').classList.add('hidden'); document.getElementById('logoutBtn').classList.remove('hidden'); loadUserAvailability().then(() => loadNotifications()).then(() => showDashboard()); } catch(e) { showHome(); }
   } else { showHome(); }
   lucide.createIcons();
 </script>
