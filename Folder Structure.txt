@@ -1,0 +1,21 @@
+alli-classroom/
+│
+├── index.html          # Main HTML (empty shell that loads components)
+├── css/
+│   └── style.css       # All styles
+├── js/
+│   ├── app.js          # Main app initialization, navigation, points system
+│   ├── quizzes.js      # Subject quiz handlers (math, ela, etc.)
+│   ├── tcap.js         # TCAP testing system
+│   ├── math-overlays.js # Math page special features (time quiz, number of day, drill, gradebook)
+│   └── parent.js       # Parent dashboard functions
+└── pages/              # HTML snippets for each subject page
+    ├── home.html       # Main classroom grid (we'll keep in index.html initially)
+    ├── math.html
+    ├── ela.html
+    ├── science.html
+    ├── social.html
+    ├── assessment.html
+    ├── gym.html
+    ├── spanish.html
+    └── art.html
