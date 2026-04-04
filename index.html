@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>🎒 Alli's Digital Classroom 🍎 | TCAP 4th Grade</title>
 <style>
-/* ========== GLOBAL RESET & BASE ========== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', cursive, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow-x: hidden; }
+body { font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow-x: hidden; }
 
-/* ========== CLASSROOM & HEADER ========== */
+/* ========== GLOBAL & HEADER ========== */
 .classroom-wrapper { background: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; padding-bottom: 30px; }
 .class-header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; color: white; border-bottom: 5px solid #fff; position: relative; z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 .class-header h2 { font-size: 1.6rem; display: flex; gap: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
@@ -17,14 +16,13 @@ body { font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', cursive, sans-ser
 .parent-lock-btn:hover { transform: scale(1.05); }
 .points-display { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 8px 20px; border-radius: 30px; color: white; font-weight: bold; font-size: 1.1rem; box-shadow: 0 3px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 8px; cursor: pointer; transition: transform 0.2s; }
 .points-display:hover { transform: scale(1.05); }
-.points-display:after { content: " ⭐"; font-size: 0.9rem; }
+.points-display:after { content: " ⭐"; }
 
-/* ========== SLIDE CONTAINER & OVERLAYS ========== */
+/* ========== SLIDES & OVERLAYS ========== */
 .slide-container { position: relative; width: 100%; max-width: 1400px; margin: 20px auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
 .slide-container iframe { display: block; width: 100%; height: auto; aspect-ratio: 960/569; }
 .clickable-overlay { position: absolute; cursor: pointer; z-index: 10; transition: all 0.3s ease; border-radius: 10px; }
 .clickable-overlay:hover { background: rgba(255, 215, 0, 0.3) !important; box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); transform: scale(1.02); }
-/* Home Overlay Positions */
 .home-overlay-window { left: 65.5%; top: 29%; width: 16%; height: 23%; }
 .home-overlay-calendar { right: 36.5%; top: 26%; width: 11%; height: 12%; }
 .home-overlay-library { left: 85%; top: 31%; width: 12%; height: 42%; }
@@ -40,20 +38,15 @@ body { font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', cursive, sans-ser
 .home-overlay-globe { left: 11%; top: 49%; width: 8%; height: 12%; }
 .home-overlay-clock { left: 1%; top: 0%; width: 8%; height: 10%; }
 
-/* ========== MATH PAGE SPECIFIC ========== */
-.math-page .slide-container { position: relative; }
 .math-overlay { position: absolute; cursor: pointer; z-index: 10; transition: all 0.3s ease; border-radius: 10px; background: transparent; }
 .math-overlay:hover { background: rgba(37, 99, 235, 0.25) !important; box-shadow: 0 0 25px rgba(37, 99, 235, 0.8); transform: scale(1.02); }
-/* Math Overlay Positions (Adjust these % to match your slide) */
 #math-clock { top: 8%; left: 5%; width: 7%; height: 9%; }
 #math-poster { top: 26%; left: 73%; width: 11%; height: 25%; }
 #math-laptop { bottom: 33%; right: 65%; width: 13%; height: 15%; }
 #math-calendar { top: 10%; right: 13.5%; width: 13%; height: 16%; }
 #math-notebook { top: 43%; left: 12%; width: 5%; height: 9%; }
-/* 🟡 UNCOMMENT BELOW TO SEE BOXES WHILE POSITIONING */
-/* .math-overlay { background: rgba(37, 99, 235, 0.2) !important; border: 2px dashed #2563eb !important; } */
 
-/* ========== CLASSROOM GRID & ELEMENTS ========== */
+/* ========== CLASSROOM GRID ========== */
 .classroom { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; padding: 30px; max-width: 1300px; margin: 0 auto; }
 .class-object { background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); border-radius: 30px; padding: 25px 15px; text-align: center; cursor: pointer; transition: all 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.15); border: 3px solid transparent; }
 .class-object:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 15px 35px rgba(0,0,0,0.2); border-color: #667eea; }
@@ -79,22 +72,23 @@ body { font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', cursive, sans-ser
 .active-subject { display: block; }
 .back-home { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border: none; padding: 12px 30px; border-radius: 40px; font-weight: bold; margin: 25px 30px; display: inline-block; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s; }
 .back-home:hover { transform: scale(1.05); }
-.topic-card { background: white; border-radius: 20px; padding: 25px; margin: 20px 30px; border-left: 15px solid #667eea; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-.topic-card h3 { color: #667eea; margin-bottom: 15px; font-size: 1.5rem; }
-.quiz { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); padding: 20px; border-radius: 24px; margin-top: 15px; }
-.quiz p { margin: 12px 0; font-size: 1.1rem; font-weight: 600; }
-input[type="number"], input[type="text"] { font-family: inherit; border-radius: 25px; padding: 10px 20px; border: 2px solid #ddd; margin: 8px 0; width: 150px; font-size: 1rem; }
-input:focus { outline: none; border-color: #667eea; }
-button { font-family: inherit; border-radius: 30px; padding: 10px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: bold; cursor: pointer; margin: 10px 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.2s; }
-button:hover { transform: scale(1.05); }
-.feedback { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); border-radius: 25px; padding: 12px 20px; margin-top: 12px; font-weight: bold; }
-.motivational-quote { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); border-radius: 20px; padding: 25px; text-align: center; margin: 20px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); font-style: italic; font-size: 1.2rem; }
+.motivational-quote { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); border-radius: 20px; padding: 25px; margin: 20px 30px; text-align: center; font-style: italic; font-size: 1.3rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.quote-author { text-align: center; font-size: 0.9rem; color: #555; margin: -10px auto 20px; font-weight: 500; }
 .fun-fact-box { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); border-radius: 20px; padding: 20px; margin: 20px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-left: 8px solid #ff6b6b; }
 .fun-fact-box h4 { color: #ff6b6b; margin-bottom: 10px; font-size: 1.3rem; }
 .stats-box { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); border-radius: 20px; padding: 20px; margin: 20px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); color: #fff; }
 .stats-box h4 { margin-bottom: 15px; font-size: 1.3rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
 .stat-item { background: rgba(255,255,255,0.3); padding: 10px 15px; border-radius: 12px; margin: 8px 0; font-weight: bold; }
-.reward-banner { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 15px 25px; border-radius: 20px; text-align: center; margin: 20px 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+.topic-card { background: white; border-radius: 20px; padding: 25px; margin: 20px 30px; border-left: 15px solid #667eea; box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.topic-card h3 { color: #667eea; margin-bottom: 15px; font-size: 1.5rem; }
+.quiz { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); padding: 20px; border-radius: 24px; margin-top: 15px; }
+.quiz p { margin: 12px 0; font-size: 1.1rem; font-weight: 600; }
+input, select, textarea { font-family: inherit; border-radius: 12px; padding: 10px 15px; border: 2px solid #ddd; margin: 6px 0; width: 100%; }
+input:focus, textarea:focus { outline: none; border-color: #667eea; }
+button { font-family: inherit; border-radius: 25px; padding: 10px 22px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; font-weight: bold; cursor: pointer; margin: 8px 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: transform 0.2s; }
+button:hover { transform: scale(1.05); }
+.feedback { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); border-radius: 25px; padding: 12px 20px; margin-top: 12px; font-weight: bold; }
+.reward-banner { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 15px 25px; border-radius: 20px; margin: 20px 30px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 .reward-banner h3 { font-size: 1.5rem; margin-bottom: 8px; }
 .achievements { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin: 20px auto; max-width: 1100px; }
 .achievement { background: white; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); min-width: 120px; }
@@ -103,81 +97,40 @@ button:hover { transform: scale(1.05); }
 .achievement .points { color: #667eea; font-weight: bold; font-size: 0.85rem; }
 .achievement.locked { opacity: 0.4; filter: grayscale(100%); }
 
-/* ========== TCAP STYLES ========== */
-.tcap-container { background: white; border-radius: 20px; padding: 30px; margin: 20px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-.tcap-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 25px; }
-.tcap-header h2 { font-size: 2rem; margin-bottom: 10px; }
-.tcap-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 25px 0; }
-.tcap-option { background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%); border: 3px solid #ddd; border-radius: 20px; padding: 25px; cursor: pointer; transition: all 0.3s; text-align: center; }
-.tcap-option:hover { border-color: #667eea; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3); }
-.tcap-option.selected { border-color: #667eea; background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%); }
-.tcap-timer { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; padding: 15px 25px; border-radius: 15px; text-align: center; font-size: 1.5rem; font-weight: bold; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-.subject-selection { margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 15px; display: none; }
-.subject-selection.active { display: block; }
-.subject-checkbox { display: block; margin: 10px 0; padding: 10px; background: white; border-radius: 10px; cursor: pointer; }
-.tcap-questions { margin: 20px 0; display: none; }
-.tcap-questions.active { display: block; }
-.tcap-question { background: white; padding: 20px; border-radius: 15px; margin: 15px 0; box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-.tcap-question p { font-weight: bold; margin-bottom: 10px; }
-.tcap-results { display: none; background: white; border-radius: 20px; padding: 25px; margin: 20px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-.tcap-results.active { display: block; }
-
-/* ========== MODALS & PARENT ========== */
-.scene-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; align-items: center; justify-content: center; }
-.scene-modal.active { display: flex; }
+/* ========== MODALS ========== */
+.scene-modal, .parent-modal, .math-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 3000; align-items: center; justify-content: center; }
+.scene-modal.active, .parent-modal.active, .math-modal.active { display: flex; }
 .modal-content { background: white; padding: 30px; border-radius: 25px; max-width: 650px; width: 90%; max-height: 85vh; overflow-y: auto; position: relative; animation: modalPop 0.3s ease; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-@keyframes modalPop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-.close-modal { position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: transform 0.2s; }
-.close-modal:hover { transform: rotate(90deg) scale(1.1); }
-.parent-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
 .parent-card { background: linear-gradient(180deg, #fff9ef 0%, #fff 100%); max-width: 1100px; width: 90%; max-height: 90vh; overflow-y: auto; border-radius: 48px; padding: 2rem; border: 5px solid #ffb347; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+.math-modal-content { background: #eff6ff; border: 3px solid #2563eb; border-radius: 16px; padding: 24px; max-width: 600px; width: 92%; position: relative; box-shadow: 0 12px 30px rgba(0,0,0,0.25); animation: fadeIn 0.3s ease; }
+@keyframes modalPop { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.close-modal, .close-math-modal { position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #fa709a, #fee140); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+.close-modal:hover { transform: rotate(90deg); }
 table { width: 100%; border-collapse: collapse; background: white; border-radius: 24px; overflow: hidden; margin: 15px 0; }
 th, td { padding: 12px; text-align: left; border-bottom: 1px solid #f0cf9c; }
 th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: bold; }
 tr:hover { background: #f8f9fa; }
-.weak-area { background: linear-gradient(135deg, #ffe1b3 0%, #ffcd94 100%); border-radius: 28px; padding: 20px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-
-/* ========== MATH MODALS & PLANNER ========== */
-.math-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
-.math-modal.active { display: flex; }
-.math-modal-content { background: #eff6ff; border: 3px solid #2563eb; border-radius: 16px; padding: 24px; max-width: 600px; width: 92%; position: relative; box-shadow: 0 12px 30px rgba(0,0,0,0.25); animation: fadeIn 0.3s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.close-math-modal { position: absolute; top: 12px; right: 16px; font-size: 28px; cursor: pointer; color: #2563eb; background: none; border: none; font-weight: bold; }
-.close-math-modal:hover { color: #1e40af; }
-.math-btn { background: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600; margin: 5px; transition: background 0.2s; }
-.math-btn:hover { background: #1e40af; }
-.math-input { width: 100%; padding: 10px; border: 2px solid #93c5fd; border-radius: 6px; margin: 8px 0; font-size: 16px; }
-.math-question { margin: 15px 0; font-weight: 500; }
-.math-correct { color: #16a34a; font-weight: bold; }
-.math-wrong { color: #dc2626; font-weight: bold; }
-#analog-clock-canvas { background: white; border-radius: 50%; margin: 10px auto; display: block; }
-
-/* Planner & Gradebook */
-.planner-tab, .grades-tab { transition: all 0.2s; padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; background: #ddd; color: #555; }
-.planner-tab.active, .grades-tab.active { background: #667eea; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-.planner-day-card { background: #f8fafc; padding: 15px; border-radius: 12px; border-left: 4px solid #667eea; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 10px; }
-.planner-input, .planner-select, .planner-textarea { width: 100%; padding: 8px; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; font-size: 0.9rem; margin: 5px 0; }
-.planner-input:focus, .planner-select:focus, .planner-textarea:focus { outline: none; border-color: #667eea; }
-.standard-row { display: flex; gap: 8px; align-items: center; margin: 5px 0; flex-wrap: wrap; }
-.standard-row select { flex: 1; min-width: 120px; }
-.standard-row button { background: #ff6b6b; color: white; border: none; padding: 5px 10px; border-radius: 15px; cursor: pointer; font-size: 0.8rem; }
-
-@media (max-width: 800px) {
-  .classroom { grid-template-columns: repeat(2,1fr); gap: 15px; padding: 20px; }
-  .teacher-desk { grid-column: span 2; }
-  .whiteboard { grid-column: span 2; }
-  .slide-container iframe { height: 400px; }
-}
+.planner-day { background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid #667eea; }
+.planner-day h4 { margin: 0 0 8px 0; text-transform: capitalize; }
+.planner-row { display: flex; gap: 8px; margin: 6px 0; align-items: center; flex-wrap: wrap; }
+.planner-row select { flex: 1; min-width: 140px; }
+.planner-row input { flex: 1; min-width: 100px; }
+.planner-row button { padding: 6px 12px; font-size: 0.85rem; margin: 0; background: #ff6b6b; }
+.planner-btn-add { background: #4ecdc4; padding: 5px 10px; font-size: 0.8rem; margin: 5px 0 0 0; }
+.planner-subject-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; padding: 10px; background: #f8f9fa; border-radius: 15px; }
+.planner-tab { background: #ddd; color: #555; border: none; padding: 8px 14px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.planner-tab.active { background: #667eea; color: white; }
+.subject-section { background: white; border-radius: 15px; padding: 15px; margin: 15px 0; box-shadow: 0 3px 10px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+@media (max-width: 800px) { .classroom { grid-template-columns: repeat(2,1fr); gap: 15px; padding: 20px; } .teacher-desk, .whiteboard { grid-column: span 2; } .slide-container iframe { height: 400px; } }
 </style>
 </head>
 <body>
-<div id="app">
 
-<!-- ========== MAIN CLASSROOM VIEW ========== -->
 <div id="classroomView" class="classroom-wrapper">
   <div class="class-header">
     <h2>🎨 Alli's Digital Classroom 🍎</h2>
-    <div style="display: flex; gap: 15px; align-items: center;">
+    <div style="display:flex; gap:15px; align-items:center;">
       <div class="points-display" onclick="showRewardPreview()"><span>⭐</span><span id="totalPoints">0</span> points</div>
       <button id="showParentBtn" class="parent-lock-btn">🔒 Parent Dashboard</button>
     </div>
@@ -201,24 +154,7 @@ tr:hover { background: #f8f9fa; }
   </div>
 
   <div id="sceneModal" class="scene-modal"><div class="modal-content"><button class="close-modal" onclick="closeSceneModal()">✕</button><div id="modalBody"></div></div></div>
-  <div id="rewardPreviewModal" class="scene-modal">
-    <div class="modal-content">
-      <button class="close-modal" onclick="closeRewardPreview()">✕</button>
-      <h2 style="text-align:center;margin-bottom:20px;">🎁 Rewards You Can Earn!</h2>
-      <p style="text-align:center;margin-bottom:25px;">Your Points: <strong id="previewPoints" style="font-size:1.5rem;color:#667eea;">0</strong> ⭐</p>
-      <p style="text-align:center;font-style:italic;color:#666;margin-bottom:20px;">👨‍👩‍👧 Mommy & Daddy redeem rewards in the Parent Dashboard</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;">
-        <div style="background:linear-gradient(135deg,#ffecd2,#fcb69f);padding:15px;border-radius:15px;text-align:center;"><div style="font-size:2.5rem;">🍫</div><h4>Candy Bar</h4><p style="font-weight:bold;color:#667eea;">500 points</p></div>
-        <div style="background:linear-gradient(135deg,#a8edea,#fed6e3);padding:15px;border-radius:15px;text-align:center;"><div style="font-size:2.5rem;">🎮</div><h4>Roblox Card ($10)</h4><p style="font-weight:bold;color:#667eea;">2000 points</p></div>
-        <div style="background:linear-gradient(135deg,#ff9a9e,#fecfef);padding:15px;border-radius:15px;text-align:center;"><div style="font-size:2.5rem;">🎬</div><h4>Movie Night</h4><p style="font-weight:bold;color:#667eea;">750 points</p></div>
-        <div style="background:linear-gradient(135deg,#ffecd2,#fcb69f);padding:15px;border-radius:15px;text-align:center;"><div style="font-size:2.5rem;">🎨</div><h4>Art Supplies</h4><p style="font-weight:bold;color:#667eea;">500 points</p></div>
-        <div style="background:linear-gradient(135deg,#d4fc79,#96e6a1);padding:15px;border-radius:15px;text-align:center;"><div style="font-size:2.5rem;">📚</div><h4>New Book</h4><p style="font-weight:bold;color:#667eea;">500 points</p></div>
-        <div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:15px;border-radius:15px;text-align:center;"><div style="font-size:2.5rem;">🏆</div><h4>Special Prize</h4><p style="font-weight:bold;">5000 points</p></div>
-      </div>
-      <p style="text-align:center;margin-top:20px;font-style:italic;">Keep learning to earn more points! 💪✨</p>
-    </div>
-  </div>
-
+  
   <div class="reward-banner"><h3>🌟 Keep Learning to Earn Points!</h3><p>Complete quizzes and activities to unlock rewards and achievements!</p></div>
   <div class="achievements" id="achievementsHome">
     <div class="achievement" id="ach-first-quiz"><div class="emoji">🎯</div><div class="name">First Quiz!</div><div class="points">+50 pts</div></div>
@@ -240,297 +176,291 @@ tr:hover { background: #f8f9fa; }
     <div class="teacher-desk"><div class="teacher-avatar">👩‍🏫🍎</div><div class="speech-bubble" id="teacherMessage">"Click on any station to start learning! I'm so proud of you."</div></div>
     <div class="whiteboard">
       <h3>📌 Today's Learning Goals</h3>
-      <div class="goal-details">
-        <ul><li>Practice multiplication facts (6s and 7s)</li><li>Read for 20 minutes and identify the main idea</li><li>Learn about the solar system</li><li>Review Tennessee history</li></ul>
-        <p style="margin-top:15px;font-size:1.2rem;">🎯 <strong>Daily Challenge:</strong> Complete at least 2 quizzes to earn bonus points!</p>
-      </div>
+      <div class="goal-details"><ul><li>Practice multiplication facts (6s and 7s)</li><li>Read for 20 minutes and identify the main idea</li><li>Learn about the solar system</li><li>Review Tennessee history</li></ul><p style="margin-top:15px;font-size:1.2rem;">🎯 <strong>Daily Challenge:</strong> Complete at least 2 quizzes to earn bonus points!</p></div>
       <div class="progress-container"><div class="progress-mini"><div id="miniProgress" style="width:0%"></div></div><div id="progressPercent">✨ 0% mastery ✨</div></div>
     </div>
   </div>
 </div>
 
-<!-- ========== MATH PAGE ========== -->
+<!-- ========== SUBJECT PAGES ========== -->
 <div id="mathPage" class="subject-page math-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#667eea;">🧮 Math Lab</h2>
-  
-  <!-- Math Slide + Transparent Overlays -->
-  <div class="slide-container">
-    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+  <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
     <div class="math-overlay" id="math-clock" onclick="openMathModal('clock-modal')"></div>
     <div class="math-overlay" id="math-poster" onclick="openMathModal('poster-modal')"></div>
     <div class="math-overlay" id="math-laptop" onclick="openMathModal('laptop-modal')"></div>
     <div class="math-overlay" id="math-calendar" onclick="openMathModal('calendar-modal')"></div>
     <div class="math-overlay" id="math-notebook" onclick="openMathModal('gradebook-modal')"></div>
   </div>
-
-  <!-- Math Modals -->
-  <div class="math-modal" id="clock-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('clock-modal')">&times;</button><h3>⏰ Telling Time Challenge</h3><canvas id="analog-clock-canvas" width="200" height="200"></canvas><p class="math-question">What time is shown? (Format: HH:MM)</p><input type="text" id="time-answer" class="math-input" placeholder="e.g. 3:30"><button class="math-btn" onclick="checkTime()">Check Answer</button><p id="time-feedback"></p></div></div>
-  <div class="math-modal" id="poster-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('poster-modal')">&times;</button><h3>🔢 Number of the Day</h3><div style="text-align:center;margin:20px 0;"><div style="font-size:72px;font-weight:bold;color:#2563eb;" id="display-number">--</div><p>Focus on this number for today's drills!</p></div></div></div>
-  <div class="math-modal" id="laptop-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('laptop-modal')">&times;</button><h3>💻 Math Drill: <span id="drill-number">--</span>s</h3><div id="drill-questions"></div><button class="math-btn" onclick="generateDrill()" id="start-drill-btn">Start Drill</button><button class="math-btn" onclick="gradeDrill()" id="grade-drill-btn" style="display:none;">Submit & Grade</button><p id="drill-result"></p></div></div>
-  <div class="math-modal" id="calendar-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('calendar-modal')">&times;</button><h3>📅 This Week's Math Plan</h3><div id="weekly-plan-display" style="max-height:300px;overflow-y:auto;"></div></div></div>
-  <div class="math-modal" id="gradebook-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('gradebook-modal')">&times;</button><h3>📓 Math Gradebook</h3><p><strong>Overall Grade:</strong> <span id="overall-grade">--%</span></p><div id="assignment-list" style="max-height:250px;overflow-y:auto;margin-top:10px;"></div></div></div>
-
-  <div class="motivational-quote">"Math is not about numbers, it's about understanding the world around us!"</div>
-  <div class="fun-fact-box"><h4>🤓 Fun Math Fact:</h4><p>Did you know? The number 0 is the only number that cannot be represented in Roman numerals!</p></div>
-  <div class="stats-box"><h4>📊 Math Skills to Master:</h4><div class="stat-item">✖️ Multiplication & Division</div><div class="stat-item">🍕 Fractions & Decimals</div></div>
-  <div class="topic-card"><h3>✖️ Multiplication Magic</h3><p>Practice your multiplication facts!</p><div class="quiz"><p><strong>Question 1:</strong> 34 × 6 = ?</p><input type="number" id="math_q1" placeholder="Your answer"><p><strong>Question 2:</strong> 57 × 4 = ?</p><input type="number" id="math_q2" placeholder="Your answer"><br><button id="checkMathMult">Check Answers</button><div id="mathMultFB" class="feedback"></div></div></div>
+  <div class="motivational-quote">💭 <span id="math-quote">"Math is not about numbers, it's about understanding the world around us!"</span> ✨</div>
+  <div class="quote-author" id="math-author">- Mommy Teacher</div>
+  <div class="fun-fact-box"><h4>🤓 Fun Math Fact:</h4><p>Did you know? The number 0 is the only number that cannot be represented in Roman numerals! Also, if you multiply 111,111,111 by itself, you get 12,345,678,987,654,321!</p></div>
+  <div class="stats-box"><h4>📊 Math Skills to Master:</h4><div class="stat-item">✖️ Multiplication & Division</div><div class="stat-item">🍕 Fractions & Decimals</div><div class="stat-item">📐 Geometry & Measurement</div><div class="stat-item">📊 Data & Graphs</div></div>
+  <div class="topic-card"><h3>✖️ Multiplication Magic</h3><div class="quiz"><p><strong>Question 1:</strong> 34 × 6 = ?</p><input type="number" id="math_q1"><p><strong>Question 2:</strong> 57 × 4 = ?</p><input type="number" id="math_q2"><br><button id="checkMathMult">Check Answers</button><div id="mathMultFB" class="feedback"></div></div></div>
+  <div class="topic-card"><h3>🍕 Equivalent Fractions</h3><div class="quiz"><label style="display:block;margin:10px 0;"><input type="checkbox" value="2/4" style="margin-right:10px;"> 2/4</label><label style="display:block;margin:10px 0;"><input type="checkbox" value="3/6" style="margin-right:10px;"> 3/6</label><label style="display:block;margin:10px 0;"><input type="checkbox" value="4/8" style="margin-right:10px;"> 4/8</label><br><button id="checkFractions">Check Answers</button><div id="mathFracFB" class="feedback"></div></div></div>
   <div class="reward-banner"><h3>🌟 Great Job Practicing Math!</h3><p>Complete all math quizzes to earn the Math Master achievement! +100 points</p></div>
 </div>
 
-<!-- ========== READING PAGE ========== -->
 <div id="elaPage" class="subject-page ela-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#f093fb;">📖 Reading Nook</h2>
   <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT6WwTvX86dF18AbtD3g-vHpKJxv6jIQPcMJdYeASRDtXrsY2RQvoZQY5l6SwtE3cVbrmSpenlRfqMV/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
-  <div class="motivational-quote">"A reader lives a thousand lives before he dies. The man who never reads lives only one."</div>
-  <div class="fun-fact-box"><h4>📚 Reading Fun Fact:</h4><p>Did you know? The fastest reader in the world can read over 4,000 words per minute!</p></div>
-  <div class="topic-card"><h3>🐬 Main Idea Practice</h3><div class="quiz"><p style="background:white;padding:15px;border-radius:10px;font-style:italic;margin:15px 0;">"Dolphins are smart mammals. They use clicks and whistles to talk to each other. They live in groups called pods and work together to find food."</p><p><strong>What is the main idea?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="a" style="margin-right:10px;"> Dolphins are fish that live in the ocean.</label><label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="b" style="margin-right:10px;"> Dolphins are intelligent mammals that communicate and live in groups.</label><br><button id="checkMainIdea">Check Answer</button><div id="elaMainFB" class="feedback"></div></div></div>
+  <div class="motivational-quote">💭 <span id="ela-quote">"A reader lives a thousand lives before he dies. The man who never reads lives only one."</span> ✨</div>
+  <div class="quote-author" id="ela-author">- George R.R. Martin</div>
+  <div class="fun-fact-box"><h4>📚 Reading Fun Fact:</h4><p>Did you know? The fastest reader in the world can read over 4,000 words per minute! But remember, it's not about speed - it's about understanding what you read!</p></div>
+  <div class="stats-box"><h4>📖 Reading Skills We're Building:</h4><div class="stat-item">🎯 Finding the Main Idea</div><div class="stat-item">🔍 Identifying Details</div><div class="stat-item">💭 Making Inferences</div><div class="stat-item">📝 Understanding Vocabulary</div></div>
+  <div class="topic-card"><h3>🐬 Main Idea Practice</h3><div class="quiz"><p style="background:white;padding:15px;border-radius:10px;font-style:italic;margin:15px 0;">"Dolphins are smart mammals. They use clicks and whistles to talk to each other. They live in groups called pods and work together to find food."</p><p><strong>What is the main idea?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="a"> Dolphins are fish that live in the ocean.</label><label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="b"> Dolphins are intelligent mammals that communicate and live in groups.</label><label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="c"> Dolphins only make sounds in the water.</label><br><button id="checkMainIdea">Check Answer</button><div id="elaMainFB" class="feedback"></div></div></div>
+  <div class="topic-card"><h3>✏️ Subject-Verb Agreement</h3><div class="quiz"><p><strong>The group of students ___ ready for the test.</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="verb" value="is"> is</label><label style="display:block;margin:10px 0;"><input type="radio" name="verb" value="are"> are</label><br><button id="checkVerb">Check Answer</button><div id="verbFB" class="feedback"></div></div></div>
   <div class="reward-banner"><h3>📚 You're a Reading Star!</h3><p>Complete all reading activities to earn the Reading Star achievement! +100 points</p></div>
 </div>
 
-<!-- ========== SCIENCE PAGE ========== -->
 <div id="sciencePage" class="subject-page science-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#4ecdc4;">🔬 Science Lab</h2>
   <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQK9Jt4Gt0nVlPSv64y9Yy0KcrTUxRrRbKgIBEsUFg2N9OMzngezVBYpO9e0eU4isJPchvRXV-iG3eK/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
-  <div class="motivational-quote">"Don't let anyone rob you of your imagination, your creativity, or your curiosity." - Mae Jemison</div>
-  <div class="topic-card"><h3>🌞 Solar System Quiz</h3><div class="quiz"><p><strong>Which planet is closest to the Sun?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Venus" style="margin-right:10px;"> Venus</label><label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Mercury" style="margin-right:10px;"> Mercury</label><br><button id="checkPlanet">Check Answer</button><div id="planetFB" class="feedback"></div></div></div>
+  <div class="motivational-quote">💭 <span id="science-quote">"Don't let anyone rob you of your imagination, your creativity, or your curiosity."</span> ✨</div>
+  <div class="quote-author" id="science-author">- Mae Jemison</div>
+  <div class="fun-fact-box"><h4>🔬 Science Fun Fact:</h4><p>Did you know? A day on Venus is longer than a year on Venus! It takes Venus 243 Earth days to rotate once on its axis, but only 225 Earth days to orbit the Sun!</p></div>
+  <div class="stats-box"><h4>🔬 Science Topics We're Exploring:</h4><div class="stat-item">🪐 Solar System & Planets</div><div class="stat-item">🌱 Plant & Animal Adaptations</div><div class="stat-item">🌊 Ecosystems & Habitats</div><div class="stat-item">⚡ Energy & Matter</div></div>
+  <div class="topic-card"><h3>🌞 Solar System Quiz</h3><div class="quiz"><p><strong>Which planet is closest to the Sun?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Venus"> Venus</label><label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Mercury"> Mercury</label><label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Earth"> Earth</label><br><button id="checkPlanet">Check Answer</button><div id="planetFB" class="feedback"></div></div></div>
+  <div class="topic-card"><h3>🐪 Animal Adaptations</h3><div class="quiz"><p><strong>What type of habitat do camels live in?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="camel" value="desert"> Desert</label><label style="display:block;margin:10px 0;"><input type="radio" name="camel" value="arctic"> Arctic</label><label style="display:block;margin:10px 0;"><input type="radio" name="camel" value="rainforest"> Rainforest</label><br><button id="checkCamel">Check Answer</button><div id="camelFB" class="feedback"></div></div></div>
   <div class="reward-banner"><h3>🔬 Science Explorer!</h3><p>Keep exploring and learning! Complete all science quizzes for bonus points!</p></div>
 </div>
 
-<!-- ========== HISTORY PAGE ========== -->
 <div id="socialPage" class="subject-page social-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#ffe66d;">🏛️ History Hub</h2>
   <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQS_-IPc8Zs2OOpQjgSaONQvjX5sjUvDbGqQWEX1JWy9A1oRnkWDE1_1UFmdXbQW1g3b-FDYtxyUYvI/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
-  <div class="topic-card"><h3>📜 Declaration of Independence</h3><div class="quiz"><p><strong>Who was the main author?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="author" value="george" style="margin-right:10px;"> George Washington</label><label style="display:block;margin:10px 0;"><input type="radio" name="author" value="thomas" style="margin-right:10px;"> Thomas Jefferson</label><br><button id="checkAuthor">Check Answer</button><div id="authorFB" class="feedback"></div></div></div>
+  <div class="motivational-quote">💭 <span id="social-quote">"Those who cannot remember the past are condemned to repeat it."</span> ✨</div>
+  <div class="quote-author" id="social-author">- George Santayana</div>
+  <div class="fun-fact-box"><h4>🏛️ History Fun Fact:</h4><p>Did you know? Tennessee is known as "The Volunteer State" because of the many volunteers who fought in the War of 1812! Nashville, our capital, is also known as "Music City USA"!</p></div>
+  <div class="stats-box"><h4>🗺️ What We're Learning:</h4><div class="stat-item">🏛️ American History & Founding Fathers</div><div class="stat-item">🎸 Tennessee History & Culture</div><div class="stat-item">📜 Declaration of Independence</div><div class="stat-item">🏛️ Three Branches of Government</div></div>
+  <div class="topic-card"><h3>📜 Declaration of Independence</h3><div class="quiz"><p><strong>Who was the main author of the Declaration of Independence?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="author" value="george"> George Washington</label><label style="display:block;margin:10px 0;"><input type="radio" name="author" value="thomas"> Thomas Jefferson</label><label style="display:block;margin:10px 0;"><input type="radio" name="author" value="ben"> Benjamin Franklin</label><br><button id="checkAuthor">Check Answer</button><div id="authorFB" class="feedback"></div></div></div>
+  <div class="topic-card"><h3>🎸 Tennessee Facts</h3><div class="quiz"><p><strong>What is the capital of Tennessee?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="capital" value="memphis"> Memphis</label><label style="display:block;margin:10px 0;"><input type="radio" name="capital" value="nashville"> Nashville</label><label style="display:block;margin:10px 0;"><input type="radio" name="capital" value="chattanooga"> Chattanooga</label><br><button id="checkCapital">Check Answer</button><div id="capitalFB" class="feedback"></div></div></div>
   <div class="reward-banner"><h3>🏛️ History Hero!</h3><p>You're learning so much about our history! Keep up the great work!</p></div>
 </div>
 
-<!-- ========== TCAP PREP STATION ========== -->
 <div id="assessmentPage" class="subject-page assessment-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:10px;color:#ff6b6b;">📝 TCAP Prep Station</h2>
-  <p style="text-align:center;font-size:1.2rem;margin-bottom:25px;color:#666;">Prepare for success with realistic TCAP practice tests!</p>
-  <div class="tcap-container">
-    <div class="tcap-header"><h2>🎯 Choose Your TCAP Practice Test</h2><p>Select the testing option that works best for you!</p></div>
-    <div class="tcap-options">
-      <div class="tcap-option" onclick="selectTestOption('full-week')"><h3>📅 Full Week Simulation</h3><p>Complete TCAP Experience</p></div>
-      <div class="tcap-option" onclick="selectTestOption('one-subject')"><h3>📚 One Subject at a Time</h3><p>Focus on Individual Subjects</p></div>
-      <div class="tcap-option" onclick="selectTestOption('two-subjects')"><h3>⚡ Two Subjects Together</h3><p>Build Endurance</p></div>
+  <p style="text-align:center;margin-bottom:25px;color:#666;">Prepare for success with realistic TCAP practice tests!</p>
+  <div class="tcap-container" style="background:white;border-radius:20px;padding:30px;margin:20px 30px;box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+    <div class="tcap-header" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;text-align:center;margin-bottom:25px;"><h2>🎯 Choose Your TCAP Practice Test</h2></div>
+    <div class="tcap-options" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:25px 0;">
+      <div class="tcap-option" onclick="selectTestOption('full-week')" style="background:#f5f7fa;border:3px solid #ddd;border-radius:20px;padding:20px;cursor:pointer;text-align:center;"><h3>📅 Full Week</h3><p>Spread across 5 days</p></div>
+      <div class="tcap-option" onclick="selectTestOption('one-subject')" style="background:#f5f7fa;border:3px solid #ddd;border-radius:20px;padding:20px;cursor:pointer;text-align:center;"><h3>📚 One Subject</h3><p>2-hour timed test</p></div>
+      <div class="tcap-option" onclick="selectTestOption('two-subjects')" style="background:#f5f7fa;border:3px solid #ddd;border-radius:20px;padding:20px;cursor:pointer;text-align:center;"><h3>⚡ Two Subjects</h3><p>Build endurance</p></div>
     </div>
-    <div id="tcap-timer-display" class="tcap-timer" style="display:none;">⏱️ Time Remaining: <span id="countdown">02:00:00</span></div>
-    <div id="subjectSelection" class="subject-selection">
-      <h3 style="margin-bottom:15px;">📚 Select Subject(s) for Your Test:</h3>
-      <div id="singleSubjectOptions" style="display:none;"><p><strong>Choose ONE subject:</strong></p><label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="math"> 🧮 Math</label><label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="ela"> 📖 Reading/ELA</label><label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="science"> 🔬 Science</label><label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="social"> 🏛️ Social Studies</label></div>
-      <div id="twoSubjectOptions" style="display:none;"><p><strong>Choose TWO subjects:</strong></p><label class="subject-checkbox"><input type="checkbox" value="math"> 🧮 Math</label><label class="subject-checkbox"><input type="checkbox" value="ela"> 📖 Reading/ELA</label><label class="subject-checkbox"><input type="checkbox" value="science"> 🔬 Science</label><label class="subject-checkbox"><input type="checkbox" value="social"> 🏛️ Social Studies</label></div>
-      <button onclick="startSelectedTest()" style="margin-top:15px;">🚀 Start Test</button>
+    <div id="tcap-timer" style="display:none;background:#fa709a;color:white;padding:15px;border-radius:15px;text-align:center;font-size:1.5rem;font-weight:bold;margin:15px 0;">⏱️ <span id="countdown">02:00:00</span></div>
+    <div id="tcap-subjects" style="margin:20px 0;padding:20px;background:#f8f9fa;border-radius:15px;display:none;">
+      <h3 style="margin-bottom:10px;">Select Subject(s):</h3>
+      <label style="display:block;margin:8px 0;"><input type="checkbox" value="math"> 🧮 Math</label>
+      <label style="display:block;margin:8px 0;"><input type="checkbox" value="ela"> 📖 Reading/ELA</label>
+      <label style="display:block;margin:8px 0;"><input type="checkbox" value="science"> 🔬 Science</label>
+      <label style="display:block;margin:8px 0;"><input type="checkbox" value="social"> 🏛️ Social Studies</label>
+      <button onclick="startTCAP()" style="margin-top:15px;">🚀 Start Test</button>
     </div>
-    <div id="sampleQuestions" class="tcap-questions active"><h3 style="margin-bottom:20px;">📋 Sample TCAP Questions</h3><div class="tcap-question"><p>1. Math: 84 ÷ 7 = ?</p><input type="number" placeholder="Your answer"></div><div class="tcap-question"><p>2. Reading: Which word is a noun?</p><input type="text" placeholder="Your answer"></div><button id="submitTCAPTest" onclick="submitTCAPTest()" style="margin-top:20px;padding:15px 40px;font-size:1.2rem;">✅ Submit Test</button></div>
-    <div id="tcapQuestions" class="tcap-questions"><h3 style="margin-bottom:20px;">📋 TCAP Practice Questions</h3><div id="questionsContainer"></div></div>
-    <div id="tcapResults" class="tcap-results"><h3 style="margin-bottom:20px;text-align:center;">📊 Your TCAP Results</h3><div id="resultsContainer"></div><p style="text-align:center;margin-top:20px;font-weight:bold;">Mommy Teacher will review these results! 💕</p><button onclick="resetTCAPPage()" style="margin-top:20px;">🔄 Take Another Test</button></div>
+    <div id="tcap-results" style="display:none;background:white;border-radius:20px;padding:25px;margin:20px 0;box-shadow:0 5px 15px rgba(0,0,0,0.1);text-align:center;"></div>
   </div>
   <div class="reward-banner"><h3>🏆 TCAP Champion in Training!</h3><p>Complete full practice tests to earn the TCAP Master achievement! +250 points</p></div>
 </div>
 
-<!-- ========== GYM PAGE ========== -->
 <div id="gymPage" class="subject-page gym-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#4ecdc4;">💪 Gym & Health</h2>
   <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTqBnb64mqJwu5HrImLx6Y6mapWGmwtBqZ64ffipVVI7_R7CKkax5rlKBMln3zJU_1LG4vRT2N-nmtC/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
-  <div class="motivational-quote">"Take care of your body; it's the only place you have to live."</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin:20px auto;max-width:1000px;">
-    <div class="topic-card" style="border-left-color:#4ecdc4;"><h3>🏃 Today's Movement</h3><p>Goal: <strong>15 minutes</strong> of active play</p><button onclick="logActivity('jump-rope',15)" style="margin-top:10px;">✅ Log Completed (+10 pts)</button></div>
-    <div class="topic-card" style="border-left-color:#4ecdc4;"><h3>🥗 Healthy Habit</h3><p>Drink 6 glasses of water daily</p></div>
-  </div>
-  <div class="reward-banner"><h3>🏆 Health Hero Points!</h3><p>Log 3 gym activities this week to earn +50 bonus points!</p></div>
+  <div class="motivational-quote">💭 <span id="gym-quote">"Take care of your body; it's the only place you have to live."</span> ✨</div>
+  <div class="quote-author" id="gym-author">- Jim Cathcart</div>
+  <div class="fun-fact-box"><h4>🏃 Gym Fun Fact:</h4><p>Regular exercise helps your brain grow new neurons and improves focus!</p></div>
+  <div class="stats-box"><h4>🏆 Health Skills We're Building:</h4><div class="stat-item">🏃 Endurance & Cardio</div><div class="stat-item">🧘 Flexibility & Balance</div><div class="stat-item">🥗 Nutrition Awareness</div><div class="stat-item">🧼 Daily Hygiene</div></div>
+  <div class="topic-card"><h3>🏃 Today's Movement</h3><p>Goal: <strong>15 minutes</strong> of active play</p><button onclick="logActivity('jump-rope',15)" style="margin-top:10px;">✅ Log Completed (+10 pts)</button></div>
+  <div class="reward-banner"><h3>🏆 Health Hero Points!</h3><p>Log 3 gym activities this week to earn +50 bonus points! 💪</p></div>
 </div>
 
-<!-- ========== SPANISH PAGE ========== -->
 <div id="spanishPage" class="subject-page spanish-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#9c27b0;">🗣️ Spanish Hall</h2>
   <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSxjWRLf_TFyU4rqjHJr63avj0CD7ggjEWfkh9pGH33s-2FtoFGu-LLSKlrN5K63yjG8O0Aie560ydW/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
-  <div class="topic-card"><h3>📚 Vocabulary Practice</h3><div class="quiz"><p><strong>¿Cómo se dice "hello" en español?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="adios"> Adiós</label><label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="hola"> Hola ✓</label><br><button onclick="checkSpanishQ1()">Check Answer</button><div id="spanishQ1FB" class="feedback"></div></div></div>
+  <div class="motivational-quote">💭 <span id="spanish-quote">"Los límites de mi lenguaje son los límites de mi mundo."</span> ✨</div>
+  <div class="quote-author" id="spanish-author">- Ludwig Wittgenstein</div>
+  <div class="fun-fact-box"><h4>🗣️ Spanish Fun Fact:</h4><p>Spanish is spoken by over 500 million people worldwide!</p></div>
+  <div class="stats-box"><h4>🌍 Language Skills We're Building:</h4><div class="stat-item">🗣️ Basic Conversation</div><div class="stat-item">📝 Reading Comprehension</div><div class="stat-item">🎧 Listening Skills</div><div class="stat-item">🌎 Cultural Awareness</div></div>
+  <div class="topic-card"><h3>📚 Vocabulary Practice</h3><div class="quiz"><p><strong>¿Cómo se dice "hello" en español?</strong></p><label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="adios"> Adiós</label><label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="hola"> Hola ✓</label><label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="gracias"> Gracias</label><br><button onclick="checkSpanishQ1()">Check Answer</button><div id="spanishQ1FB" class="feedback"></div></div></div>
   <div class="reward-banner"><h3>🌟 ¡Muy Bien!</h3><p>Complete Spanish lessons to earn language learner points! +75 pts</p></div>
 </div>
 
-<!-- ========== ART PAGE ========== -->
 <div id="artPage" class="subject-page art-page">
   <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
   <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#ff6b6b;">🎨 Art Studio</h2>
   <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSV7ANEIgShKt3dnGsCbQY-vh1xLhiehXgIdcbH30qaZ5-XFcvUlI7SynvPnBc5SH_Dulh76SDTnkDv/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
+  <div class="motivational-quote">💭 <span id="art-quote">"Every artist was first an amateur."</span> ✨</div>
+  <div class="quote-author" id="art-author">- Ralph Waldo Emerson</div>
+  <div class="fun-fact-box"><h4>🎨 Art Fun Fact:</h4><p>The color blue was once more valuable than gold!</p></div>
+  <div class="stats-box"><h4>🖌️ Creative Skills We're Building:</h4><div class="stat-item">🎨 Color Theory & Mixing</div><div class="stat-item">✏️ Sketching & Shading</div><div class="stat-item">📐 Perspective</div><div class="stat-item">🧠 Creative Expression</div></div>
   <div class="topic-card"><h3>🖌️ Today's Art Project</h3><p><strong>Watercolor Landscapes</strong></p><button onclick="logArtProject('watercolor')" style="margin-top:15px;">✅ I Finished My Art! (+25 pts)</button></div>
   <div class="reward-banner"><h3>🎨 Creative Points!</h3><p>Share your art with Mommy Teacher to earn bonus creativity points! +50 pts</p></div>
 </div>
 
-<!-- ========== PARENT & MODALS ========== -->
+<!-- ========== PARENT MODALS ========== -->
 <div id="parentModal" class="parent-modal">
   <div class="parent-card">
     <div style="display:flex;justify-content:space-between;align-items:center;"><h2>📊 Parent Dashboard</h2><button id="closeParentModal" style="background:linear-gradient(135deg,#fa709a,#fee140);padding:8px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">✖ Close</button></div>
     <div id="parentDashboardContent"><p>🔐 Loading scores...</p></div>
     <div style="margin-top:1.5rem;display:flex;gap:12px;flex-wrap:wrap;">
-      <button id="resetAllScoresBtn" style="background:linear-gradient(135deg,#ff6b6b,#ee5a6f);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">🔄 Reset All</button>
+      <button id="resetAllBtn" style="background:linear-gradient(135deg,#ff6b6b,#ee5a6f);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">🔄 Reset All</button>
       <button id="exportCSVBtn" style="background:linear-gradient(135deg,#4ecdc4,#44a08d);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">📎 Export CSV</button>
-      <button id="redeemRewardBtn" style="background:linear-gradient(135deg,#fa709a,#fee140);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">🎁 Redeem</button>
-      <button id="lessonPlanBtn" style="background:linear-gradient(135deg,#9c27b0,#673ab7);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">📚 Weekly Planner</button>
-      <button id="gradesBtn" style="background:linear-gradient(135deg,#10b981,#059669);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">📈 Gradebook</button>
+      <button id="redeemBtn" style="background:linear-gradient(135deg,#fa709a,#fee140);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">🎁 Redeem</button>
+      <button id="plannerBtn" style="background:linear-gradient(135deg,#9c27b0,#673ab7);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">📚 Weekly Planner</button>
+      <button id="gradebookBtn" style="background:linear-gradient(135deg,#10b981,#059669);padding:10px 20px;border-radius:20px;border:none;color:white;cursor:pointer;font-weight:bold;">📈 Gradebook</button>
     </div>
   </div>
 </div>
 
 <div id="redeemModal" class="scene-modal">
-  <div class="modal-content" style="max-width:900px;">
+  <div class="modal-content">
     <button class="close-modal" onclick="closeRedeemModal()">✕</button>
-    <h2 style="text-align:center;margin-bottom:10px;">🎁 Redeem Reward for Alli</h2>
-    <p style="text-align:center;margin-bottom:20px;font-size:1.2rem;">Alli's Points: <strong id="redeemPoints" style="color:#667eea;font-size:1.4rem;">0</strong> ⭐</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin:20px 0;">
-      <div style="background:linear-gradient(135deg,#ffecd2,#fcb69f);padding:20px;border-radius:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);"><div style="font-size:3rem;">🍫</div><h3>Candy Bar</h3><p style="font-weight:bold;color:#667eea;margin:5px 0;">500 points</p><button onclick="redeemReward(500,'Candy Bar')" style="margin-top:10px;width:100%;padding:8px;border-radius:15px;border:none;cursor:pointer;font-weight:bold;">Redeem</button></div>
-      <div style="background:linear-gradient(135deg,#a8edea,#fed6e3);padding:20px;border-radius:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);"><div style="font-size:3rem;">🎮</div><h3>Roblox Card ($10)</h3><p style="font-weight:bold;color:#667eea;margin:5px 0;">2000 points</p><button onclick="redeemReward(2000,'Roblox Card')" style="margin-top:10px;width:100%;padding:8px;border-radius:15px;border:none;cursor:pointer;font-weight:bold;">Redeem</button></div>
-      <div style="background:linear-gradient(135deg,#ff9a9e,#fecfef);padding:20px;border-radius:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);"><div style="font-size:3rem;">🎬</div><h3>Movie Night</h3><p style="font-weight:bold;color:#667eea;margin:5px 0;">750 points</p><button onclick="redeemReward(750,'Movie Night')" style="margin-top:10px;width:100%;padding:8px;border-radius:15px;border:none;cursor:pointer;font-weight:bold;">Redeem</button></div>
-      <div style="background:linear-gradient(135deg,#ffecd2,#fcb69f);padding:20px;border-radius:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);"><div style="font-size:3rem;">🎨</div><h3>Art Supplies</h3><p style="font-weight:bold;color:#667eea;margin:5px 0;">500 points</p><button onclick="redeemReward(500,'Art Supplies')" style="margin-top:10px;width:100%;padding:8px;border-radius:15px;border:none;cursor:pointer;font-weight:bold;">Redeem</button></div>
-      <div style="background:linear-gradient(135deg,#d4fc79,#96e6a1);padding:20px;border-radius:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.1);"><div style="font-size:3rem;">📚</div><h3>New Book</h3><p style="font-weight:bold;color:#667eea;margin:5px 0;">500 points</p><button onclick="redeemReward(500,'New Book')" style="margin-top:10px;width:100%;padding:8px;border-radius:15px;border:none;cursor:pointer;font-weight:bold;">Redeem</button></div>
-      <div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.2);"><div style="font-size:3rem;">🏆</div><h3>Special Prize</h3><p style="font-weight:bold;margin:5px 0;">5000 points</p><button onclick="redeemReward(5000,'Special Prize')" style="margin-top:10px;width:100%;background:white;color:#667eea;border:none;padding:8px 15px;border-radius:20px;cursor:pointer;font-weight:bold;">Redeem</button></div>
+    <h2 style="text-align:center;margin-bottom:15px;">🎁 Redeem Reward</h2>
+    <p style="text-align:center;margin-bottom:20px;">Points: <strong id="redeemPoints" style="font-size:1.4rem;color:#667eea;">0</strong> ⭐</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;">
+      <div style="background:#ffecd2;padding:15px;border-radius:15px;text-align:center;"><h3>🍫 Candy Bar</h3><p style="color:#667eea;font-weight:bold;">500 pts</p><button onclick="redeemReward(500,'Candy Bar')">Redeem</button></div>
+      <div style="background:#a8edea;padding:15px;border-radius:15px;text-align:center;"><h3>🎮 Roblox ($10)</h3><p style="color:#667eea;font-weight:bold;">2000 pts</p><button onclick="redeemReward(2000,'Roblox')">Redeem</button></div>
+      <div style="background:#ff9a9e;padding:15px;border-radius:15px;text-align:center;"><h3>🎬 Movie Night</h3><p style="color:#667eea;font-weight:bold;">750 pts</p><button onclick="redeemReward(750,'Movie Night')">Redeem</button></div>
+      <div style="background:#d4fc79;padding:15px;border-radius:15px;text-align:center;"><h3>📚 New Book</h3><p style="color:#667eea;font-weight:bold;">500 pts</p><button onclick="redeemReward(500,'Book')">Redeem</button></div>
     </div>
-    <p style="text-align:center;margin-top:20px;font-style:italic;color:#666;padding:15px;background:#f8f9fa;border-radius:10px;">✅ Rewards are tracked locally. <strong>Google Sheets sync coming soon!</strong><br>💡 Tip: Redeem rewards after your daughter earns them to keep motivation high! 🌟</p>
   </div>
 </div>
 
-<div id="lessonPlanModal" class="scene-modal">
-  <div class="parent-card" style="max-width:1200px;max-height:95vh;overflow-y:auto;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h2>📚 Weekly Lesson Planner</h2><button class="close-modal" onclick="closeLessonPlan()" style="position:static;width:auto;height:auto;padding:8px 15px;border-radius:20px;">✕ Close</button></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;padding:10px;background:#f8f9fa;border-radius:15px;">
-      <button onclick="switchPlannerTab('math')" class="planner-tab active" data-subject="math" style="background:#667eea;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">🧮 Math</button>
-      <button onclick="switchPlannerTab('ela')" class="planner-tab" data-subject="ela" style="background:#f093fb;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">📖 Reading</button>
-      <button onclick="switchPlannerTab('science')" class="planner-tab" data-subject="science" style="background:#4ecdc4;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">🔬 Science</button>
-      <button onclick="switchPlannerTab('social')" class="planner-tab" data-subject="social" style="background:#ffe66d;color:#333;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">🏛️ History</button>
-      <button onclick="switchPlannerTab('spanish')" class="planner-tab" data-subject="spanish" style="background:#9c27b0;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">🗣️ Spanish</button>
-      <button onclick="switchPlannerTab('gym')" class="planner-tab" data-subject="gym" style="background:#4ecdc4;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">💪 Gym</button>
-      <button onclick="switchPlannerTab('art')" class="planner-tab" data-subject="art" style="background:#ff6b6b;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">🎨 Art</button>
+<div id="plannerModal" class="scene-modal">
+  <div class="parent-card" style="max-width:1200px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h2>📚 Weekly Lesson Planner</h2><button class="close-modal" onclick="closePlanner()" style="position:static;width:auto;height:auto;padding:6px 12px;border-radius:15px;">✕ Close</button></div>
+    <div class="planner-subject-tabs">
+      <button class="planner-tab active" data-subj="math">🧮 Math</button>
+      <button class="planner-tab" data-subj="ela">📖 Reading</button>
+      <button class="planner-tab" data-subj="science">🔬 Science</button>
+      <button class="planner-tab" data-subj="social">🏛️ History</button>
+      <button class="planner-tab" data-subj="spanish">🗣️ Spanish</button>
+      <button class="planner-tab" data-subj="gym">💪 Gym</button>
+      <button class="planner-tab" data-subj="art">🎨 Art</button>
     </div>
-    <div id="planner-weekly-grid" style="background:white;border-radius:15px;padding:20px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,0.1);">
-      <h3 style="margin:0 0 15px 0;">🗓️ Plan This Week: <span id="current-planner-subject-name">Math</span></h3>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
-        <button onclick="changePlannerWeek(-1)" style="background:#667eea;color:white;border:none;padding:8px 15px;border-radius:15px;cursor:pointer;">◀ Prev Week</button>
-        <span id="planner-week-label" style="font-weight:bold;font-size:1.1rem;">Week of Current</span>
-        <button onclick="changePlannerWeek(1)" style="background:#667eea;color:white;border:none;padding:8px 15px;border-radius:15px;cursor:pointer;">Next Week ▶</button>
+    <div id="planner-quote-editor" style="background:#f0f8ff;padding:15px;border-radius:15px;margin-bottom:15px;border-left:4px solid #667eea;">
+      <h4 style="margin:0 0 10px;">💬 Set Weekly Quote & Author</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <input type="text" id="plan-quote" placeholder="Enter inspirational quote...">
+        <input type="text" id="plan-author" placeholder="Author name...">
       </div>
-      <div id="planner-days-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px;"></div>
     </div>
-    <div id="planner-subject-specific" style="background:white;border-radius:15px;padding:20px;margin-bottom:20px;box-shadow:0 3px 10px rgba(0,0,0,0.1);"></div>
-    <button onclick="saveWeeklyPlan()" style="width:100%;margin-top:20px;padding:15px;font-size:1.1rem;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:25px;cursor:pointer;font-weight:bold;box-shadow:0 4px 15px rgba(0,0,0,0.2);">💾 Save Weekly Plan for <span id="current-planner-subject-save">Math</span></button>
+    <div id="planner-days-container"></div>
+    <div id="planner-subject-specific" class="subject-section"></div>
+    <button onclick="savePlanner()" style="width:100%;margin-top:20px;padding:15px;font-size:1.1rem;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:25px;cursor:pointer;font-weight:bold;">💾 Save Weekly Plan</button>
   </div>
 </div>
 
-<div id="gradesModal" class="scene-modal">
-  <div class="parent-card" style="max-width:900px;max-height:90vh;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h2>📈 Alli's Gradebook</h2><button class="close-modal" onclick="closeGradesModal()" style="position:static;width:auto;height:auto;padding:8px 15px;border-radius:20px;">✕ Close</button></div>
-    <div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;margin-bottom:20px;text-align:center;"><h3 style="margin:0 0 10px 0;">Overall Progress</h3><div style="font-size:2.5rem;font-weight:bold;" id="overall-grade-display">--%</div><p style="margin:5px 0 0 0;opacity:0.9;">Based on <span id="total-assignments">0</span> assignments</p></div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;padding:10px;background:#f8f9fa;border-radius:15px;">
-      <button onclick="switchGradesTab('all')" class="grades-tab active" style="background:#667eea;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;font-weight:bold;">All</button>
-      <button onclick="switchGradesTab('math')" class="grades-tab" style="background:#667eea;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;">🧮 Math</button>
-      <button onclick="switchGradesTab('ela')" class="grades-tab" style="background:#f093fb;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;">📖 Reading</button>
-      <button onclick="switchGradesTab('science')" class="grades-tab" style="background:#4ecdc4;color:white;padding:8px 16px;border-radius:20px;border:none;cursor:pointer;">🔬 Science</button>
-    </div>
-    <div style="overflow-x:auto;border-radius:15px;box-shadow:0 3px 10px rgba(0,0,0,0.1);"><table style="width:100%;border-collapse:collapse;background:white;border-radius:15px;overflow:hidden;"><thead><tr style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;"><th style="padding:12px;text-align:left;">Assignment</th><th style="padding:12px;">Subject</th><th style="padding:12px;">Score</th><th style="padding:12px;">Date</th><th style="padding:12px;">Actions</th></tr></thead><tbody id="grades-table-body"></tbody></table></div>
-    <div style="margin-top:20px;text-align:center;"><button onclick="showAddGradeForm()" style="background:linear-gradient(135deg,#10b981,#059669);color:white;padding:12px 30px;border:none;border-radius:25px;cursor:pointer;font-weight:bold;font-size:1rem;">➕ Add New Grade (Mock)</button><p style="margin-top:10px;font-size:0.85rem;color:#666;">💡 In the future: "Sync to Google Sheets" button will backup all grades to your cloud spreadsheet!</p></div>
+<div id="gradebookModal" class="scene-modal">
+  <div class="parent-card" style="max-width:900px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><h2>📈 Alli's Gradebook</h2><button class="close-modal" onclick="closeGradebook()" style="position:static;width:auto;height:auto;padding:6px 12px;border-radius:15px;">✕ Close</button></div>
+    <div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;text-align:center;margin-bottom:20px;"><h3>Overall: <span id="overall-grade">--%</span></h3><p style="margin-top:5px;opacity:0.9;">Assignments: <span id="total-assigns">0</span></p></div>
+    <div style="overflow-x:auto;border-radius:15px;"><table><thead><tr><th>Assignment</th><th>Subject</th><th>Score</th><th>Date</th><th>Action</th></tr></thead><tbody id="grades-tbody"></tbody></table></div>
+    <div style="margin-top:20px;text-align:center;"><button onclick="addMockGrade()" style="background:linear-gradient(135deg,#10b981,#059669);padding:10px 25px;border:none;border-radius:25px;color:white;cursor:pointer;font-weight:bold;">➕ Add Grade (Mock)</button></div>
   </div>
 </div>
+
+<div id="clock-modal" class="math-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('clock-modal')">&times;</button><h3>⏰ Telling Time</h3><canvas id="analog-clock" width="200" height="200"></canvas><input type="text" id="time-ans" class="math-input" placeholder="HH:MM" style="width:120px;margin:10px auto;"><button onclick="checkClock()">Check</button><p id="clock-fb" style="margin-top:10px;"></p></div></div>
+<div id="poster-modal" class="math-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('poster-modal')">&times;</button><h3>🔢 Number of the Day</h3><div style="font-size:4rem;font-weight:bold;color:#2563eb;text-align:center;margin:20px 0;" id="nod-display">--</div></div></div>
+<div id="laptop-modal" class="math-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('laptop-modal')">&times;</button><h3>💻 Math Drill: <span id="drill-num">--</span>s</h3><div id="drill-cont"></div><button onclick="startDrill()" id="drill-start" style="margin-top:10px;">Start Drill</button><button onclick="gradeDrill()" id="drill-submit" style="display:none;margin-top:10px;">Submit</button><p id="drill-res" style="margin-top:10px;"></p></div></div>
+<div id="calendar-modal" class="math-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('calendar-modal')">&times;</button><h3>📅 This Week's Math</h3><ul id="math-plan-list" style="margin-top:10px;list-style:none;"></ul></div></div>
+<div id="gradebook-modal" class="math-modal"><div class="math-modal-content"><button class="close-math-modal" onclick="closeMathModal('gradebook-modal')">&times;</button><h3>📓 Math Gradebook</h3><table id="math-grade-table"><tr><th>Assignment</th><th>Score</th></tr></table></div></div>
 
 <script>
-// ========== CORE STATE & INIT ==========
-let totalPoints = parseInt(localStorage.getItem('totalPoints')) || 0;
-let achievements = JSON.parse(localStorage.getItem('achievements')) || { firstQuiz:false, mathMaster:false, readingStar:false, perfectScore:false, weekWarrior:false, tcapMaster:false };
-let quizzesCompleted = parseInt(localStorage.getItem('quizzesCompleted')) || 0;
-let currentSubject = 'home';
-document.addEventListener('DOMContentLoaded', () => {
-  updatePointsDisplay(); updateClassroomProgress(); bindQuizzes(); drawClock(); updateNumberOfTheDay(); renderGradebook();
-  if(achievements.firstQuiz) document.getElementById('ach-first-quiz')?.classList.remove('locked');
-  if(achievements.mathMaster) document.getElementById('ach-math-master')?.classList.remove('locked');
-  if(achievements.readingStar) document.getElementById('ach-reading-star')?.classList.remove('locked');
-  if(achievements.perfectScore) document.getElementById('ach-perfect-score')?.classList.remove('locked');
+// ========== STATE & INIT ==========
+let totalPoints = parseInt(localStorage.getItem('totalPoints'))||0;
+let quizzesCompleted = parseInt(localStorage.getItem('quizzesCompleted'))||0;
+let currentSubject='home';
+const subjects=['math','ela','science','social','spanish','gym','art'];
+const days=['monday','tuesday','wednesday','thursday','friday'];
+let currentPlannerSubj='math';
+const tnStandards={math:['4.NBT.B.5','4.NBT.B.6','4.NF.A.1'],ela:['4.RL.KID.2','4.L.CSE.1'],science:['4.ESS1.1','4.LS2.2'],social:['4.19','4.10'],gym:['PE.4.1'],art:['VA.4.1']};
+
+document.addEventListener('DOMContentLoaded',()=>{
+  updatePoints(); updateProgress(); bindQuizzes();
+  subjects.forEach(s=>loadSubjectQuote(s));
+  if(localStorage.getItem('math_grades'))renderMathGrades();
   initMockGrades();
 });
+function updatePoints(){document.getElementById('totalPoints').textContent=totalPoints;localStorage.setItem('totalPoints',totalPoints);}
+function addPoints(n,r){totalPoints+=n;updatePoints();showCeleb(`+${n} ${r}`);}
+function showCeleb(m){const d=document.createElement('div');d.style.cssText=`position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#fa709a,#fee140);color:white;padding:20px 40px;border-radius:20px;font-size:1.8rem;font-weight:bold;z-index:5000;animation:pop 0.4s;`;d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),1500);}
+function updateProgress(){let e=0,p=0;for(let k in localStorage){if(k.startsWith('qz_')){const v=localStorage.getItem(k).split('/');e+=+v[0];p+=+v[1];}}const pct=p?Math.floor(e/p*100):0;const b=document.getElementById('miniProgress');if(b)b.style.width=pct+'%';document.getElementById('progressPercent').textContent=`✨ ${pct}% mastery ✨`;}
 
-// ========== REWARDS & NAVIGATION ==========
-function updatePointsDisplay() { document.getElementById('totalPoints').textContent = totalPoints; localStorage.setItem('totalPoints', totalPoints); }
-function addPoints(points, reason='') { totalPoints += points; updatePointsDisplay(); showCelebration(`+${points} points! ${reason}`); }
-function showCelebration(msg) { const c = document.createElement('div'); c.style.cssText = `position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(135deg,#fa709a,#fee140);color:white;padding:30px 50px;border-radius:20px;font-size:2rem;font-weight:bold;z-index:5000;box-shadow:0 10px 40px rgba(0,0,0,0.3);animation:celebratePop 0.5s ease;`; c.textContent = msg; document.body.appendChild(c); setTimeout(()=>c.remove(),2000); }
-function unlockAchievement(id, pts) { if(!achievements[id]) { achievements[id]=true; localStorage.setItem('achievements',JSON.stringify(achievements)); addPoints(pts,'Achievement Unlocked!'); const el = document.getElementById(`ach-${id.replace(/([A-Z])/g,'-$1').toLowerCase()}`); if(el) el.classList.remove('locked'); } }
-function showRewardPreview() { document.getElementById('previewPoints').textContent = totalPoints; document.getElementById('rewardPreviewModal').classList.add('active'); }
-function closeRewardPreview() { document.getElementById('rewardPreviewModal').classList.remove('active'); }
-function redeemReward(cost, name) { if(totalPoints >= cost) { if(confirm(`Redeem ${name} for ${cost} points?`)) { totalPoints -= cost; updatePointsDisplay(); let r = JSON.parse(localStorage.getItem('redemptions')||'[]'); r.push({reward:name,cost:cost,date:new Date().toLocaleDateString()}); localStorage.setItem('redemptions',JSON.stringify(r)); alert(`✅ ${name} redeemed! Points: ${totalPoints}`); closeRedeemModal(); } } else alert(`❌ Need ${cost-totalPoints} more points!`); }
-function closeRedeemModal() { document.getElementById('redeemModal').classList.remove('active'); }
+// ========== NAVIGATION & MODALS ==========
+function goHome(){currentSubject='home';document.getElementById('classroomView').style.display='block';document.querySelectorAll('.subject-page').forEach(p=>{p.style.display='none';p.classList.remove('active-subject')});updateProgress();window.scrollTo(0,0);}
+document.querySelectorAll('.class-object[data-subject]').forEach(el=>{el.onclick=()=>{const s=el.dataset.subj;currentSubject=s;document.getElementById('classroomView').style.display='none';const m={math:'mathPage',ela:'elaPage',science:'sciencePage',social:'socialPage',assessment:'assessmentPage',gym:'gymPage',spanish:'spanishPage',art:'artPage'};const t=m[s];if(t){document.getElementById(t).style.display='block';document.getElementById(t).classList.add('active-subject');window.scrollTo(0,0);}};});
 
-function goHome() { currentSubject='home'; document.getElementById('classroomView').style.display='block'; document.querySelectorAll('.subject-page').forEach(p=>{p.classList.remove('active-subject');p.style.display='none';}); updateClassroomProgress(); window.scrollTo(0,0); }
-function openSceneModal(content) { document.getElementById('modalBody').innerHTML=content; document.getElementById('sceneModal').classList.add('active'); }
-function closeSceneModal() { document.getElementById('sceneModal').classList.remove('active'); }
-document.querySelectorAll('.clickable-overlay').forEach(el=>{el.addEventListener('click',function(e){if(currentSubject==='home'){e.stopPropagation();handleSceneAction(this.getAttribute('data-action'));}});});
-document.querySelectorAll('.class-object[data-subject]').forEach(el=>{el.addEventListener('click',()=>{const s=el.getAttribute('data-subject');currentSubject=s;document.getElementById('classroomView').style.display='none';document.querySelectorAll('.subject-page').forEach(p=>{p.classList.remove('active-subject');p.style.display='none';});const m={math:'mathPage',ela:'elaPage',science:'sciencePage',social:'socialPage',assessment:'assessmentPage',gym:'gymPage',spanish:'spanishPage',art:'artPage'};const t=m[s];if(t){document.getElementById(t).classList.add('active-subject');document.getElementById(t).style.display='block';window.scrollTo(0,0);}});});
-document.getElementById('sceneModal')?.addEventListener('click',function(e){if(e.target===this)closeSceneModal();});
+document.querySelectorAll('.clickable-overlay').forEach(el=>{el.onclick=(e)=>{if(currentSubject!=='home')return;e.stopPropagation();openScene(el.dataset.action);};});
+function openScene(a){const map={window:`<h2>🌤️ Weather in Chattanooga, TN</h2><p>Current weather conditions for our city!</p><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin: 15px 0;"><p style="font-size: 2rem; margin: 10px 0;">🌡️ <span id="temp">72°F</span></p><p>☀️ Sunny</p><p>💧 Humidity: 45%</p><p>💨 Wind: 8 mph</p></div><p><strong>Learning Connection:</strong> Weather affects what we wear and do each day. What would you wear in this weather?</p><p style="margin-top: 10px; font-style: italic; color: #666;">📍 Chattanooga is in southeastern Tennessee, near the Tennessee River!</p>`,calendar:`<h2>📅 Classroom Calendar</h2><p><strong>${new Date().toLocaleDateString('en-US',{month:'long',year:'numeric'})}</strong></p><p>Today is ${new Date().toLocaleDateString('en-US',{weekday:'long'})}, the ${new Date().getDate()}th</p><div style="margin-top: 20px; background: #f0f8ff; padding: 15px; border-radius: 10px;"><h3>📚 This Week's Schedule:</h3><ul style="margin-top: 10px; margin-left: 20px; line-height: 1.8;"><li><strong>Monday:</strong> Math - Multiplication Practice</li><li><strong>Tuesday:</strong> Reading - Main Idea & Details</li><li><strong>Wednesday:</strong> Science - Solar System</li><li><strong>Thursday:</strong> Social Studies - Tennessee History</li><li><strong>Friday:</strong> Test Prep & Review</li></ul></div><p style="margin-top: 15px;"><em>🌟 Remember: We learn something new every day!</em></p>`,library:`<h2>📚 Library & Reading Corner</h2><p>Welcome to our cozy reading nook! Books take us on adventures.</p><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;"><div style="background: #fff3cd; padding: 15px; border-radius: 10px; border-left: 5px solid #ffc107;"><strong>📖 Fiction</strong><br>Stories, novels, and imagination</div><div style="background: #d1ecf1; padding: 15px; border-radius: 10px; border-left: 5px solid #17a2b8;"><strong>🔬 Non-Fiction</strong><br>Facts, science, and real events</div><div style="background: #d4edda; padding: 15px; border-radius: 10px; border-left: 5px solid #28a745;"><strong>🔢 Math Books</strong><br>Numbers and problem-solving</div><div style="background: #f8d7da; padding: 15px; border-radius: 10px; border-left: 5px solid #dc3545;"><strong>🌍 Social Studies</strong><br>History, geography, culture</div></div><p style="margin-top: 15px;"><strong>Reading Challenge:</strong> Read for 20 minutes every day! 📖✨</p>`,laptop:`<h2>👩‍🏫 Welcome from Mommy Teacher!</h2><p style="font-size: 1.2rem; color: #5a4a3a; margin: 15px 0;">Hi there, superstar! 🌟</p><p>I'm so excited to have you in our digital classroom! Whether you call me Ms. French or Mommy Teacher, I'm here to help you learn and grow every single day.</p><div style="background: #fff9e6; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>💖 What Makes Our Classroom Special:</h3><ul style="margin-left: 20px; margin-top: 10px; line-height: 2;"><li>✨ We learn at our own pace</li><li>✨ Mistakes help us grow</li><li>✨ Every question is important</li><li>✨ We celebrate every success</li><li>✨ Learning is an adventure!</li></ul></div><p style="font-style: italic; color: #666;">"You are brave, you are smart, and you can do hard things!" - Mommy Teacher 💕</p>`,plant:`<h2>🌱 Plant Care Station</h2><p>Our classroom plants need love and care!</p><div style="background: #e8f5e9; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>🌿 How to Care for Plants:</h3><ul style="margin-left: 20px; margin-top: 10px; line-height: 2;"><li>💧 <strong>Water:</strong> Check soil - water when top inch is dry</li><li>☀️ <strong>Sunlight:</strong> Most plants need 6-8 hours of light</li><li>🌡️ <strong>Temperature:</strong> Keep away from cold drafts</li><li>✂️ <strong>Trim:</strong> Remove dead leaves regularly</li></ul></div><h3>🧪 Science Connection:</h3><p><strong>Photosynthesis:</strong> Plants use sunlight, water, and carbon dioxide to make their own food and release oxygen for us to breathe!</p><p style="margin-top: 10px; font-style: italic;">🌍 Plants are essential for life on Earth. Thank you for taking care of them!</p>`,blm:`<h2>✊ Social Emotional Learning & Black History</h2><p>Learning about diversity, equality, and the amazing contributions of Black Americans to our world.</p><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>🌟 This Month's Focus:</h3><p><strong>Theme:</strong> Courage and Change-Makers</p></div><h3>📚 Important Figures to Know:</h3><div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin: 10px 0;"><strong>Martin Luther King Jr.</strong><br>Civil rights leader who fought for equality and justice for all people. "I have a dream..."</div><div style="background: #d1ecf1; padding: 15px; border-radius: 10px; margin: 10px 0;"><strong>Rosa Parks</strong><br>"Mother of the Civil Rights Movement" - Her courage sparked change.</div><div style="background: #d4edda; padding: 15px; border-radius: 10px; margin: 10px 0;"><strong>Maya Angelou</strong><br>Poet and author who inspired millions with her words.</div><h3>💭 Social Emotional Learning:</h3><ul style="margin-left: 20px; line-height: 2;"><li><strong>Empathy:</strong> Understanding how others feel</li><li><strong>Respect:</strong> Treating everyone with kindness</li><li><strong>Courage:</strong> Standing up for what's right</li><li><strong>Unity:</strong> We're stronger together</li></ul><p style="margin-top: 15px; font-style: italic; background: #f8f9fa; padding: 10px; border-radius: 8px;">"We all should know that diversity makes for a rich tapestry, and we must understand that all the threads of the tapestry are equal in value." - Maya Angelou</p>`,math:`<h2>🧮 Math Corner</h2><p>Let's explore the wonderful world of numbers!</p><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;"><div style="background: #fff3cd; padding: 15px; border-radius: 10px; text-align: center;"><div style="font-size: 2rem;">✖️</div><strong>Multiplication</strong></div><div style="background: #d1ecf1; padding: 15px; border-radius: 10px; text-align: center;"><div style="font-size: 2rem;">➗</div><strong>Division</strong></div><div style="background: #d4edda; padding: 15px; border-radius: 10px; text-align: center;"><div style="font-size: 2rem;">🍕</div><strong>Fractions</strong></div><div style="background: #f8d7da; padding: 15px; border-radius: 10px; text-align: center;"><div style="font-size: 2rem;">📐</div><strong>Geometry</strong></div></div><p style="margin-top: 15px;"><strong>Today's Challenge:</strong> Practice your multiplication facts! Can you master the 6s and 7s?</p><p style="font-style: italic; color: #666;">💡 Math is everywhere - in nature, music, art, and daily life!</p>`,science:`<h2>🔬 Science Lab</h2><p>Discover the wonders of our universe!</p><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>🪐 Current Unit: Solar System</h3><p>Exploring planets, stars, and space!</p></div><h3>🔭 Topics We're Studying:</h3><ul style="margin-left: 20px; line-height: 2.2;"><li>☀️ The Sun - our closest star</li><li>🌍 Earth and its unique features</li><li>🌙 Moon phases and eclipses</li><li>🪐 Eight planets and their characteristics</li><li>⭐ Constellations and galaxies</li></ul><div style="background: #e3f2fd; padding: 15px; border-radius: 10px; margin-top: 15px;"><strong>🧪 Fun Fact:</strong> Mercury is the closest planet to the Sun, but Venus is the hottest because of its thick atmosphere!</div><p style="margin-top: 15px;"><em>🚀 "Science is not only a disciple of reason but also one of romance and passion." - Stephen Hawking</em></p>`,reading:`<h2>📖 Reading Nook</h2><p>Where stories come alive and imaginations soar!</p><div style="background: #fff9e6; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>📚 Reading Skills We're Building:</h3><ul style="margin-left: 20px; margin-top: 10px; line-height: 2;"><li><strong>Main Idea:</strong> What's the story mostly about?</li><li><strong>Details:</strong> Supporting facts and examples</li><li><strong>Inference:</strong> Reading between the lines</li><li><strong>Vocabulary:</strong> Learning new words</li><li><strong>Comprehension:</strong> Understanding what we read</li></ul></div><h3>📖 Book Genres to Explore:</h3><div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;"><span style="background: #ffc107; color: #000; padding: 5px 15px; border-radius: 20px;">Adventure</span><span style="background: #17a2b8; color: white; padding: 5px 15px; border-radius: 20px;">Mystery</span><span style="background: #28a745; color: white; padding: 5px 15px; border-radius: 20px;">Fantasy</span><span style="background: #dc3545; color: white; padding: 5px 15px; border-radius: 20px;">Biography</span><span style="background: #6f42c1; color: white; padding: 5px 15px; border-radius: 20px;">Poetry</span></div><p style="margin-top: 15px;"><strong>Reading Goal:</strong> 20 minutes of independent reading daily! 📚✨</p>`,history:`<h2>🏛️ History Hub</h2><p>Learning from the past to build a better future!</p><div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>📜 Current Unit: Tennessee & American History</h3><ul style="margin-left: 20px; margin-top: 10px; line-height: 2;"><li>🏛️ Declaration of Independence</li><li>🗽 Founding Fathers</li><li>🎸 Tennessee's role in American history</li><li>🏛️ Three branches of government</li><li> Important documents and their meaning</li></ul></div><div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin: 15px 0;"><strong> Did You Know?</strong><br>Thomas Jefferson wrote the Declaration of Independence in 1776, declaring America's freedom from Britain!</div><h3>🗺️ Tennessee Facts:</h3><ul style="margin-left: 20px; line-height: 2;"><li><strong>Capital:</strong> Nashville</li><li><strong>State Bird:</strong> Mockingbird</li><li><strong>State Flower:</strong> Iris</li><li><strong>Known for:</strong> Music (Nashville, Memphis, Bristol)</li></ul><p style="margin-top: 15px; font-style: italic;">"Those who cannot remember the past are condemned to repeat it." - George Santayana</p>`,test:`<h2>📝 Test Prep Station</h2><p>Getting ready for TCAP success!</p><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>🎯 TCAP Preparation</h3><p>Tennessee Comprehensive Assessment Program</p></div><h3>📚 Test-Taking Strategies:</h3><div style="background: #e8f5e9; padding: 15px; border-radius: 10px; margin: 10px 0;"><strong>✅ Before the Test:</strong><ul style="margin-left: 20px; margin-top: 5px;"><li>Get a good night's sleep</li><li>Eat a healthy breakfast</li><li>Bring pencils and erasers</li><li>Take deep breaths and stay calm</li></ul></div><div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin: 10px 0;"><strong>✅ During the Test:</strong><ul style="margin-left: 20px; margin-top: 5px;"><li>Read each question carefully</li><li>Eliminate wrong answers first</li><li>Manage your time wisely</li><li>Review your answers if time allows</li></ul></div><p style="margin-top: 15px;"><strong>💪 Remember:</strong> You've been preparing all year! Just do your best - that's all anyone can ask! 🌟</p>`,geography:`<h2>🌍 Geography Explorer</h2><p>Discovering our world, one place at a time!</p><div style="background: #e3f2fd; padding: 20px; border-radius: 15px; margin: 15px 0;"><h3>🗺️ What is Geography?</h3><p>Geography is the study of places and the relationships between people and their environments.</p></div><h3>📍 The Five Themes of Geography:</h3><div style="display: grid; gap: 10px; margin-top: 15px;"><div style="background: #fff3cd; padding: 12px; border-radius: 8px;"><strong>1. Location:</strong> Where is it? (Absolute & Relative)</div><div style="background: #d1ecf1; padding: 12px; border-radius: 8px;"><strong>2. Place:</strong> What's it like there? (Physical & Human characteristics)</div><div style="background: #d4edda; padding: 12px; border-radius: 8px;"><strong>3. Human-Environment Interaction:</strong> How do people affect and are affected by their environment?</div><div style="background: #f8d7da; padding: 12px; border-radius: 8px;"><strong>4. Movement:</strong> How do people, goods, and ideas move?</div><div style="background: #e2d4f0; padding: 12px; border-radius: 8px;"><strong>5. Region:</strong> How are places similar or different?</div></div><h3 style="margin-top: 15px;">🌎 Continents We're Studying:</h3><p>North America, South America, Europe, Asia, Africa, Australia, Antarctica</p><p style="margin-top: 10px; font-style: italic;">"The world is a book, and those who do not travel read only one page." - Saint Augustine</p>`,clock:`<h2>⏰ Time Practice Station</h2><p>Learning to tell time is an important skill!</p><div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 20px; margin: 15px 0; text-align: center;"><p style="font-size: 3rem; margin: 10px 0; font-weight: bold;">${new Date().toLocaleTimeString()}</p><p>Current Time</p></div><h3>📚 Time-Taking Tips:</h3><div style="background: #fff9e6; padding: 15px; border-radius: 10px; margin: 10px 0;"><strong>Hour Hand (Short):</strong> Points to the hour<br><strong>Minute Hand (Long):</strong> Points to the minutes<br><strong>Second Hand (Thin):</strong> Counts seconds (if your clock has one)</div><h3>🎯 Practice Questions:</h3><div style="background: #e8f5e9; padding: 15px; border-radius: 10px; margin: 10px 0;"><p><strong>1.</strong> How many minutes in an hour? <em>(Answer: 60)</em></p><p><strong>2.</strong> How many hours in a day? <em>(Answer: 24)</em></p><p><strong>3.</strong> What time is it when the hour hand is on 3 and minute hand is on 12? <em>(Answer: 3:00)</em></p></div><div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin-top: 15px;"><strong>⏱️ Time Challenge:</strong> Practice reading analog clocks every day! Try to tell the time without looking at digital clocks.</div><p style="margin-top: 15px; font-style: italic;">"Time is what we want most, but what we use worst." - William Penn</p>`};document.getElementById('modalBody').innerHTML=map[a]||`<h2>🔍 Explore</h2><p>Click to learn! 🌟</p>`;document.getElementById('sceneModal').classList.add('active');}
+function closeSceneModal(){document.getElementById('sceneModal').classList.remove('active');}
 
-function handleSceneAction(a){const map={window:`<h2>🌤️ Weather in Chattanooga</h2><p>72°F ☀️ Humidity: 45%</p>`,calendar:`<h2>📅 Calendar</h2><p>${new Date().toLocaleDateString()}</p>`,library:`<h2>📚 Library Corner</h2><p>Fiction, Non-Fiction, Math & More!</p>`,laptop:`<h2>👩‍🏫 Mommy Teacher</h2><p>Welcome! I'm so proud of you! 💕</p>`,plant:`<h2>🌱 Plant Care</h2><p>Water when soil is dry. ☀️</p>`,blm:`<h2>✊ Black History & SEL</h2><p>Learning about change-makers 🌟</p>`,math:`<h2>🧮 Math Corner</h2><p>Practice multiplication! ✖️</p>`,science:`<h2>🔬 Science Lab</h2><p>Solar System unit 🪐</p>`,reading:`<h2>📖 Reading Nook</h2><p>Main idea practice 🎯</p>`,history:`<h2>🏛️ History Hub</h2><p>Tennessee facts 🎸</p>`,test:`<h2>📝 Test Prep</h2><p>TCAP practice 🎯</p>`,geography:`<h2>🌍 Geography</h2><p>Five themes 🗺️</p>`,clock:`<h2>⏰ Time</h2><p>${new Date().toLocaleTimeString()}</p>`};openSceneModal(map[a]||`<h2>🔍 Explore</h2><p>Click to learn! 🌟</p>`);}
+// ========== QUIZZES ==========
+const qz={math_mult:()=>{let s=0;if(+document.getElementById('math_q1').value===204)s++;if(+document.getElementById('math_q2').value===228)s++;return s;},ela_main:()=>{const r=document.querySelector('input[name="mainIdea"]:checked');return(r&&r.value==='b')?1:0;},science_planet:()=>{const r=document.querySelector('input[name="planet"]:checked');return(r&&r.value==='Mercury')?1:0;},social_author:()=>{const r=document.querySelector('input[name="author"]:checked');return(r&&r.value==='thomas')?1:0;},spanish_vocab:()=>{return(document.querySelector('input[name="spanish_q1"]:checked')?.value==='hola')?1:0;}};
+function saveQZ(k,s){localStorage.setItem('qz_'+k,s+'/1');if(s>0){quizzesCompleted++;localStorage.setItem('quizzesCompleted',quizzesCompleted);addPoints(s*20,'Quiz!');}updateProgress();}
+function bindQuizzes(){document.getElementById('checkMathMult').onclick=()=>{const s=qz.math_mult();document.getElementById('mathMultFB').innerHTML=s===2?'✅ Perfect! 🎉':'💪 Keep practicing!';saveQZ('math',s);};document.getElementById('checkMainIdea').onclick=()=>{const s=qz.ela_main();document.getElementById('elaMainFB').innerHTML=s?'✅ Correct! 📚':'❌ Reread!';saveQZ('ela',s);};document.getElementById('checkPlanet').onclick=()=>{const s=qz.science_planet();document.getElementById('planetFB').innerHTML=s?'✅ Mercury! 🔬':'❌ Review!';saveQZ('sci',s);};document.getElementById('checkAuthor').onclick=()=>{const s=qz.social_author();document.getElementById('authorFB').innerHTML=s?'✅ Jefferson! 🏛️':'❌ Try again!';saveQZ('soc',s);};document.getElementById('checkVerb')?.onclick=()=>{const r=document.querySelector('input[name="verb"]:checked');if(r?.value==='is'){document.getElementById('verbFB').innerHTML='✅ Correct!';addPoints(20,'Grammar');}};document.getElementById('checkFractions')?.onclick=()=>{const c=[...document.querySelectorAll('#mathPage .quiz input[type="checkbox"]:checked')].map(x=>x.value);if(c.includes('2/4')&&c.includes('3/6')&&c.includes('4/8')){document.getElementById('mathFracFB').innerHTML='✅ All correct! 🎉';addPoints(20,'Fractions');}else{document.getElementById('mathFracFB').innerHTML='❌ Remember: equivalent fractions represent the same amount!';}};checkSpanishQ1.onclick=()=>{const s=qz.spanish_vocab();document.getElementById('spanishQ1FB').innerHTML=s?'✅ ¡Correcto! 🎉':'❌ Hint: Starts with H';if(s)addPoints(15,'Vocab');};}
+function logActivity(){addPoints(10,'Gym Log');alert('✅ +10 pts!');}
+function logArtProject(){addPoints(25,'Art Log');alert('✅ +25 pts! 🎨');}
 
-// ========== QUIZZES & PROGRESS ==========
-const quizList=[{id:"math_mult",name:"Multiplication",standard:"4.NBT.B.5",max:2,getScore:()=>(parseInt(document.getElementById('math_q1')?.value)===204?1:0)+(parseInt(document.getElementById('math_q2')?.value)===228?1:0),saveKey:"math_mult"},{id:"ela_main",name:"Main Idea",standard:"4.RL.KID.2",max:1,getScore:()=>{const s=document.querySelector('input[name="mainIdea"]:checked');return(s&&s.value==='b')?1:0;},saveKey:"ela_main"},{id:"science_planet",name:"Solar System",standard:"4.ESS1.1",max:1,getScore:()=>{const s=document.querySelector('input[name="planet"]:checked');return(s&&s.value==='Mercury')?1:0;},saveKey:"science_planet"},{id:"social_rev",name:"Declaration",standard:"4.19",max:1,getScore:()=>{const s=document.querySelector('input[name="author"]:checked');return(s&&s.value==='thomas')?1:0;},saveKey:"social_rev"},{id:"gym_activity",name:"Gym Log",standard:"Health",max:1,getScore:()=>1,saveKey:"gym_activity"},{id:"spanish_vocab",name:"Spanish Vocab",standard:"WL",max:1,getScore:()=>(document.querySelector('input[name="spanish_q1"]:checked')?.value==='hola')?1:0,saveKey:"spanish_vocab"},{id:"art_project",name:"Art Project",standard:"VA",max:1,getScore:()=>1,saveKey:"art_project"}];
-function saveScore(key,earned,total){const st=localStorage.getItem(key);const best=st?parseInt(st.split('/')[0]):0;localStorage.setItem(key,`${Math.max(best,earned)}/${total}`);if(earned>0){quizzesCompleted++;localStorage.setItem('quizzesCompleted',quizzesCompleted);addPoints(earned*20,'Quiz Complete!');if(quizzesCompleted===1)unlockAchievement('firstQuiz',50);if(earned===total)unlockAchievement('perfectScore',150);}updateClassroomProgress();}
-function updateClassroomProgress(){let te=0,tp=0;for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(quizList.some(q=>q.saveKey===k)){const v=localStorage.getItem(k);const p=v?.split('/')||[0,1];if(p.length===2){te+=parseInt(p[0]);tp+=parseInt(p[1]);}}}const pct=tp===0?0:Math.floor((te/tp)*100);const mb=document.getElementById('miniProgress');const ps=document.getElementById('progressPercent');if(mb)mb.style.width=pct+'%';if(ps)ps.innerText=`✨ ${pct}% mastery ✨`;const tm=document.getElementById('teacherMessage');if(tm){if(pct<20)tm.innerHTML=`"You're doing great! Let's try a fun quiz together. 🍎"`;else if(pct>=80)tm.innerHTML=`"WOW! You're a superstar! I'm so proud. 🌟"`;else tm.innerHTML=`"Keep clicking on the classroom stations! Every quiz helps."`;}}
-function bindQuizzes(){document.getElementById('checkMathMult')?.addEventListener('click',()=>{const s=quizList.find(q=>q.saveKey==='math_mult').getScore();saveScore('math_mult',s,2);document.getElementById('mathMultFB').innerHTML=`✅ You got ${s}/2. ${s===2?'Perfect! 🎉':'Keep practicing! 💪'}`;if(s===2)unlockAchievement('mathMaster',100);});document.getElementById('checkMainIdea')?.addEventListener('click',()=>{const s=quizList.find(q=>q.saveKey==='ela_main').getScore();saveScore('ela_main',s,1);document.getElementById('elaMainFB').innerHTML=s?"✅ Correct! Great reading! 📚":"❌ Reread - dolphins are smart mammals!";if(s===1)unlockAchievement('readingStar',100);});document.getElementById('checkPlanet')?.addEventListener('click',()=>{const s=quizList.find(q=>q.saveKey==='science_planet').getScore();saveScore('science_planet',s,1);document.getElementById('planetFB').innerHTML=s?"✅ Mercury! You're a science star! 🔬":"❌ Mercury is closest. Review the solar system!";});document.getElementById('checkAuthor')?.addEventListener('click',()=>{const s=quizList.find(q=>q.saveKey==='social_rev').getScore();saveScore('social_rev',s,1);document.getElementById('authorFB').innerHTML=s?"✅ Thomas Jefferson! History hero! 🏛️":"❌ Thomas Jefferson wrote it.";});}
-function logActivity(a,m){addPoints(10,`${a} completed`);alert(`✅ Great job! +10 points for ${m} minutes of ${a}! 💪`);}
-function logArtProject(t){addPoints(25,`Art: ${t}`);alert(`🎨 Amazing work on your ${t} project! +25 pts!`);}
-function checkSpanishQ1(){const a=document.querySelector('input[name="spanish_q1"]:checked')?.value;const f=document.getElementById('spanishQ1FB');if(a==='hola'){f.innerHTML='✅ ¡Correcto! "Hola" means hello! 🎉';f.style.background='linear-gradient(135deg,#4ecdc4,#44a08d)';addPoints(15,'Spanish vocabulary');}else{f.innerHTML='❌ Try again! Hint: It starts with "H" 👋';f.style.background='linear-gradient(135deg,#ffecd2,#fcb69f)';}}
-
-// ========== TCAP SYSTEM ==========
-let selectedTestOption=null,selectedSubjects=[],tcapTimer=null,tcapDuration=7200;
-const tcapQuestions={math:[{q:"84 ÷ 7 = ?",options:["10","12","14","16"],answer:"12"},{q:"Which fraction is greater: 3/4 or 2/3?",options:["3/4","2/3","Equal"],answer:"3/4"}],ela:[{q:"Which word is a noun?",options:["run","happiness","quickly"],answer:"happiness"}],science:[{q:"Closest planet to Sun?",options:["Venus","Mercury","Earth"],answer:"Mercury"}],social:[{q:"Who wrote the Declaration?",options:["Washington","Jefferson","Franklin"],answer:"Jefferson"}]};
-function selectTestOption(o){selectedTestOption=o;document.querySelectorAll('.tcap-option').forEach(opt=>opt.classList.remove('selected'));event.currentTarget.classList.add('selected');const ss=document.getElementById('subjectSelection'),so=document.getElementById('singleSubjectOptions'),to=document.getElementById('twoSubjectOptions'),td=document.getElementById('tcap-timer-display');td.style.display='none';ss.classList.remove('active');document.getElementById('tcapResults').classList.remove('active');document.getElementById('tcapQuestions').classList.remove('active');document.getElementById('sampleQuestions').classList.remove('active');if(o==='full-week'){td.style.display='block';startCountdown(7200);}else if(o==='one-subject'){ss.classList.add('active');so.style.display='block';document.getElementById('sampleQuestions').classList.add('active');}else if(o==='two-subjects'){ss.classList.add('active');to.style.display='block';document.getElementById('sampleQuestions').classList.add('active');}}
-function startSelectedTest(){selectedSubjects=[];if(selectedTestOption==='one-subject'){const c=document.querySelector('input[name="tcap-subject-single"]:checked');if(c)selectedSubjects.push(c.value);else return alert('Select ONE subject');}else if(selectedTestOption==='two-subjects'){const cb=document.querySelectorAll('#twoSubjectOptions input[type="checkbox"]:checked');if(cb.length!==2) return alert('Select EXACTLY 2 subjects');cb.forEach(c=>selectedSubjects.push(c.value));}if(!selectedSubjects.length) return alert('Select at least one subject!');tcapDuration=selectedSubjects.length*7200;startCountdown(tcapDuration);generateTCAPQuestions();document.getElementById('sampleQuestions').classList.remove('active');document.getElementById('subjectSelection').classList.remove('active');document.getElementById('tcapQuestions').classList.add('active');document.getElementById('tcap-timer-display').style.display='block';}
-function generateTCAPQuestions(){const c=document.getElementById('questionsContainer');c.innerHTML='';selectedSubjects.forEach((subj,si)=>{const qs=tcapQuestions[subj]||[];const sh=[...qs].sort(()=>Math.random()-0.5).slice(0,3);sh.forEach((qo,qi)=>{const qid=`tcap_${subj}_${si}_${qi}`;c.innerHTML+=`<div class="tcap-question" data-subject="${subj}" data-qid="${qid}"><p class="question">${qo.q}</p>${qo.options.map(opt=>`<label><input type="radio" name="${qid}" value="${opt}"> ${opt}</label>`).join('')}</div>`;});});}
-function startCountdown(sec){clearInterval(tcapTimer);let rem=sec;function upd(){const h=Math.floor(rem/3600),m=Math.floor((rem%3600)/60),s=rem%60;document.getElementById('countdown').textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(rem<=0){clearInterval(tcapTimer);if(document.getElementById('tcapQuestions').classList.contains('active')){alert('⏰ Time\'s up! Submitting...');submitTCAPTest();}return;}rem--;}upd();tcapTimer=setInterval(upd,1000);}
-function submitTCAPTest(){clearInterval(tcapTimer);let cc=0;document.querySelectorAll('.tcap-question').forEach(qe=>{const s=qe.dataset.subj,qid=qe.dataset.qid;const sa=document.querySelector(`input[name="${qid}"]:checked`)?.value||'No answer';if(sa==='12'||sa==='3/4'||sa==='happiness'||sa==='Mercury'||sa==='Jefferson')cc++;});const pct=cc?Math.round((cc/selectedSubjects.length)*100):0;addPoints(50*selectedSubjects.length,'TCAP Complete!');document.getElementById('tcapQuestions').classList.remove('active');const rd=document.getElementById('tcapResults');rd.classList.add('active');rd.innerHTML=`<h3 style="text-align:center;">📊 Test Complete!</h3><p style="text-align:center;font-size:1.3rem;">You answered <strong>${cc} questions</strong> correctly!</p><p style="text-align:center;">Score: ${pct}%</p><div style="background:#f0f0f0;padding:15px;border-radius:10px;margin:20px 0;"><p>📝 Mommy Teacher will review your answers.</p><p>⭐ You earned <strong>${50*selectedSubjects.length} points</strong>!</p></div><button onclick="resetTCAPPage()">🔄 Take Another Test</button>`;}
-function resetTCAPPage(){document.getElementById('tcapResults').classList.remove('active');document.getElementById('sampleQuestions').classList.add('active');document.getElementById('tcap-timer-display').style.display='none';document.querySelectorAll('.tcap-option').forEach(opt=>opt.classList.remove('selected'));selectedTestOption=null;selectedSubjects=[];}
-
-// ========== MATH CLASSROOM ==========
-function openMathModal(id){document.getElementById(id).classList.add('active');if(id==='poster-modal')updateNumberOfTheDay();if(id==='calendar-modal')renderWeeklyPlan();if(id==='laptop-modal')document.getElementById('drill-result').innerHTML='';}
+// ========== MATH MODALS ==========
+function openMathModal(id){document.getElementById(id).classList.add('active');if(id==='poster-modal')document.getElementById('nod-display').textContent=localStorage.getItem('nod')||6;if(id==='laptop-modal')document.getElementById('drill-num').textContent=localStorage.getItem('nod')||6;}
 function closeMathModal(id){document.getElementById(id).classList.remove('active');}
-function updateNumberOfTheDay(){const n=localStorage.getItem('math_numberOfDay')||3;const dn=document.getElementById('display-number'),dr=document.getElementById('drill-number');if(dn)dn.textContent=n;if(dr)dr.textContent=n;}
-let currentClockTime={h:0,m:0};
-function drawClock(){const cv=document.getElementById('analog-clock-canvas');if(!cv)return;const ctx=cv.getContext('2d');ctx.clearRect(0,0,200,200);ctx.beginPath();ctx.arc(100,100,90,0,2*Math.PI);ctx.fillStyle='white';ctx.fill();ctx.strokeStyle='#2563eb';ctx.lineWidth=4;ctx.stroke();ctx.font='16px Arial';ctx.fillStyle='#1e40af';ctx.textAlign='center';ctx.textBaseline='middle';for(let i=1;i<=12;i++){let a=(i-3)*Math.PI/6;ctx.fillText(i.toString(),100+75*Math.cos(a),100+75*Math.sin(a));}currentClockTime.h=Math.floor(Math.random()*12)+1;currentClockTime.m=[0,15,30,45][Math.floor(Math.random()*4)];const ma=(currentClockTime.m/60)*2*Math.PI-Math.PI/2,ha=((currentClockTime.h+currentClockTime.m/60)/12)*2*Math.PI-Math.PI/2;ctx.beginPath();ctx.moveTo(100,100);ctx.lineTo(100+50*Math.cos(ha),100+50*Math.sin(ha));ctx.strokeStyle='#1e40af';ctx.lineWidth=5;ctx.stroke();ctx.beginPath();ctx.moveTo(100,100);ctx.lineTo(100+65*Math.cos(ma),100+65*Math.sin(ma));ctx.strokeStyle='#dc2626';ctx.lineWidth=3;ctx.stroke();}
-function checkTime(){const inp=document.getElementById('time-answer').value.trim().replace(':','');let exp=currentClockTime.h.toString()+(currentClockTime.m<10?'0'+currentClockTime.m:currentClockTime.m.toString());const fb=document.getElementById('time-feedback');if(inp===exp){fb.innerHTML=`<span class="math-correct">✅ Correct! It's ${currentClockTime.h}:${currentClockTime.m<10?'0':''}${currentClockTime.m}</span>`;addGrade('Time Practice',100);}else fb.innerHTML=`<span class="math-wrong">❌ Try again! Hint: Look at the short hand for hours.</span>`;}
-let drillAnswers=[];
-function generateDrill(){const n=parseInt(localStorage.getItem('math_numberOfDay')||3);const c=document.getElementById('drill-questions');c.innerHTML='';drillAnswers=[];document.getElementById('start-drill-btn').style.display='none';document.getElementById('grade-drill-btn').style.display='inline-block';for(let i=0;i<5;i++){const t=i<3?'mult':'div',r=Math.floor(Math.random()*10)+1;let qt,ans;if(t==='mult'){qt=`${n} × ${r} = ?`;ans=n*r;}else{ans=n;const m=Math.floor(Math.random()*9)+2;qt=`${m*n} ÷ ${m} = ?`;}drillAnswers.push(ans);c.innerHTML+=`<div class="math-question">${i+1}. ${qt} <input type="number" class="math-input" id="q${i}" style="width:100px;display:inline-block;"></div>`;}}
-function gradeDrill(){let c=0;for(let i=0;i<5;i++){const v=parseInt(document.getElementById(`q${i}`).value);if(v===drillAnswers[i])c++;document.getElementById(`q${i}`).style.borderColor=(v===drillAnswers[i])?'#16a34a':'#dc2626';}const p=Math.round((c/5)*100);document.getElementById('drill-result').innerHTML=`<span class="${p>=80?'math-correct':'math-wrong'}">Score: ${c}/5 (${p}%)</span>`;addGrade(`Drill (${localStorage.getItem('math_numberOfDay')||3}s)`,p);document.getElementById('grade-drill-btn').style.display='none';document.getElementById('start-drill-btn').style.display='inline-block';document.getElementById('start-drill-btn').textContent='New Drill';}
-function renderWeeklyPlan(){const pl=JSON.parse(localStorage.getItem('math_weeklyPlan')||'{}');const c=document.getElementById('weekly-plan-display');const ds=['Monday','Tuesday','Wednesday','Thursday','Friday'];let h='<ul style="list-style:none;padding:0;">';ds.forEach(d=>{const t=pl[d.toLowerCase()]||'No plans yet.';h+=`<li style="background:#f8fafc;padding:10px;margin:5px 0;border-left:4px solid #2563eb;"><strong>${d}:</strong> ${t}</li>`;});c.innerHTML=h+'</ul>';}
-function addGrade(n,s){let g=JSON.parse(localStorage.getItem('math_grades')||'[]');g.push({name:n,score:s,date:new Date().toLocaleDateString()});localStorage.setItem('math_grades',JSON.stringify(g));renderGradebook();}
-function renderGradebook(){const g=JSON.parse(localStorage.getItem('math_grades')||'[]');const l=document.getElementById('assignment-list');if(g.length===0){l.innerHTML='<p style="color:#666;">No assignments graded yet.</p>';document.getElementById('overall-grade').textContent='--%';return;}let h='<table style="width:100%;border-collapse:collapse;margin-top:5px;"><tr style="background:#eff6ff;"><th style="padding:8px;text-align:left;">Assignment</th><th style="padding:8px;">Score</th><th style="padding:8px;">Date</th></tr>';g.slice().reverse().forEach(gr=>{h+=`<tr style="border-bottom:1px solid #e5e7eb;"><td style="padding:8px;">${gr.name}</td><td style="padding:8px;text-align:center;" class="${gr.score>=80?'math-correct':'math-wrong'}">${gr.score}%</td><td style="padding:8px;text-align:center;">${gr.date}</td></tr>`;});l.innerHTML=h+'</table>';document.getElementById('overall-grade').textContent=Math.round(g.reduce((a,b)=>a+b.score,0)/g.length)+'%';}
+function checkClock(){const a=document.getElementById('time-ans').value.replace(':','');const t=new Date();const e=(t.getHours()%12||12).toString()+(t.getMinutes()<10?'0'+t.getMinutes():t.getMinutes()).toString();document.getElementById('clock-fb').textContent=a===e?'✅ Correct!':'❌ Try again';}
+let drillAns=[];
+function startDrill(){const n=+localStorage.getItem('nod')||6;const c=document.getElementById('drill-cont');c.innerHTML='';drillAns=[];document.getElementById('drill-start').style.display='none';document.getElementById('drill-submit').style.display='inline-block';for(let i=0;i<5;i++){const m=Math.floor(Math.random()*12)+1;drillAns.push(n*m);c.innerHTML+=`<div style="margin:8px 0;">${n} × ${m} = <input type="number" id="da${i}" style="width:80px;"></div>`;}}
+function gradeDrill(){let s=0;for(let i=0;i<5;i++)if(+document.getElementById('da'+i).value===drillAns[i])s++;document.getElementById('drill-res').textContent=`Score: ${s}/5`;document.getElementById('drill-submit').style.display='none';document.getElementById('drill-start').style.display='inline-block';document.getElementById('drill-start').textContent='New Drill';}
+function renderMathGrades(){const g=JSON.parse(localStorage.getItem('math_grades')||'[]');const t=document.getElementById('math-grade-table');if(g.length){t.innerHTML=`<tr><th>Assignment</th><th>Score</th></tr>`+g.map(x=>`<tr><td>${x.name}</td><td>${x.score}%</td></tr>`).join('');}}
 
-// ========== EXPANDED LESSON PLANNER ==========
-let currentPlannerSubject='math',currentPlannerWeek=0;
-const days=['monday','tuesday','wednesday','thursday','friday'];
-const tnStandards={math:[{code:'4.NBT.B.5',name:'Multiply whole numbers'}],ela:[{code:'4.RL.KID.2',name:'Main idea'}],science:[{code:'4.ESS1.1',name:'Solar system'}],social:[{code:'4.19',name:'Declaration'}],spanish:[{code:'WL.4.1',name:'Greetings'}],gym:[{code:'PE.4.1',name:'Fitness'}],art:[{code:'VA.4.1',name:'Color theory'}]};
-function switchPlannerTab(s){document.querySelectorAll('.planner-tab').forEach(t=>t.classList.remove('active'));document.querySelector(`.planner-tab[data-subject="${s}"]`).classList.add('active');currentPlannerSubject=s;document.getElementById('current-planner-subject-name').textContent=s.charAt(0).toUpperCase()+s.slice(1);document.getElementById('current-planner-subject-save').textContent=s.charAt(0).toUpperCase()+s.slice(1);loadWeeklyPlannerGrid();loadSubjectSpecificSection();}
-function changePlannerWeek(o){currentPlannerWeek+=o;loadWeeklyPlannerGrid();}
-function loadWeeklyPlannerGrid(){const c=document.getElementById('planner-days-grid'),wl=document.getElementById('planner-week-label');const td=new Date(),sw=new Date(td);sw.setDate(td.getDate()-td.getDay()+1+(currentPlannerWeek*7));wl.textContent=`Week of ${sw.toLocaleDateString('en-US',{month:'short',day:'numeric'})}`;const pk=`${currentPlannerSubject}_weeklyPlan_week${currentPlannerWeek}`,sp=JSON.parse(localStorage.getItem(pk)||'{}');c.innerHTML='';days.forEach((d,i)=>{const dd=new Date(sw);dd.setDate(sw.getDate()+i);const dp=sp[d]||{};c.innerHTML+=`<div class="planner-day-card"><h4>${d.charAt(0).toUpperCase()+d.slice(1)}<br><small style="color:#64748b;font-weight:normal;">${dd.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</small></h4><div class="standards-container"><label style="font-weight:bold;font-size:0.9rem;">📋 TN Standards:</label><div id="standards-${d}" class="standards-list"><div class="standard-row"><select class="planner-select standard-select">${tnStandards[currentPlannerSubject].map(st=>`<option value="${st.code}">${st.code}: ${st.name}</option>`).join('')}</select><input type="number" class="planner-input" placeholder="%" min="1" max="100" value="${dp.weight||20}" style="width:60px;"></div></div></div><label style="font-weight:bold;font-size:0.9rem;display:block;margin-top:10px;">🎬 YouTube Video:</label><input type="url" class="planner-input" id="video-${d}" placeholder="https://..." value="${dp.videoUrl||''}"><div style="display:flex;gap:10px;margin-top:10px;"><div style="flex:1;"><label style="font-weight:bold;font-size:0.9rem;"># Questions:</label><input type="number" class="planner-input" id="questions-${d}" min="1" max="50" value="${dp.numQuestions||10}"></div></div></div>`;});}
-function loadSubjectSpecificSection(){const c=document.getElementById('planner-subject-specific'),s=currentPlannerSubject;let h=`<h3 style="margin:0 0 15px 0;">🔧 ${s.charAt(0).toUpperCase()+s.slice(1)}-Specific Planning</h3>`;if(s==='math')h+=`<div class="subject-specific-section"><h4>🔢 Daily Drill Settings</h4><p style="font-size:0.9rem;color:#64748b;margin-bottom:10px;">Drills generate 26 questions: multiplication AND division using Number of the Day (0-12)</p><label style="font-weight:bold;">Number of the Day (0-12):</label><input type="number" id="math-numOfDay" class="planner-input" min="0" max="12" style="width:80px;" value="${localStorage.getItem('math_numberOfDay')||6}"><p style="font-size:0.85rem;color:#64748b;margin:5px 0;">→ Used for: Poster overlay, Drill questions, Calendar sync</p></div>`;c.innerHTML=h;}
-function saveWeeklyPlan(){const s=currentPlannerSubject,pk=`${s}_weeklyPlan_week${currentPlannerWeek}`,pl={};days.forEach(d=>{const ss=[];document.querySelectorAll(`#standards-${d} .standard-row`).forEach(r=>{ss.push({code:r.querySelector('.standard-select').value,weight:parseInt(r.querySelector('input[type="number"]').value)||20});});pl[d]={standards:ss,videoUrl:document.getElementById(`video-${d}`)?.value||'',numQuestions:parseInt(document.getElementById(`questions-${d}`)?.value)||10,weight:20};if(s==='math'){pl.numberOfDay=document.getElementById('math-numOfDay')?.value||6;localStorage.setItem('math_numberOfDay',pl.numberOfDay);}});pl.weeklyQuote="You are brave, you are smart, and you can do hard things! 💕";pl.weeklyFunFact="Math is everywhere!";localStorage.setItem(pk,JSON.stringify(pl));alert(`✅ ${s.charAt(0).toUpperCase()+s.slice(1)} weekly plan saved!\n\n✨ Student overlays will update instantly:\n• Calendar shows new plan\n• Math: Number of Day syncs to drills\n• Quotes/facts appear on subject pages`);}
-function closeLessonPlan(){document.getElementById('lessonPlanModal').classList.remove('active');}
+// ========== EXPANDED PLANNER ==========
+document.querySelectorAll('.planner-tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.planner-tab').forEach(b=>b.classList.remove('active'));t.classList.add('active');currentPlannerSubj=t.dataset.subj;renderPlanner();});
 
-// ========== GRADES MANAGEMENT ==========
-let currentGradesTab='all';
-function initMockGrades(){if(!localStorage.getItem('mock_grades')){const md=[{id:1,assignment:'Multiplication Drill (6s)',subject:'math',score:85,date:'4/1/2025'},{id:2,assignment:'Main Idea Quiz',subject:'ela',score:92,date:'4/1/2025'},{id:3,assignment:'Solar System Test',subject:'science',score:78,date:'4/2/2025'},{id:4,assignment:'Tennessee History',subject:'social',score:95,date:'4/2/2025'},{id:5,assignment:'Time Practice',subject:'math',score:100,date:'4/3/2025'},{id:6,assignment:'Spanish Vocabulary',subject:'spanish',score:88,date:'4/3/2025'},{id:7,assignment:'Jump Rope Log',subject:'gym',score:100,date:'4/4/2025'},{id:8,assignment:'Watercolor Project',subject:'art',score:95,date:'4/4/2025'}];localStorage.setItem('mock_grades',JSON.stringify(md));}}
-function switchGradesTab(s){document.querySelectorAll('.grades-tab').forEach(t=>t.classList.remove('active'));event.currentTarget.classList.add('active');currentGradesTab=s;renderGradesTable();}
-function renderGradesTable(){initMockGrades();const tb=document.getElementById('grades-table-body');if(!tb)return;let ag=JSON.parse(localStorage.getItem('mock_grades')||'[]');let fl=currentGradesTab==='all'?ag:ag.filter(g=>g.subject===currentGradesTab);if(fl.length===0){tb.innerHTML=`<tr><td colspan="5" style="padding:20px;text-align:center;color:#666;">No grades recorded yet. Complete quizzes to see progress! 🌟</td></tr>`;document.getElementById('overall-grade-display').textContent='--%';document.getElementById('total-assignments').textContent='0';return;}fl.sort((a,b)=>new Date(b.date)-new Date(a.date));tb.innerHTML=fl.map(g=>`<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:12px;font-weight:500;">${g.assignment}</td><td style="padding:12px;text-transform:capitalize;">${g.subject}</td><td style="padding:12px;text-align:center;"><span style="background:${g.score>=80?'#dcfce7':g.score>=60?'#fef3c7':'#fee2e2'};color:${g.score>=80?'#166534':g.score>=60?'#92400e':'#991b1b'};padding:4px 12px;border-radius:20px;font-weight:bold;">${g.score}%</span></td><td style="padding:12px;text-align:center;color:#64748b;">${g.date}</td><td style="padding:12px;text-align:center;"><button onclick="editGrade(${g.id})" style="background:#3b82f6;color:white;border:none;padding:5px 12px;border-radius:15px;cursor:pointer;font-size:0.85rem;">✏️ Edit</button><button onclick="deleteGrade(${g.id})" style="background:#ef4444;color:white;border:none;padding:5px 12px;border-radius:15px;cursor:pointer;font-size:0.85rem;margin-left:5px;">🗑️ Delete</button></td></tr>`).join('');const avg=Math.round(fl.reduce((s,g)=>s+g.score,0)/fl.length);document.getElementById('overall-grade-display').textContent=avg+'%';document.getElementById('overall-grade-display').style.color=avg>=80?'#4ade80':avg>=60?'#fbbf24':'#f87171';document.getElementById('total-assignments').textContent=fl.length;}
-function deleteGrade(id){if(confirm('Delete this grade?')){let g=JSON.parse(localStorage.getItem('mock_grades')||'[]');g=g.filter(x=>x.id!==id);localStorage.setItem('mock_grades',JSON.stringify(g));renderGradesTable();alert('✅ Grade deleted.');}}
-function editGrade(id){let g=JSON.parse(localStorage.getItem('mock_grades')||'[]');const gr=g.find(x=>x.id===id);if(!gr)return;const ns=prompt(`Edit score for "${gr.assignment}":`,gr.score);if(ns===null)return;const sn=parseInt(ns);if(isNaN(sn)||sn<0||sn>100){alert('Please enter a valid score (0-100).');return;}gr.score=sn;localStorage.setItem('mock_grades',JSON.stringify(g));renderGradesTable();alert('✅ Grade updated!');}
-function showAddGradeForm(){const a=prompt('Assignment name:');if(!a)return;const s=prompt('Subject (math, ela, science, social, spanish, gym, art):','math');const sc=prompt('Score (0-100):');if(!s||!sc)return;const sn=parseInt(sc);if(isNaN(sn)||sn<0||sn>100){alert('Please enter a valid score (0-100).');return;}let g=JSON.parse(localStorage.getItem('mock_grades')||'[]');g.push({id:Date.now(),assignment:a,subject:s.toLowerCase(),score:sn,date:new Date().toLocaleDateString()});localStorage.setItem('mock_grades',JSON.stringify(g));renderGradesTable();alert(`✅ Grade added for ${a}!\n\n💡 In the future, this will sync to your Google Sheets backend.`);}
-function closeGradesModal(){document.getElementById('gradesModal').classList.remove('active');}
+function renderPlanner(){const c=document.getElementById('planner-days-container');c.innerHTML='';const q=document.getElementById('plan-quote');const a=document.getElementById('plan-author');const stored=JSON.parse(localStorage.getItem(`plan_${currentPlannerSubj}`)||'{}');q.value=stored.quote||'';a.value=stored.author||'';
+days.forEach(d=>{const dayData=stored[d]||{standards:[{c:'',w:''}],urls:['']};const h=document.createElement('div');h.className='planner-day';h.innerHTML=`<h4>${d}</h4><h5>📋 TN Standards:</h5>`+dayData.standards.map((s,i)=>`<div class="planner-row" data-std="${i}"><select class="std-code">${tnStandards[currentPlannerSubj]?tnStandards[currentPlannerSubj].map(x=>`<option value="${x}">${x}</option>`).join(''):'<option>None</option>'}</select><input type="number" placeholder="%" value="${s.w}" class="std-w"><button onclick="rmStd('${d}',${i})">✕</button></div>`).join('')+`<button class="planner-btn-add" onclick="addStd('${d}')">➕ Standard</button><h5 style="margin-top:12px;">🎬 YouTube URLs:</h5>`+dayData.urls.map((u,i)=>`<div class="planner-row"><input type="url" placeholder="https://youtube.com/..." value="${u}" class="day-url" data-i="${i}"><button onclick="rmUrl('${d}',${i})">✕</button></div>`).join('')+`<button class="planner-btn-add" onclick="addUrl('${d}')">➕ URL</button>`;c.appendChild(h);});renderSubjectSpecific();}
 
-// ========== PARENT DASHBOARD ==========
-function renderParentDashboard(){const c=document.getElementById('parentDashboardContent');let rs=[],te=0,tp=0;for(let q of quizList){const st=localStorage.getItem(q.saveKey);const er=st?parseInt(st.split('/')[0]):0;const to=st?parseInt(st.split('/')[1]):q.max;te+=er;tp+=to;const pc=Math.floor((er/to)*100);rs.push({name:q.name,standard:q.standard,score:`${er}/${to}`,pct:pc,weak:pc<70});}const op=tp===0?0:Math.floor((te/tp)*100);let h=`<div style="background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;margin-bottom:20px;text-align:center;"><h3 style="font-size:1.8rem;margin-bottom:10px;">📈 Overall Mastery: ${op}%</h3><p>Total Points: <strong>${totalPoints} ⭐</strong> | Quizzes: <strong>${quizzesCompleted}</strong></p></div><table><thead><tr><th>Topic</th><th>TN Standard</th><th>Best Score</th><th>Mastery</th></tr></thead><tbody>`;rs.forEach(r=>{h+=`<tr><td>${r.name}</td><td>${r.standard}</td><td>${r.score}</td><td style="color:${r.pct>=70?'#4ecdc4':'#ff6b6b'};font-weight:bold;">${r.pct}%</td></tr>`;});h+=`</tbody></table>`;c.innerHTML=h;}
-function exportCSV(){let cr=[["Topic","Standard","Best Score","Max Points","Percentage"]];for(let q of quizList){const st=localStorage.getItem(q.saveKey);const er=st?parseInt(st.split('/')[0]):0;const to=st?parseInt(st.split('/')[1]):q.max;cr.push([q.name,q.standard,er,to,Math.floor((er/to)*100)+"%"]);}const cc=cr.map(r=>r.join(",")).join("\n");const bl=new Blob([cc],{type:"text/csv"});const a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download="alli_tcap_progress.csv";a.click();URL.revokeObjectURL(a.href);}
-function resetAllScores(){if(confirm("⚠️ Erase all quiz scores, points, and achievements? This cannot be undone.")){for(let q of quizList)localStorage.removeItem(q.saveKey);localStorage.removeItem('totalPoints');localStorage.removeItem('achievements');localStorage.removeItem('quizzesCompleted');localStorage.removeItem('redemptions');totalPoints=0;quizzesCompleted=0;achievements={firstQuiz:false,mathMaster:false,readingStar:false,perfectScore:false,weekWarrior:false,tcapMaster:false};updatePointsDisplay();updateClassroomProgress();if(document.getElementById('parentModal').style.display==='flex')renderParentDashboard();alert('✅ All data has been reset.');}}
-const modal=document.getElementById('parentModal');document.getElementById('showParentBtn').addEventListener('click',()=>{const pw=prompt("🔐 Enter Parent Password:");if(pw==="TCAP2025"){document.getElementById('redeemPoints').textContent=totalPoints;renderParentDashboard();modal.style.display='flex';}else if(pw!==null)alert("Incorrect password.");});document.getElementById('closeParentModal').addEventListener('click',()=>modal.style.display='none');window.addEventListener('click',(e)=>{if(e.target===modal)modal.style.display='none';});document.getElementById('resetAllScoresBtn')?.addEventListener('click',resetAllScores);document.getElementById('exportCSVBtn')?.addEventListener('click',exportCSV);document.getElementById('redeemRewardBtn')?.addEventListener('click',()=>{document.getElementById('redeemPoints').textContent=totalPoints;document.getElementById('redeemModal').classList.add('active');});document.getElementById('lessonPlanBtn')?.addEventListener('click',()=>{document.getElementById('lessonPlanModal').classList.add('active');switchPlannerTab('math');});document.getElementById('gradesBtn')?.addEventListener('click',()=>{document.getElementById('gradesModal').classList.add('active');renderGradesTable();});['lessonPlanModal','gradesModal'].forEach(id=>{document.getElementById(id)?.addEventListener('click',function(e){if(e.target===this)this.classList.remove('active');});});
+function addStd(d){const s=document.querySelector(`[onclick="addStd('${d}')"]`).previousElementSibling.querySelectorAll('.planner-row');if(s.length<3)s[s.length-1].after(createStdRow());}
+function rmStd(d,i){const rows=document.querySelector(`.planner-day:nth-child(${days.indexOf(d)+1})`).querySelectorAll('.planner-row');if(rows.length>1)rows[i].remove();else rows[i].querySelector('.std-code').value='';}
+function createStdRow(){const d=document.createElement('div');d.className='planner-row';d.innerHTML=`<select class="std-code">${tnStandards[currentPlannerSubj]?tnStandards[currentPlannerSubj].map(x=>`<option value="${x}">${x}</option>`).join(''):'<option>None</option>'}</select><input type="number" placeholder="%" value="100" class="std-w"><button onclick="this.parentElement.remove()">✕</button>`;return d;}
+function addUrl(d){const u=document.querySelector(`[onclick="addUrl('${d}')"]`).previousElementSibling.querySelectorAll('.planner-row');u[u.length-1].after(createUrlRow());}
+function rmUrl(d,i){const rows=document.querySelector(`.planner-day:nth-child(${days.indexOf(d)+1})`).querySelectorAll('input.type[url]');if(rows.length>1)rows[i].remove();else rows[i].value='';}
+function createUrlRow(){const d=document.createElement('div');d.className='planner-row';d.innerHTML=`<input type="url" placeholder="https://..." class="day-url"><button onclick="this.parentElement.remove()">✕</button>`;return d;}
+
+function renderSubjectSpecific(){const c=document.getElementById('planner-subject-specific');if(currentPlannerSubj==='math'){c.innerHTML=`<div class="subject-section"><h4>🔢 Daily Drill Settings</h4><label>Number of the Day:</label><input type="number" id="nod-input" min="0" max="12" value="${localStorage.getItem('nod')||6}" style="width:80px;margin:5px 0;"><p style="color:#666;font-size:0.9rem;">Generates mult/div questions</p></div>`;}
+else if(currentPlannerSubj==='ela'){c.innerHTML=`<div class="subject-section"><h4>📖 Reading/Writing</h4><div class="planner-day"><strong>Activity Type:</strong><select id="ela-type"><option value="log">📓 Reading Log</option><option value="prompt">✍️ Writing Prompt</option></select><textarea id="ela-instruct" placeholder="Instructions for student..." style="width:100%;height:80px;margin-top:8px;"></textarea></div></div>`;}
+else if(currentPlannerSubj==='spanish'){c.innerHTML=`<div class="subject-section"><h4>🗣️ Spanish Focus (No TN Standards)</h4><div class="planner-day"><strong>Word of the Week:</strong><input type="text" id="sp-word" placeholder="Hola"><input type="text" id="sp-def" placeholder="Hello" style="margin-top:5px;"><input type="url" id="sp-video" placeholder="Video URL (optional)" style="margin-top:5px;"></div></div>`;}
+else{c.innerHTML=`<div class="subject-section"><p style="color:#666;">Add standards & videos above for daily planning!</p></div>`;}}
+
+function savePlanner(){const d={quote:document.getElementById('plan-quote').value,author:document.getElementById('plan-author').value};days.forEach(day=>{const dayEl=document.querySelector(`.planner-day:nth-child(${days.indexOf(day)+1})`);const stds=Array.from(dayEl.querySelectorAll('.planner-row select.std-code')).map((s,i)=>({code:s.value,w:dayEl.querySelectorAll('.std-w')[i]?.value||'100'}));const urls=Array.from(dayEl.querySelectorAll('input.day-url')).map(u=>u.value);d[day]={standards:stds,urls:urls.filter(u=>u)};});if(currentPlannerSubj==='math')d.nod=document.getElementById('nod-input').value;localStorage.setItem(`plan_${currentPlannerSubj}`,JSON.stringify(d));alert(`✅ ${currentPlannerSubj.charAt(0).toUpperCase()+currentPlannerSubj.slice(1)} saved!`);closePlanner();}
+function closePlanner(){document.getElementById('plannerModal').classList.remove('active');}
+function loadSubjectQuote(s){const p=JSON.parse(localStorage.getItem(`plan_${s}`)||'{}');if(p.quote){const qEl=document.getElementById(s+'-quote');const aEl=document.getElementById(s+'-author');if(qEl)qEl.textContent=p.quote;if(aEl)aEl.textContent='- '+(p.author||'');}}
+
+// ========== PARENT DASHBOARD & GRADES ==========
+document.getElementById('showParentBtn').onclick=()=>{if(prompt('🔑 Password:')==='TCAP2025'){renderDash();document.getElementById('parentModal').classList.add('active');}};
+document.getElementById('closeParentModal').onclick=()=>document.getElementById('parentModal').classList.remove('active');
+document.getElementById('plannerBtn').onclick=()=>{document.getElementById('plannerModal').classList.add('active');renderPlanner();};
+document.getElementById('gradebookBtn').onclick=()=>{document.getElementById('gradebookModal').classList.add('active');renderGrades();};
+document.getElementById('redeemBtn').onclick=()=>{document.getElementById('redeemPoints').textContent=totalPoints;document.getElementById('redeemModal').classList.add('active');};
+function redeemReward(c,n){if(totalPoints>=c&&confirm(`Spend ${c} pts on ${n}?`)){totalPoints-=c;updatePoints();document.getElementById('redeemModal').classList.remove('active');alert('✅ Redeemed!');}else alert('❌ Not enough points.');}
+function renderDash(){const c=document.getElementById('parentDashboardContent');let h=`<div style="background:#f0f8ff;padding:15px;border-radius:15px;margin-bottom:20px;"><h3>📊 Mastery Overview</h3><p>Points: ${totalPoints} ⭐ | Quizzes: ${quizzesCompleted}</p></div>`;h+='<table><tr><th>Quiz</th><th>Score</th></tr>';for(let k of Object.keys(qz)){const v=localStorage.getItem('qz_'+k);h+=`<tr><td>${k}</td><td>${v||'0/1'}</td></tr>`;}h+='</table>';c.innerHTML=h;}
+let grades=JSON.parse(localStorage.getItem('grades')||'[]');
+function initMockGrades(){if(!grades.length){grades=[{name:'Multiplication Drill (6s)',subj:'math',score:85,date:'4/1/2025'},{name:'Main Idea Quiz',subj:'ela',score:92,date:'4/1/2025'},{name:'Solar System Test',subj:'science',score:78,date:'4/2/2025'},{name:'Tennessee History',subj:'social',score:95,date:'4/2/2025'}];localStorage.setItem('grades',JSON.stringify(grades));}}
+function renderGrades(){const t=document.getElementById('grades-tbody');if(!grades.length){t.innerHTML='<tr><td colspan="5" style="text-align:center;">No grades yet.</td></tr>';document.getElementById('overall-grade').textContent='--%';document.getElementById('total-assigns').textContent='0';return;}const tot=grades.reduce((a,g)=>a+g.score,0)/grades.length;document.getElementById('overall-grade').textContent=Math.round(tot)+'%';document.getElementById('total-assigns').textContent=grades.length;t.innerHTML=grades.map((g,i)=>`<tr><td>${g.name}</td><td>${g.subj}</td><td>${g.score}%</td><td>${g.date}</td><td><button onclick="delGrade(${i})" style="padding:5px 10px;background:#ff6b6b;font-size:0.8rem;">🗑️</button></td></tr>`).join('');}
+function addMockGrade(){const n=prompt('Assignment:'),s=prompt('Subject:'),sc=prompt('Score (0-100):');if(n&&s&&sc){grades.push({name:n,subj:s,score:+sc,date:new Date().toLocaleDateString()});localStorage.setItem('grades',JSON.stringify(grades));renderGrades();}}
+function delGrade(i){if(confirm('Delete?')){grades.splice(i,1);localStorage.setItem('grades',JSON.stringify(grades));renderGrades();}}
+function closeGradebook(){document.getElementById('gradebookModal').classList.remove('active');}
+function closeRedeemModal(){document.getElementById('redeemModal').classList.remove('active');}
+document.getElementById('resetAllBtn').onclick=()=>{if(confirm('⚠️ Erase ALL data?')){localStorage.clear();location.reload();}};
+document.getElementById('exportCSVBtn').onclick=()=>{let csv='Quiz,Score\n';for(let k of Object.keys(qz))csv+=k+','+(localStorage.getItem('qz_'+k)||'0/1')+'\n';const b=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='progress.csv';a.click();};
+
+// TCAP Simple Mock
+let tcapTimer=null;
+function selectTestOption(o){document.getElementById('tcap-subjects').style.display='block';document.getElementById('tcap-results').style.display='none';document.getElementById('tcap-timer').style.display=o==='full-week'?'block':'none';}
+function startTCAP(){document.getElementById('tcap-subjects').style.display='none';const checked=[...document.querySelectorAll('#tcap-subjects input:checked')].map(i=>i.value);if(!checked.length){alert('Pick subject(s)');return;}let sec=checked.length*7200;clearInterval(tcapTimer);tcapTimer=setInterval(()=>{sec--;const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;document.getElementById('countdown').textContent=`${h}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;if(sec<=0){clearInterval(tcapTimer);showTCAPResult();}},1000);alert('⏱️ Timer started!');}
+function showTCAPResult(){document.getElementById('tcap-results').style.display='block';document.getElementById('tcap-results').innerHTML=`<h3>✅ Test Submitted!</h3><p>Mommy Teacher will review your answers.</p><p style="color:#667eea;font-weight:bold;">+${50} pts earned!</p>`;addPoints(50,'TCAP');}
 </script>
 </body>
 </html>
