@@ -23,12 +23,22 @@ window.unlockAchievement = function(achievementId, points) {
 
 // Show reward preview (student view)
 window.showRewardPreview = function() {
-  document.getElementById('previewPoints').textContent = appState.totalPoints;
-  document.getElementById('rewardPreviewModal')?.classList.add('active');
+  const modal = document.getElementById('rewardPreviewModal');
+  const pointsSpan = document.getElementById('previewPoints');
+  
+  if (pointsSpan) pointsSpan.textContent = appState.totalPoints;
+  if (modal) modal.classList.add('active');
 };
 
 window.closeRewardPreview = function() {
-  document.getElementById('rewardPreviewModal')?.classList.remove('active');
+  const modal = document.getElementById('rewardPreviewModal');
+  if (modal) modal.classList.remove('active');
+};
+
+window.addPoints = function(points, reason = '') {
+  appState.totalPoints += points;
+  updatePointsDisplay();
+  showCelebration(`+${points} points! ${reason}`);
 };
 
 // Redeem reward (parent only)
