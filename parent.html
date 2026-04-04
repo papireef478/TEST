@@ -66,6 +66,55 @@
         <div id="rewardsSection" class="parent-section"></div>
         <div id="settingsSection" class="parent-section"></div>
       </div>
+<!-- Reward Redemption Modal (Parent Only) -->
+<div id="redeemModal" class="scene-modal">
+  <div class="modal-content">
+    <button class="close-modal" onclick="closeRedeemModal()">✕</button>
+    <h2 style="text-align:center; margin-bottom:20px;">🎁 Redeem Reward</h2>
+    <p style="text-align:center; margin-bottom:25px;">Alli's Points: <strong id="redeemPoints" style="font-size:1.5rem; color:#667eea;">0</strong> ⭐</p>
+    
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:20px;">
+      <div class="reward-card">
+        <div class="icon">🍫</div>
+        <h4>Candy Bar</h4>
+        <p class="cost">500 pts</p>
+        <button class="redeem-btn" onclick="redeemReward(500, 'Candy Bar')">Redeem</button>
+      </div>
+      <div class="reward-card">
+        <div class="icon">🎮</div>
+        <h4>Roblox Gift Card ($10)</h4>
+        <p class="cost">2000 pts</p>
+        <button class="redeem-btn" onclick="redeemReward(2000, 'Roblox Gift Card')">Redeem</button>
+      </div>
+      <div class="reward-card">
+        <div class="icon">🎬</div>
+        <h4>Movie Night</h4>
+        <p class="cost">750 pts</p>
+        <button class="redeem-btn" onclick="redeemReward(750, 'Movie Night')">Redeem</button>
+      </div>
+      <div class="reward-card">
+        <div class="icon">🎨</div>
+        <h4>Art Supplies</h4>
+        <p class="cost">500 pts</p>
+        <button class="redeem-btn" onclick="redeemReward(500, 'Art Supplies')">Redeem</button>
+      </div>
+      <div class="reward-card">
+        <div class="icon">📚</div>
+        <h4>New Book</h4>
+        <p class="cost">500 pts</p>
+        <button class="redeem-btn" onclick="redeemReward(500, 'New Book')">Redeem</button>
+      </div>
+      <div class="reward-card">
+        <div class="icon">🏆</div>
+        <h4>Special Prize</h4>
+        <p class="cost">5000 pts</p>
+        <button class="redeem-btn" onclick="redeemReward(5000, 'Special Prize')">Redeem</button>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:20px; font-style:italic; color:#666;">✅ Rewards are tracked and given by parents</p>
+  </div>
+</div>
+
     </div>
   </div>
 

@@ -152,6 +152,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
+  // ========== OVERLAY CLICK HANDLERS (Home Page Only) ==========
+function setupOverlayHandlers() {
+  // Only bind overlays on home page
+  if (appState.currentSubject !== 'home') return;
+  
+  document.querySelectorAll('.clickable-overlay').forEach(el => {
+    // Remove any existing listeners to prevent duplicates
+    el.replaceWith(el.cloneNode(true));
+  });
+  
+  // Re-bind after cloning
+  document.querySelectorAll('.clickable-overlay').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const action = el.dataset.action;
+      if (action) {
+        handleSceneAction(action);
+      }
+    });
+    // Add visual feedback
+    el.style.cursor = 'pointer';
+  });
+}
+
+// Call this after DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+  checkLoginStreak();
+  updatePointsDisplay();
+  if (window.updateClassroomProgress) window.updateClassroomProgress();
+  
+  // Setup overlays AFTER DOM is ready
+  setupOverlayHandlers();
+  
   // Modal close handlers
   document.getElementById('sceneModal')?.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeSceneModal();
@@ -161,13 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeSceneModal();
   });
   
-  // Parent button handler
+  // Parent button - direct link
   document.getElementById('showParentBtn')?.addEventListener('click', () => {
-    const pwd = prompt("🔐 Enter Parent Password:");
-    if (pwd === "TCAP2025") {
-      window.location.href = 'parent.html';
-    } else if (pwd !== null) {
-      alert("Incorrect password.");
-    }
+    window.location.href = 'parent.html';
   });
 });

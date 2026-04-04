@@ -5,15 +5,64 @@
   padding: 2rem;
 }
 
+/* ========== SLIDE CONTAINER (Same as home page) ========== */
+.slide-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px; /* Match home page */
+  margin: 20px auto; /* Center it */
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.slide-container iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 960/569; /* Maintain original ratio */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slide-container iframe {
+    aspect-ratio: auto;
+    height: 400px;
+  }
+}
+
+
 /* ========== CONTENT BLOCKS (Full Width) ========== */
 .subject-page .motivational-quote,
 .subject-page .fun-fact-box,
 .subject-page .stats-box,
 .subject-page .topic-card,
 .subject-page .reward-banner {
-  max-width: none;
-  margin: 20px 30px;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+  padding: 15px 25px;
   border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  animation: pulse 2s infinite;
+  margin: 20px auto; /* Center it */
+  max-width: 1100px; /* Match home page */
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.reward-banner h3 {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.reward-banner p {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 .topic-card {
