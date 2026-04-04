@@ -1,12 +1,12 @@
 /* --- Subject Pages Base --- */
 .subject-page {
-    display: none;
+    display: none !important;
     background: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%);
     min-height: 100vh;
     padding: 2rem;
 }
 
-.active-subject { display: block; }
+.active-subject { display: block !important; }
 
 .back-home {
     background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
