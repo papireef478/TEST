@@ -12,38 +12,24 @@
 <body>
   <div class="subject-page math-page">
     <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
-    
     <h2 style="text-align:center; font-size:2.2rem; margin-bottom:20px; color:#667eea;">🧮 Math Lab</h2>
     
     <!-- Google Slide with Math Overlays -->
     <div class="slide-container">
       <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
       
-      <!-- Math Overlay Zones -->
-      <div class="math-overlay-zone math-overlay-clock" id="math-clock"></div>
-      <div class="math-overlay-zone math-overlay-poster" id="math-poster"></div>
-      <div class="math-overlay-zone math-overlay-laptop" id="math-laptop"></div>
-      <div class="math-overlay-zone math-overlay-calendar" id="math-calendar"></div>
-      <div class="math-overlay-zone math-overlay-notebook" id="math-notebook"></div>
+      <!-- Math Overlay Zones (positioned RELATIVE to .slide-container) -->
+      <div class="math-overlay-zone math-overlay-clock" id="math-clock" title="⏰ Time Practice"></div>
+      <div class="math-overlay-zone math-overlay-poster" id="math-poster" title="🔢 Number of the Day"></div>
+      <div class="math-overlay-zone math-overlay-laptop" id="math-laptop" title="💻 Math Drills"></div>
+      <div class="math-overlay-zone math-overlay-calendar" id="math-calendar" title="📅 Weekly Plan"></div>
+      <div class="math-overlay-zone math-overlay-notebook" id="math-notebook" title="📓 Gradebook"></div>
     </div>
     
-    <!-- Motivational Quote -->
+    <!-- Content Sections -->
     <div class="motivational-quote">"Math is not about numbers, it's about understanding the world around us!"</div>
-    
-    <!-- Fun Fact -->
-    <div class="fun-fact-box">
-      <h4>🤓 Fun Math Fact:</h4>
-      <p>Did you know? The number 0 is the only number that cannot be represented in Roman numerals! Also, if you multiply 111,111,111 by itself, you get 12,345,678,987,654,321!</p>
-    </div>
-    
-    <!-- Skills Box -->
-    <div class="stats-box">
-      <h4>📊 Math Skills to Master:</h4>
-      <div class="stat-item">✖️ Multiplication & Division</div>
-      <div class="stat-item">🍕 Fractions & Decimals</div>
-      <div class="stat-item">📐 Geometry & Measurement</div>
-      <div class="stat-item">📊 Data & Graphs</div>
-    </div>
+    <div class="fun-fact-box"><h4>🤓 Fun Math Fact:</h4><p>Did you know? The number 0 is the only number that cannot be represented in Roman numerals! Also, if you multiply 111,111,111 by itself, you get 12,345,678,987,654,321!</p></div>
+    <div class="stats-box"><h4>📊 Math Skills to Master:</h4><div class="stat-item">✖️ Multiplication & Division</div><div class="stat-item">🍕 Fractions & Decimals</div><div class="stat-item">📐 Geometry & Measurement</div><div class="stat-item">📊 Data & Graphs</div></div>
     
     <!-- Multiplication Quiz -->
     <div class="topic-card">
@@ -75,8 +61,6 @@
   </div>
   
   <!-- ========== MATH MODALS ========== -->
-  
-  <!-- Clock Modal -->
   <div class="math-modal" id="clock-modal">
     <div class="math-modal-content">
       <button class="close-math-modal" onclick="closeMathModal('clock-modal')">&times;</button>
@@ -88,7 +72,6 @@
     </div>
   </div>
   
-  <!-- Number of the Day Modal -->
   <div class="math-modal" id="poster-modal">
     <div class="math-modal-content">
       <button class="close-math-modal" onclick="closeMathModal('poster-modal')">&times;</button>
@@ -98,7 +81,6 @@
     </div>
   </div>
   
-  <!-- Math Drill Modal -->
   <div class="math-modal" id="laptop-modal">
     <div class="math-modal-content">
       <button class="close-math-modal" onclick="closeMathModal('laptop-modal')">&times;</button>
@@ -110,16 +92,15 @@
     </div>
   </div>
   
-  <!-- Weekly Plan Modal -->
   <div class="math-modal" id="calendar-modal">
     <div class="math-modal-content">
       <button class="close-math-modal" onclick="closeMathModal('calendar-modal')">&times;</button>
       <h3>📅 This Week's Math Plan</h3>
       <div id="weekly-plan-display" style="max-height:300px; overflow-y:auto;"></div>
+      <button onclick="editMathPlan()" style="margin-top:15px;background:#667eea;color:white;border:none;padding:8px 16px;border-radius:20px;cursor:pointer;">✏️ Edit Plan (Parent)</button>
     </div>
   </div>
   
-  <!-- Gradebook Modal -->
   <div class="math-modal" id="gradebook-modal">
     <div class="math-modal-content">
       <button class="close-math-modal" onclick="closeMathModal('gradebook-modal')">&times;</button>
@@ -127,11 +108,6 @@
       <p><strong>Overall Grade:</strong> <span id="overall-grade">--%</span></p>
       <div id="assignment-list" style="max-height:250px; overflow-y:auto; margin-top:10px;"></div>
     </div>
-<div class="reward-banner">
-  <h3>🌟 Great Job Practicing [Subject]!</h3>
-  <p>Complete all quizzes to earn bonus points and achievements!</p>
-</div>
-
   </div>
   
   <!-- Scripts -->

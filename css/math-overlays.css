@@ -1,6 +1,6 @@
 /* ========== MATH PAGE OVERLAYS ========== */
 .math-overlay-zone {
-  position: absolute;
+  position: absolute; /* ← Positions relative to .slide-container */
   cursor: pointer;
   z-index: 10;
   transition: all 0.3s ease;

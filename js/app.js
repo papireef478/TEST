@@ -56,7 +56,7 @@ function closeSceneModal() {
   if (modal) modal.classList.remove('active');
 }
 
-// ========== OVERLAY CLICK HANDLER (FULL CONTENT - PROPERLY FORMATTED) ==========
+// ========== OVERLAY CLICK HANDLER (HOME PAGE - FULL CONTENT) ==========
 function handleSceneAction(action) {
   const scenes = {
     window: `<h2>🌤️ Weather in Chattanooga, TN</h2><p>Current weather conditions for our city!</p>
@@ -226,8 +226,8 @@ function handleSceneAction(action) {
   openSceneModal(content || `<h2>🔍 Explore</h2><p>Click different areas to discover learning!</p>`);
 }
 
-// ========== SETUP OVERLAY HANDLERS ==========
-function setupOverlayHandlers() {
+// ========== SETUP HOME OVERLAY HANDLERS ==========
+function setupHomeOverlays() {
   if (appState.currentSubject !== 'home') return;
   document.querySelectorAll('.clickable-overlay').forEach(el => {
     el.addEventListener('click', (e) => {
@@ -239,17 +239,14 @@ function setupOverlayHandlers() {
   });
 }
 
-// ========== INITIALIZATION (RUNS ONCE) ==========
+// ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize state
   checkLoginStreak();
   updatePointsDisplay();
   if (typeof window.updateClassroomProgress === 'function') window.updateClassroomProgress();
+  setupHomeOverlays();
   
-  // 2. Setup overlays (home page only)
-  setupOverlayHandlers();
-  
-  // 3. Modal close handlers
+  // Modal close handlers
   document.getElementById('sceneModal')?.addEventListener('click', (e) => {
     if (e.target === e.currentTarget) closeSceneModal();
   });
@@ -257,9 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeSceneModal();
   });
   
-  // 4. Parent button - DIRECT LINK (no prompt)
+  // Parent button - DIRECT LINK (no prompt)
   document.getElementById('showParentBtn')?.addEventListener('click', () => {
     window.location.href = 'parent.html';
   });
 });
-// ✅ END OF FILE - all braces properly closed
+// ✅ END OF FILE
