@@ -1,0 +1,132 @@
+:root {
+    --math-primary: #2563eb;
+    --math-secondary: #1e40af;
+    --math-bg: #eff6ff;
+    --math-accent: #3b82f6;
+    --math-overlay: rgba(37, 99, 235, 0.15);
+    --math-border: #93c5fd;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow-x: hidden;
+}
+
+.classroom-wrapper {
+    background: linear-gradient(180deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+/* --- Header & Points --- */
+.class-header {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-bottom: 5px solid #fff;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.class-header h2 {
+    font-size: 1.6rem;
+    display: flex;
+    gap: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.parent-lock-btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 101;
+    transition: transform 0.2s;
+}
+
+.parent-lock-btn:hover { transform: scale(1.05); }
+
+.points-display {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    padding: 8px 20px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.points-display:hover { transform: scale(1.05); }
+.points-display:after { content: " ⭐"; font-size: 0.9rem; }
+
+/* --- Generic Buttons & Inputs --- */
+input[type="number"], input[type="text"] {
+    font-family: inherit;
+    border-radius: 25px;
+    padding: 10px 20px;
+    border: 2px solid #ddd;
+    margin: 8px 0;
+    width: 150px;
+    font-size: 1rem;
+}
+
+input[type="number"]:focus, input[type="text"]:focus { outline: none; border-color: #667eea; }
+
+button {
+    font-family: inherit;
+    border-radius: 30px;
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+button:hover { transform: scale(1.05); }
+
+/* --- Reward Banner --- */
+.reward-banner {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+.reward-banner h3 { font-size: 1.5rem; margin-bottom: 8px; }
+
+/* --- Responsive Base --- */
+@media (max-width: 768px) {
+    .slide-container iframe { aspect-ratio: auto; height: 400px; }
+}
+
+@media (max-width: 800px) {
+    .classroom { grid-template-columns: repeat(2,1fr); gap: 15px; padding: 20px; }
+    .teacher-desk { grid-column: span 2; }
+    .whiteboard { grid-column: span 2; }
+}

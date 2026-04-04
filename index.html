@@ -1,106 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>🎒 Alli's Digital Classroom 🍎</title>
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>🎒 Alli's Digital Classroom 🍎 | TCAP 4th Grade</title>
+<!-- ✨ Link to External CSS Files -->
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/classroom.css">
+<link rel="stylesheet" href="css/subjects.css">
+<link rel="stylesheet" href="css/modals.css">
+<link rel="stylesheet" href="css/overlays.css">
+<link rel="stylesheet" href="css/tcap-styles.css">
+<link rel="stylesheet" href="css/parent-dashboard.css">
 </head>
 <body>
 <div id="app">
-    <!-- MAIN CLASSROOM VIEW -->
-    <div id="classroomView" class="classroom-wrapper">
-        <div class="class-header">
-            <h2>🎨 Alli's Digital Classroom 🍎</h2>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <div class="points-display" onclick="showRewardPreview()">
-                    <span>⭐</span>
-                    <span id="totalPoints">0</span> points
-                </div>
-                <button id="showParentBtn" class="parent-lock-btn">🔒 Parent Dashboard</button>
+<!-- MAIN CLASSROOM VIEW -->
+<div id="classroomView" class="classroom-wrapper">
+    <div class="class-header">
+        <h2>🎨 Alli's Digital Classroom 🍎</h2>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <div class="points-display" onclick="showRewardPreview()">
+                <span>⭐</span>
+                <span id="totalPoints">0</span> points
             </div>
+            <button id="showParentBtn" class="parent-lock-btn">🔒 Parent Dashboard</button>
+        </div>
+    </div>
+
+    <!-- Google Slide Classroom -->
+    <div class="slide-container">
+        <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSa7HHICYY1xAIib19yKIRFHY5uV0GPQ-0UR4_nIXCORfCtRlZoCQm05EevkiX-0uKUZc4jttWuD8PT/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+        
+        <!-- 🔲 Home Page Interactive Overlays -->
+        <div class="clickable-overlay home-overlay-window" data-action="window"></div>
+        <div class="clickable-overlay home-overlay-calendar" data-action="calendar"></div>
+        <div class="clickable-overlay home-overlay-library" data-action="library"></div>
+        <div class="clickable-overlay home-overlay-laptop" data-action="laptop"></div>
+        <div class="clickable-overlay home-overlay-plant1" data-action="plant"></div>
+        <div class="clickable-overlay home-overlay-plant2" data-action="plant"></div>
+        <div class="clickable-overlay home-overlay-blm" data-action="blm"></div>
+        <div class="clickable-overlay home-overlay-whiteboard-math" data-action="math"></div>
+        <div class="clickable-overlay home-overlay-whiteboard-science" data-action="science"></div>
+        <div class="clickable-overlay home-overlay-whiteboard-reading" data-action="reading"></div>
+        <div class="clickable-overlay home-overlay-whiteboard-history" data-action="history"></div>
+        <div class="clickable-overlay home-overlay-whiteboard-test" data-action="test"></div>
+        <div class="clickable-overlay home-overlay-globe" data-action="geography"></div>
+        <div class="clickable-overlay home-overlay-clock" data-action="clock"></div>
+    </div>
+
+    <!-- Scene Modal -->
+    <div id="sceneModal" class="scene-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeSceneModal()">✕</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Reward Preview Modal -->
+    <div id="rewardPreviewModal" class="scene-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeRewardPreview()">✕</button>
+            <h2 style="text-align: center; margin-bottom: 20px;">🎁 Rewards You Can Earn!</h2>
+            <p style="text-align: center; margin-bottom: 25px;">Your Points: <strong id="previewPoints" style="font-size: 1.5rem; color: #667eea;">0</strong> ⭐</p>
+            <p style="text-align: center; font-style: italic; color: #666; margin-bottom: 20px;">👨‍👩‍👧 Mommy & Daddy redeem rewards in the Parent Dashboard</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <!-- Reward items... -->
+                <div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 15px; border-radius: 15px; text-align: center;"><div style="font-size: 2.5rem;">🍫</div><h4>Candy Bar</h4><p style="font-weight: bold; color: #667eea;">500 points</p></div>
+                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 15px; border-radius: 15px; text-align: center;"><div style="font-size: 2.5rem;">🎮</div><h4>Roblox Card ($10)</h4><p style="font-weight: bold; color: #667eea;">2000 points</p></div>
+                <div style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 15px; border-radius: 15px; text-align: center;"><div style="font-size: 2.5rem;">🎬</div><h4>Movie Night</h4><p style="font-weight: bold; color: #667eea;">750 points</p></div>
+                <div style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 15px; border-radius: 15px; text-align: center;"><div style="font-size: 2.5rem;">🎨</div><h4>Art Supplies</h4><p style="font-weight: bold; color: #667eea;">500 points</p></div>
+                <div style="background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); padding: 15px; border-radius: 15px; text-align: center;"><div style="font-size: 2.5rem;">📚</div><h4>New Book</h4><p style="font-weight: bold; color: #667eea;">500 points</p></div>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 15px; text-align: center;"><div style="font-size: 2.5rem;">🏆</div><h4>Special Prize</h4><p style="font-weight: bold;">5000 points</p></div>
+            </div>
+            <p style="text-align: center; margin-top: 20px; font-style: italic;">Keep learning to earn more points! 💪✨</p>
+        </div>
+    </div>
+
+    <!-- Reward Banner -->
+    <div class="reward-banner">
+        <h3>🌟 Keep Learning to Earn Points!</h3>
+        <p>Complete quizzes and activities to unlock rewards and achievements!</p>
+    </div>
+
+    <!-- Achievements -->
+    <div class="achievements" id="achievementsHome">
+        <div class="achievement" id="ach-first-quiz"><div class="emoji">🎯</div><div class="name">First Quiz!</div><div class="points">+50 pts</div></div>
+        <div class="achievement locked" id="ach-math-master"><div class="emoji">🧮</div><div class="name">Math Master</div><div class="points">+100 pts</div></div>
+        <div class="achievement locked" id="ach-reading-star"><div class="emoji">📚</div><div class="name">Reading Star</div><div class="points">+100 pts</div></div>
+        <div class="achievement locked" id="ach-perfect-score"><div class="emoji">💯</div><div class="name">Perfect Score</div><div class="points">+150 pts</div></div>
+        <div class="achievement locked" id="ach-tcap-practice"><div class="emoji">🎯</div><div class="name">TCAP Practice Pro</div><div class="points">+200 pts</div></div>
+    </div>
+
+    <!-- Centered Classroom Grid -->
+    <div class="classroom">
+        <div class="class-object" data-subject="math"><span class="object-emoji">🧮📐</span><span class="object-label">Math Corner</span></div>
+        <div class="class-object" data-subject="ela"><span class="object-emoji">📖✨</span><span class="object-label">Reading Nook</span></div>
+        <div class="class-object" data-subject="science"><span class="object-emoji">🔬🧪</span><span class="object-label">Science Lab</span></div>
+        <div class="class-object" data-subject="social"><span class="object-emoji">🏛️🗺️</span><span class="object-label">History Hub</span></div>
+        <div class="class-object" data-subject="assessment"><span class="object-emoji">💻📝</span><span class="object-label">TCAP Prep Station</span></div>
+        <div class="class-object" data-subject="gym"><span class="object-emoji">🏃‍♀️💪</span><span class="object-label">Gym & Health</span></div>
+        <div class="class-object" data-subject="spanish"><span class="object-emoji">💬🗣️</span><span class="object-label">Spanish Hall</span></div>
+        <div class="class-object" data-subject="art"><span class="object-emoji">🎨🖌️</span><span class="object-label">Art Studio</span></div>
+
+        <!-- Teacher Desk -->
+        <div class="teacher-desk">
+            <div class="teacher-avatar">👩‍🏫🍎</div>
+            <div class="speech-bubble" id="teacherMessage">"Click on any station to start learning! I'm so proud of you."</div>
         </div>
 
-        <!-- Google Slide Home Classroom -->
+        <!-- Whiteboard -->
+        <div class="whiteboard">
+            <h3>📌 Today's Learning Goals</h3>
+            <div class="goal-details">
+                <ul>
+                    <li>Practice multiplication facts (6s and 7s)</li>
+                    <li>Read for 20 minutes and identify the main idea</li>
+                    <li>Learn about the solar system</li>
+                    <li>Review Tennessee history</li>
+                </ul>
+                <p style="margin-top: 15px; font-size: 1.2rem;">🎯 <strong>Daily Challenge:</strong> Complete at least 2 quizzes to earn bonus points!</p>
+            </div>
+            <div class="progress-container">
+                <div class="progress-mini"><div id="miniProgress" style="width:0%"></div></div>
+                <div id="progressPercent">✨ 0% mastery ✨</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== SUBJECT PAGES (HTML Only) ========== -->
+<!-- MATH PAGE -->
+<div id="mathPage" class="subject-page math-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #667eea;">🧮 Math Lab</h2>
+    
+    <!-- Math Interactive Container with Overlays -->
+    <div class="classroom-container" id="math-classroom" style="position: relative; min-height: 500px; margin-top: 20px;">
         <div class="slide-container">
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSa7HHICYY1xAIib19yKIRFHY5uV0GPQ-0UR4_nIXCORfCtRlZoCQm05EevkiX-0uKUZc4jttWuD8PT/pubembed?start=false&loop=false&delayms=60000" 
-                    frameborder="0" allowfullscreen="true"></iframe>
-            <!-- Home page overlays -->
-            <div class="clickable-overlay home-overlay-window" data-action="window"></div>
-            <div class="clickable-overlay home-overlay-calendar" data-action="calendar"></div>
-            <div class="clickable-overlay home-overlay-library" data-action="library"></div>
-            <div class="clickable-overlay home-overlay-laptop" data-action="laptop"></div>
-            <div class="clickable-overlay home-overlay-plant1" data-action="plant"></div>
-            <div class="clickable-overlay home-overlay-plant2" data-action="plant"></div>
-            <div class="clickable-overlay home-overlay-blm" data-action="blm"></div>
-            <div class="clickable-overlay home-overlay-whiteboard-math" data-action="math"></div>
-            <div class="clickable-overlay home-overlay-whiteboard-science" data-action="science"></div>
-            <div class="clickable-overlay home-overlay-whiteboard-reading" data-action="reading"></div>
-            <div class="clickable-overlay home-overlay-whiteboard-history" data-action="history"></div>
-            <div class="clickable-overlay home-overlay-whiteboard-test" data-action="test"></div>
-            <div class="clickable-overlay home-overlay-globe" data-action="geography"></div>
-            <div class="clickable-overlay home-overlay-clock" data-action="clock"></div>
+            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+            <!-- Math Overlays -->
+            <div class="math-overlay-zone" id="clock-zone" onclick="openMathModal('clock-modal')">⏰</div>
+            <div class="math-overlay-zone" id="poster-zone" onclick="openMathModal('poster-modal')">🔢</div>
+            <div class="math-overlay-zone" id="laptop-zone" onclick="openMathModal('laptop-modal')">💻</div>
+            <div class="math-overlay-zone" id="calendar-zone" onclick="openMathModal('calendar-modal')">📅</div>
+            <div class="math-overlay-zone" id="notebook-zone" onclick="openMathModal('gradebook-modal')">📓</div>
         </div>
 
-        <!-- Rewards Banner & Achievements -->
-        <div class="reward-banner">
-            <h3>🌟 Keep Learning to Earn Points!</h3>
-            <p>Complete quizzes and activities to unlock rewards and achievements!</p>
-        </div>
-        <div class="achievements" id="achievementsHome">
-            <div class="achievement" id="ach-first-quiz"><div class="emoji">🎯</div><div class="name">First Quiz!</div><div class="points">+50 pts</div></div>
-            <div class="achievement locked" id="ach-math-master"><div class="emoji">🧮</div><div class="name">Math Master</div><div class="points">+100 pts</div></div>
-            <div class="achievement locked" id="ach-reading-star"><div class="emoji">📚</div><div class="name">Reading Star</div><div class="points">+100 pts</div></div>
-            <div class="achievement locked" id="ach-perfect-score"><div class="emoji">💯</div><div class="name">Perfect Score</div><div class="points">+150 pts</div></div>
-            <div class="achievement locked" id="ach-tcap-practice"><div class="emoji">🎯</div><div class="name">TCAP Practice Pro</div><div class="points">+200 pts</div></div>
-        </div>
-
-        <!-- Classroom Grid -->
-        <div class="classroom">
-            <div class="class-object" data-subject="math"><span class="object-emoji">🧮📐</span><span class="object-label">Math Corner</span></div>
-            <div class="class-object" data-subject="ela"><span class="object-emoji">📖✨</span><span class="object-label">Reading Nook</span></div>
-            <div class="class-object" data-subject="science"><span class="object-emoji">🔬🧪</span><span class="object-label">Science Lab</span></div>
-            <div class="class-object" data-subject="social"><span class="object-emoji">🏛️🗺️</span><span class="object-label">History Hub</span></div>
-            <div class="class-object" data-subject="assessment"><span class="object-emoji">💻📝</span><span class="object-label">TCAP Prep Station</span></div>
-            <div class="class-object" data-subject="gym"><span class="object-emoji">🏃‍♀️💪</span><span class="object-label">Gym & Health</span></div>
-            <div class="class-object" data-subject="spanish"><span class="object-emoji">💬🗣️</span><span class="object-label">Spanish Hall</span></div>
-            <div class="class-object" data-subject="art"><span class="object-emoji">🎨🖌️</span><span class="object-label">Art Studio</span></div>
-
-            <div class="teacher-desk">
-                <div class="teacher-avatar">👩‍🏫🍎</div>
-                <div class="speech-bubble" id="teacherMessage">"Click on any station to start learning! I'm so proud of you."</div>
+        <!-- Math Modals -->
+        <div class="math-modal" id="clock-modal">
+            <div class="math-modal-content">
+                <button class="close-math-modal" onclick="closeMathModal('clock-modal')">&times;</button>
+                <h3>⏰ Telling Time Challenge</h3>
+                <canvas id="analog-clock-canvas" width="200" height="200"></canvas>
+                <p class="math-question">What time is shown? (Format: HH:MM)</p>
+                <input type="text" id="time-answer" class="math-input" placeholder="e.g. 3:30">
+                <button class="math-btn" onclick="checkTime()">Check Answer</button>
+                <p id="time-feedback"></p>
             </div>
+        </div>
 
-            <div class="whiteboard">
-                <h3>📌 Today's Learning Goals</h3>
-                <div class="goal-details">
-                    <ul>
-                        <li>Practice multiplication facts (6s and 7s)</li>
-                        <li>Read for 20 minutes and identify the main idea</li>
-                        <li>Learn about the solar system</li>
-                        <li>Review Tennessee history</li>
-                    </ul>
-                    <p>🎯 <strong>Daily Challenge:</strong> Complete at least 2 quizzes to earn bonus points!</p>
+        <div class="math-modal" id="poster-modal">
+            <div class="math-modal-content">
+                <button class="close-math-modal" onclick="closeMathModal('poster-modal')">&times;</button>
+                <h3>🔢 Number of the Day</h3>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 72px; font-weight: bold; color: var(--math-primary);" id="display-number">--</div>
+                    <p>Focus on this number for today's drills!</p>
                 </div>
-                <div class="progress-container">
-                    <div class="progress-mini"><div id="miniProgress" style="width:0%"></div></div>
-                    <div id="progressPercent">✨ 0% mastery ✨</div>
-                </div>
+            </div>
+        </div>
+
+        <div class="math-modal" id="laptop-modal">
+            <div class="math-modal-content">
+                <button class="close-math-modal" onclick="closeMathModal('laptop-modal')">&times;</button>
+                <h3>💻 Math Drill: <span id="drill-number">--</span>s</h3>
+                <div id="drill-questions"></div>
+                <button class="math-btn" onclick="generateDrill()" id="start-drill-btn">Start Drill</button>
+                <button class="math-btn" onclick="gradeDrill()" id="grade-drill-btn" style="display:none;">Submit & Grade</button>
+                <p id="drill-result"></p>
+            </div>
+        </div>
+
+        <div class="math-modal" id="calendar-modal">
+            <div class="math-modal-content">
+                <button class="close-math-modal" onclick="closeMathModal('calendar-modal')">&times;</button>
+                <h3>📅 This Week's Math Plan</h3>
+                <div id="weekly-plan-display" style="max-height: 300px; overflow-y: auto;"></div>
+            </div>
+        </div>
+
+        <div class="math-modal" id="gradebook-modal">
+            <div class="math-modal-content">
+                <button class="close-math-modal" onclick="closeMathModal('gradebook-modal')">&times;</button>
+                <h3>📓 Math Gradebook</h3>
+                <p><strong>Overall Grade:</strong> <span id="overall-grade">--%</span></p>
+                <div id="assignment-list" style="max-height: 250px; overflow-y: auto; margin-top: 10px;"></div>
             </div>
         </div>
     </div>
 
-    <!-- Subject pages will be injected here -->
-    <div id="subjectPagesContainer"></div>
+    <!-- Standard Math Content -->
+    <div class="motivational-quote">"Math is not about numbers, it's about understanding the world around us!"</div>
+    <div class="fun-fact-box"><h4>🤓 Fun Math Fact:</h4><p>Did you know? The number 0 is the only number that cannot be represented in Roman numerals!</p></div>
+    <div class="stats-box"><h4>📊 Math Skills to Master:</h4><div class="stat-item">✖️ Multiplication & Division</div><div class="stat-item">🍕 Fractions & Decimals</div></div>
+    <div class="topic-card">
+        <h3>✖️ Multiplication Magic</h3>
+        <p>Practice your multiplication facts!</p>
+        <div class="quiz">
+            <p><strong>Question 1:</strong> 34 × 6 = ?</p><input type="number" id="math_q1" placeholder="Your answer">
+            <p><strong>Question 2:</strong> 57 × 4 = ?</p><input type="number" id="math_q2" placeholder="Your answer">
+            <br><button id="checkMathMult">Check Answers</button>
+            <div id="mathMultFB" class="feedback"></div>
+        </div>
+    </div>
+    <div class="reward-banner"><h3>🌟 Great Job Practicing Math!</h3><p>Complete all math quizzes to earn the Math Master achievement! +100 points</p></div>
+</div>
 
-    <!-- Modals -->
-    <div id="sceneModal" class="scene-modal"><div class="modal-content"><button class="close-modal" onclick="closeSceneModal()">✕</button><div id="modalBody"></div></div></div>
-    <div id="rewardPreviewModal" class="scene-modal"><div class="modal-content"><button class="close-modal" onclick="closeRewardPreview()">✕</button><h2>🎁 Rewards You Can Earn!</h2><p>Your Points: <strong id="previewPoints">0</strong> ⭐</p><p>👨‍👩‍👧 Mommy & Daddy redeem rewards in the Parent Dashboard</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;"><div>🍫 Candy Bar<br>500 pts</div><div>🎮 Roblox Card<br>2000 pts</div><div>🎬 Movie Night<br>750 pts</div><div>🎨 Art Supplies<br>500 pts</div><div>📚 New Book<br>500 pts</div><div>🏆 Special Prize<br>5000 pts</div></div><p>Keep learning to earn more points!</p></div></div>
-    <div id="parentModal" class="parent-modal"><div class="parent-card"><div style="display:flex;justify-content:space-between;"><h2>📊 Parent Dashboard</h2><button id="closeParentModal">✖ Close</button></div><div id="parentDashboardContent"><p>Loading...</p></div><div style="margin-top:1rem;display:flex;gap:10px;"><button id="resetAllScoresBtn">Reset All Scores</button><button id="exportCSVBtn">Export CSV</button><button id="redeemRewardBtn">Redeem Reward</button><button id="lessonPlanBtn">Lesson Planner</button><button id="setNumberBtn">Set Number of the Day</button><button id="setWeeklyPlanBtn">Set Weekly Math Plan</button></div></div></div>
-    <div id="redeemModal" class="scene-modal"><div class="modal-content"><button class="close-modal" onclick="closeRedeemModal()">✕</button><h2>🎁 Redeem Reward</h2><p>Alli's Points: <strong id="redeemPoints">0</strong> ⭐</p><div id="rewardOptions"></div></div></div>
-    <div id="lessonPlanModal" class="scene-modal"><div class="modal-content"><button class="close-modal" onclick="closeLessonPlan()">✕</button><h2>📚 Lesson Planner</h2><div id="lessonPlanContent"></div></div></div>
+<!-- READING PAGE -->
+<div id="elaPage" class="subject-page ela-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #f093fb;">📖 Reading Nook</h2>
+    <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT6WwTvX86dF18AbtD3g-vHpKJxv6jIQPcMJdYeASRDtXrsY2RQvoZQY5l6SwtE3cVbrmSpenlRfqMV/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
+    <div class="motivational-quote">"A reader lives a thousand lives before he dies. The man who never reads lives only one."</div>
+    <div class="fun-fact-box"><h4>📚 Reading Fun Fact:</h4><p>Did you know? The fastest reader in the world can read over 4,000 words per minute!</p></div>
+    <div class="topic-card">
+        <h3>🐬 Main Idea Practice</h3>
+        <div class="quiz">
+            <p style="background: white; padding: 15px; border-radius: 10px; font-style: italic; margin: 15px 0;">"Dolphins are smart mammals. They use clicks and whistles to talk to each other. They live in groups called pods and work together to find food."</p>
+            <p><strong>What is the main idea?</strong></p>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="mainIdea" value="a" style="margin-right: 10px;"> Dolphins are fish that live in the ocean.</label>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="mainIdea" value="b" style="margin-right: 10px;"> Dolphins are intelligent mammals that communicate and live in groups.</label>
+            <br><button id="checkMainIdea">Check Answer</button>
+            <div id="elaMainFB" class="feedback"></div>
+        </div>
+    </div>
+    <div class="reward-banner"><h3>📚 You're a Reading Star!</h3><p>Complete all reading activities to earn the Reading Star achievement! +100 points</p></div>
+</div>
+
+<!-- SCIENCE PAGE -->
+<div id="sciencePage" class="subject-page science-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #4ecdc4;">🔬 Science Lab</h2>
+    <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQK9Jt4Gt0nVlPSv64y9Yy0KcrTUxRrRbKgIBEsUFg2N9OMzngezVBYpO9e0eU4isJPchvRXV-iG3eK/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
+    <div class="motivational-quote">"Don't let anyone rob you of your imagination, your creativity, or your curiosity." - Mae Jemison</div>
+    <div class="topic-card">
+        <h3>🌞 Solar System Quiz</h3>
+        <div class="quiz">
+            <p><strong>Which planet is closest to the Sun?</strong></p>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="planet" value="Venus" style="margin-right: 10px;"> Venus</label>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="planet" value="Mercury" style="margin-right: 10px;"> Mercury</label>
+            <br><button id="checkPlanet">Check Answer</button>
+            <div id="planetFB" class="feedback"></div>
+        </div>
+    </div>
+    <div class="reward-banner"><h3>🔬 Science Explorer!</h3><p>Keep exploring and learning! Complete all science quizzes for bonus points!</p></div>
+</div>
+
+<!-- HISTORY PAGE -->
+<div id="socialPage" class="subject-page social-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #ffe66d;">🏛️ History Hub</h2>
+    <div class="slide-container"><iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQS_-IPc8Zs2OOpQjgSaONQvjX5sjUvDbGqQWEX1JWy9A1oRnkWDE1_1UFmdXbQW1g3b-FDYtxyUYvI/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe></div>
+    <div class="motivational-quote">"Those who cannot remember the past are condemned to repeat it." - George Santayana</div>
+    <div class="topic-card">
+        <h3>📜 Declaration of Independence</h3>
+        <div class="quiz">
+            <p><strong>Who was the main author?</strong></p>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="author" value="george" style="margin-right: 10px;"> George Washington</label>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="author" value="thomas" style="margin-right: 10px;"> Thomas Jefferson</label>
+            <br><button id="checkAuthor">Check Answer</button>
+            <div id="authorFB" class="feedback"></div>
+        </div>
+    </div>
+    <div class="reward-banner"><h3>🏛️ History Hero!</h3><p>You're learning so much about our history! Keep up the great work!</p></div>
+</div>
+
+<!-- TCAP PREP STATION -->
+<div id="assessmentPage" class="subject-page assessment-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 10px; color: #ff6b6b;">📝 TCAP Prep Station</h2>
+    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 25px; color: #666;">Prepare for success with realistic TCAP practice tests!</p>
+    <div class="motivational-quote">"Success doesn't come from what you do occasionally, it comes from what you do consistently!"</div>
+    
+    <div class="tcap-container">
+        <div class="tcap-header"><h2>🎯 Choose Your TCAP Practice Test</h2><p>Select the testing option that works best for you!</p></div>
+        <div class="tcap-options">
+            <div class="tcap-option" onclick="selectTestOption('full-week')"><h3>📅 Full Week Simulation</h3><p>Complete TCAP Experience</p></div>
+            <div class="tcap-option" onclick="selectTestOption('one-subject')"><h3>📚 One Subject at a Time</h3><p>Focus on Individual Subjects</p></div>
+            <div class="tcap-option" onclick="selectTestOption('two-subjects')"><h3>⚡ Two Subjects Together</h3><p>Build Endurance</p></div>
+        </div>
+
+        <div id="tcap-timer-display" class="tcap-timer" style="display: none;">⏱️ Time Remaining: <span id="countdown">02:00:00</span></div>
+        
+        <div id="subjectSelection" class="subject-selection">
+            <h3 style="margin-bottom: 15px;">📚 Select Subject(s) for Your Test:</h3>
+            <div id="singleSubjectOptions" style="display: none;">
+                <p><strong>Choose ONE subject:</strong></p>
+                <label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="math"> 🧮 Math</label>
+                <label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="ela"> 📖 Reading/ELA</label>
+                <label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="science"> 🔬 Science</label>
+                <label class="subject-checkbox"><input type="radio" name="tcap-subject-single" value="social"> 🏛️ Social Studies</label>
+            </div>
+            <div id="twoSubjectOptions" style="display: none;">
+                <p><strong>Choose TWO subjects:</strong></p>
+                <label class="subject-checkbox"><input type="checkbox" value="math"> 🧮 Math</label>
+                <label class="subject-checkbox"><input type="checkbox" value="ela"> 📖 Reading/ELA</label>
+                <label class="subject-checkbox"><input type="checkbox" value="science"> 🔬 Science</label>
+                <label class="subject-checkbox"><input type="checkbox" value="social"> 🏛️ Social Studies</label>
+                <p id="twoSubjectWarning" style="font-size: 0.85rem; color: #ff6b6b; margin-top: 8px; display: none;">⚠️ Please select exactly 2 subjects</p>
+            </div>
+            <button onclick="startSelectedTest()" style="margin-top: 15px;">🚀 Start Test</button>
+        </div>
+
+        <div id="sampleQuestions" class="tcap-questions active">
+            <h3 style="margin-bottom: 20px;">📋 Sample TCAP Questions</h3>
+            <div class="tcap-question"><p>1. Math: 84 ÷ 7 = ?</p><input type="number" placeholder="Your answer"></div>
+            <div class="tcap-question"><p>2. Reading: Which word is a noun?</p><input type="text" placeholder="Your answer"></div>
+            <button id="submitTCAPTest" onclick="submitTCAPTest()" style="margin-top: 20px; padding: 15px 40px; font-size: 1.2rem;">✅ Submit Test</button>
+        </div>
+
+        <div id="tcapQuestions" class="tcap-questions">
+            <h3 style="margin-bottom: 20px;">📋 TCAP Practice Questions</h3>
+            <div id="questionsContainer"></div>
+        </div>
+
+        <div id="tcapResults" class="tcap-results">
+            <h3 style="margin-bottom: 20px; text-align: center;">📊 Your TCAP Results</h3>
+            <div id="resultsContainer"></div>
+            <p style="text-align: center; margin-top: 20px; font-weight: bold;">Mommy Teacher will review these results! 💕</p>
+            <button onclick="resetTCAPPage()" style="margin-top: 20px;">🔄 Take Another Test</button>
+        </div>
+    </div>
+    <div class="reward-banner"><h3>🏆 TCAP Champion in Training!</h3><p>Complete full practice tests to earn the TCAP Master achievement! +250 points</p></div>
+</div>
+
+<!-- GYM PAGE -->
+<div id="gymPage" class="subject-page gym-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #4ecdc4;">💪 Gym & Health</h2>
+    <div class="motivational-quote">"Take care of your body; it's the only place you have to live."</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px auto; max-width: 1000px;">
+        <div class="topic-card"><h3>🏃 Today's Movement</h3><p>Goal: <strong>15 minutes</strong> of active play</p><button onclick="logActivity('jump-rope', 15)" style="margin-top: 10px;">✅ Log Completed (+10 pts)</button></div>
+        <div class="topic-card"><h3>🥗 Healthy Habit</h3><p>Drink 6 glasses of water daily</p></div>
+    </div>
+    <div class="reward-banner"><h3>🏆 Health Hero Points!</h3><p>Log 3 gym activities this week to earn +50 bonus points!</p></div>
+</div>
+
+<!-- SPANISH PAGE -->
+<div id="spanishPage" class="subject-page spanish-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #9c27b0;">🗣️ Spanish Hall</h2>
+    <div class="topic-card">
+        <h3>📚 Vocabulary Practice</h3>
+        <p>Match the Spanish word to its English meaning:</p>
+        <div class="quiz">
+            <p><strong>¿Cómo se dice "hello" en español?</strong></p>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="spanish_q1" value="adios"> Adiós</label>
+            <label style="display: block; margin: 10px 0;"><input type="radio" name="spanish_q1" value="hola"> Hola ✓</label>
+            <br><button onclick="checkSpanishQ1()">Check Answer</button>
+            <div id="spanishQ1FB" class="feedback"></div>
+        </div>
+    </div>
+    <div class="reward-banner"><h3>🌟 ¡Muy Bien!</h3><p>Complete Spanish lessons to earn language learner points! +75 pts</p></div>
+</div>
+
+<!-- ART PAGE -->
+<div id="artPage" class="subject-page art-page">
+    <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
+    <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #ff6b6b;">🎨 Art Studio</h2>
+    <div class="topic-card">
+        <h3>🖌️ Today's Art Project</h3>
+        <p><strong>Watercolor Landscapes</strong></p>
+        <button onclick="logArtProject('watercolor')" style="margin-top: 15px;">✅ I Finished My Art! (+25 pts)</button>
+    </div>
+    <div class="reward-banner"><h3>🎨 Creative Points!</h3><p>Share your art with Mommy Teacher to earn bonus creativity points! +50 pts</p></div>
+</div>
+
+<!-- ========== PARENT MODALS ========== -->
+<div id="parentModal" class="parent-modal">
+    <div class="parent-card">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+            <h2>📊 Parent Dashboard</h2>
+            <button id="closeParentModal" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">✖ Close</button>
+        </div>
+        <div id="parentDashboardContent"><p>🔐 Loading scores...</p></div>
+        <div style="margin-top: 1.5rem; display: flex; gap: 15px; flex-wrap: wrap;">
+            <button id="resetAllScoresBtn" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);">🔄 Reset All</button>
+            <button id="exportCSVBtn" style="background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);">📎 Export CSV</button>
+            <button id="redeemRewardBtn" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">🎁 Redeem</button>
+            <button id="lessonPlanBtn" style="background: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);">📚 Planner</button>
+        </div>
+    </div>
+</div>
+
+<div id="redeemModal" class="scene-modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeRedeemModal()">✕</button>
+        <h2 style="text-align: center;">🎁 Redeem Reward</h2>
+        <p style="text-align: center;">Alli's Points: <strong id="redeemPoints" style="color: #667eea;">0</strong> ⭐</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+            <div style="background: #ffecd2; padding: 20px; border-radius: 15px; text-align: center;">
+                <h3>🍫 Candy Bar</h3><p>500 pts</p><button onclick="redeemReward(500, 'Candy Bar')">Redeem</button>
+            </div>
+            <div style="background: #a8edea; padding: 20px; border-radius: 15px; text-align: center;">
+                <h3>🎮 Roblox</h3><p>2000 pts</p><button onclick="redeemReward(2000, 'Roblox')">Redeem</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="lessonPlanModal" class="scene-modal">
+    <div class="math-modal-content" style="max-height: 80vh; overflow-y: auto;">
+        <button class="close-modal" style="position:absolute; top:15px; right:15px;" onclick="closeLessonPlan()">✕</button>
+        <h3>🗓️ Weekly Math Planner</h3>
+        <p style="color:#555; font-size: 0.9rem;">Set daily math focus. Updates Calendar overlay & Number of the Day.</p>
+        <label style="margin-top:10px; display:block;"><strong>Number of the Day:</strong></label>
+        <input type="number" id="planner-numOfDay" class="math-input" min="2" max="12" placeholder="e.g. 6">
+        <div id="daily-plans" style="margin-top:15px;"></div>
+        <button class="math-btn" onclick="savePlanner()" style="width:100%; margin-top:15px;">💾 Save Weekly Plan</button>
+    </div>
 </div>
 
 <script src="js/app.js"></script>
+<script src="js/reward-system.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/quizzes.js"></script>
+<script src="js/tcap-system.js"></script>
+<script src="js/math-classroom.js"></script>
+<script src="js/parent-dashboard.js"></script>
 </body>
 </html>

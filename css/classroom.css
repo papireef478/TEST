@@ -1,0 +1,130 @@
+/* --- Slide Container & Home Overlays --- */
+.slide-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.slide-container iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 960/569;
+}
+
+/* --- Classroom Grid --- */
+.classroom {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: auto;
+    gap: 25px;
+    padding: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.class-object {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-radius: 30px;
+    padding: 25px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    border: 3px solid transparent;
+}
+
+.class-object:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    border-color: #667eea;
+}
+
+.object-emoji { font-size: 4rem; display: block; margin-bottom: 10px; }
+.object-label { font-weight: bold; font-size: 1.3rem; color: #333; }
+
+/* --- Achievements --- */
+.achievements {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 1100px;
+}
+
+.achievement {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    min-width: 120px;
+}
+
+.achievement .emoji { font-size: 3rem; margin-bottom: 8px; }
+.achievement .name { font-weight: bold; font-size: 0.9rem; color: #333; }
+.achievement .points { color: #667eea; font-weight: bold; font-size: 0.85rem; }
+.achievement.locked { opacity: 0.4; filter: grayscale(100%); }
+
+/* --- Teacher Desk --- */
+.teacher-desk {
+    grid-column: span 4;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 20px 30px;
+    border: 4px solid #fff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.teacher-avatar { font-size: 4.5rem; background: white; border-radius: 100px; padding: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+.speech-bubble {
+    background: white;
+    border-radius: 30px;
+    padding: 20px 30px;
+    flex: 1.2;
+    min-width: 280px;
+    border: 3px solid #ffecd2;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* --- Whiteboard & Progress --- */
+.whiteboard {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 25px;
+    color: #ffffff;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 4px solid #4a5b2e;
+    margin: 0 auto;
+    max-width: 900px;
+}
+
+.whiteboard h3 { font-size: 1.8rem; margin-bottom: 15px; color: #fff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+.whiteboard p { font-size: 1.3rem; font-weight: bold; margin: 10px 0; color: #fff; }
+
+.goal-details { background: rgba(255,255,255,0.15); padding: 15px; border-radius: 15px; margin-top: 15px; }
+.goal-details ul { list-style: none; padding: 0; margin: 10px 0; }
+.goal-details li { padding: 5px 0; font-size: 1.1rem; color: #fff; }
+.goal-details li:before { content: "✓ "; color: #4ecdc4; font-weight: bold; margin-right: 8px; }
+
+.progress-container { margin-top: 15px; }
+.progress-mini { background: rgba(255,255,255,0.3); border-radius: 30px; height: 20px; width: 100%; overflow: hidden; }
+.progress-mini #miniProgress { background: linear-gradient(90deg, #4ecdc4 0%, #44a08d 100%); height: 100%; border-radius: 30px; transition: width 0.5s ease; }
+#progressPercent { font-size: 1.1rem; margin-top: 8px; font-weight: bold; color: #fff; }
