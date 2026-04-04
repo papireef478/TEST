@@ -37,8 +37,12 @@
 .subject-page .motivational-quote,
 .subject-page .fun-fact-box,
 .subject-page .stats-box,
-.subject-page .topic-card,
-.subject-page .reward-banner {
+.subject-page .topic-card {
+  max-width: none;
+  margin: 20px 30px;
+  border-radius: 20px;
+} 
+.reward-banner {
   background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   color: white;
   padding: 15px 25px;
