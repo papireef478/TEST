@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Segoe UI', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, 100%);
   overflow-x: hidden;
   line-height: 1.6;
 }
@@ -37,7 +37,7 @@ button {
   font-family: inherit;
   border-radius: 30px;
   padding: 10px 25px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, 100%);
   color: white;
   border: none;
   font-weight: bold;
@@ -111,7 +111,7 @@ th, td {
 }
 
 th {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #667eea 0%, 100%);
   color: white;
   font-weight: bold;
 }
