@@ -31,28 +31,53 @@
 .home-overlay-clock { left: 1%; top: 0%; width: 8%; height: 10%; }
 
 /* 📍 Math Classroom Overlay Zones */
-.math-overlay-zone {
-    position: absolute;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px dashed transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    user-select: none;
-    z-index: 10;
+.math-overlay-clock:hover {
+    background: rgba(37, 99, 235, 0.3) !important;  /* Blue for Math */
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
 }
 
-.math-overlay-zone:hover {
-    background: var(--math-overlay);
-    border-color: var(--math-primary);
-    transform: scale(1.05);
+.math-overlay-poster:hover {
+    background: rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
 }
 
-/* Math Overlay Positions */
-#clock-zone { top: 8%; left: 5%; width: 70px; height: 70px; }
-#poster-zone { top: 35%; left: 3%; width: 45px; height: 110px; }
-#laptop-zone { bottom: 5%; right: 6%; width: 90px; height: 70px; }
-#calendar-zone { top: 6%; right: 5%; width: 75px; height: 75px; }
-#notebook-zone { top: 50%; left: 4%; width: 35px; height: 45px; }
+.math-overlay-laptop:hover {
+    background: rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+}
+
+.math-overlay-calendar:hover {
+    background: rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+}
+
+.math-overlay-notebook:hover {
+    background: rgba(37, 99, 235, 0.3) !important;
+    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+}
+
+/* Math Modal Styling - Blue theme */
+#clock-modal .math-modal-content,
+#poster-modal .math-modal-content,
+#laptop-modal .math-modal-content,
+#calendar-modal .math-modal-content,
+#gradebook-modal .math-modal-content {
+    border: 3px solid #2563eb;  /* Math blue */
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+}
+
+#clock-modal .close-math-modal,
+#poster-modal .close-math-modal,
+#laptop-modal .close-math-modal,
+#calendar-modal .close-math-modal,
+#gradebook-modal .close-math-modal {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+#clock-modal .math-btn,
+#poster-modal .math-btn,
+#laptop-modal .math-btn,
+#calendar-modal .math-btn,
+#gradebook-modal .math-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}

@@ -135,17 +135,17 @@
     <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
     <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #667eea;">🧮 Math Lab</h2>
     
-    <!-- Math Interactive Container with Overlays -->
-    <div class="classroom-container" id="math-classroom" style="position: relative; min-height: 500px; margin-top: 20px;">
-        <div class="slide-container">
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
-            <!-- Math Overlays -->
-            <div class="math-overlay-zone" id="clock-zone" onclick="openMathModal('clock-modal')">⏰</div>
-            <div class="math-overlay-zone" id="poster-zone" onclick="openMathModal('poster-modal')">🔢</div>
-            <div class="math-overlay-zone" id="laptop-zone" onclick="openMathModal('laptop-modal')">💻</div>
-            <div class="math-overlay-zone" id="calendar-zone" onclick="openMathModal('calendar-modal')">📅</div>
-            <div class="math-overlay-zone" id="notebook-zone" onclick="openMathModal('gradebook-modal')">📓</div>
-        </div>
+    <!-- Math Lab with Transparent Overlays -->
+    <div class="slide-container" style="position: relative;">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+    
+    <!-- 🔲 Transparent Overlay Zones (Math Theme - Blue) -->
+    <div class="clickable-overlay math-overlay-clock" onclick="openMathModal('clock-modal')" style="top: 8%; left: 5%; width: 70px; height: 70px;"></div>
+    <div class="clickable-overlay math-overlay-poster" onclick="openMathModal('poster-modal')" style="top: 35%; left: 3%; width: 45px; height: 110px;"></div>
+    <div class="clickable-overlay math-overlay-laptop" onclick="openMathModal('laptop-modal')" style="bottom: 5%; right: 6%; width: 90px; height: 70px;"></div>
+    <div class="clickable-overlay math-overlay-calendar" onclick="openMathModal('calendar-modal')" style="top: 6%; right: 5%; width: 75px; height: 75px;"></div>
+    <div class="clickable-overlay math-overlay-notebook" onclick="openMathModal('gradebook-modal')" style="top: 50%; left: 4%; width: 35px; height: 45px;"></div>
+</div>
 
         <!-- Math Modals -->
         <div class="math-modal" id="clock-modal">
@@ -339,6 +339,9 @@
 <div id="gymPage" class="subject-page gym-page">
     <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
     <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #4ecdc4;">💪 Gym & Health</h2>
+<div class="slide-container">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTqBnb64mqJwu5HrImLx6Y6mapWGmwtBqZ64ffipVVI7_R7CKkax5rlKBMln3zJU_1LG4vRT2N-nmtC/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+</div>
     <div class="motivational-quote">"Take care of your body; it's the only place you have to live."</div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px auto; max-width: 1000px;">
         <div class="topic-card"><h3>🏃 Today's Movement</h3><p>Goal: <strong>15 minutes</strong> of active play</p><button onclick="logActivity('jump-rope', 15)" style="margin-top: 10px;">✅ Log Completed (+10 pts)</button></div>
@@ -351,6 +354,9 @@
 <div id="spanishPage" class="subject-page spanish-page">
     <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
     <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #9c27b0;">🗣️ Spanish Hall</h2>
+<div class="slide-container">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSxjWRLf_TFyU4rqjHJr63avj0CD7ggjEWfkh9pGH33s-2FtoFGu-LLSKlrN5K63yjG8O0Aie560ydW/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+</div>
     <div class="topic-card">
         <h3>📚 Vocabulary Practice</h3>
         <p>Match the Spanish word to its English meaning:</p>
@@ -369,6 +375,9 @@
 <div id="artPage" class="subject-page art-page">
     <button class="back-home" onclick="goHome()">🏠 Back to Main Classroom</button>
     <h2 style="text-align: center; font-size: 2.2rem; margin-bottom: 20px; color: #ff6b6b;">🎨 Art Studio</h2>
+<div class="slide-container">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSV7ANEIgShKt3dnGsCbQY-vh1xLhiehXgIdcbH30qaZ5-XFcvUlI7SynvPnBc5SH_Dulh76SDTnkDv/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+</div>
     <div class="topic-card">
         <h3>🖌️ Today's Art Project</h3>
         <p><strong>Watercolor Landscapes</strong></p>

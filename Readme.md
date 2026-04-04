@@ -203,6 +203,21 @@ async function saveGradeToSheet(name, score) {
 📌 Keep the frontend logic separate from storage—this project is already structured for easy backend swapping\!  
 ---
 
+📝 Subject Color Themes for Future Pages
+When you add overlays to other subjects, use these colors:
+
+Subject | Color Code | Hover Effect
+Math | #2563eb (Blue) | rgba(37, 99, 235, 0.3)
+Reading/ELA | #f093fb (Pink) | rgba(240, 147, 251, 0.3)
+Science | #4ecdc4 (Teal) | rgba(78, 205, 196, 0.3)
+History | #ffe66d (Yellow) | rgba(255, 230, 109, 0.3)
+Gym | #4ecdc4 (Teal) | rgba(78, 205, 196, 0.3)
+Spanish | #9c27b0 (Purple) | rgba(156, 39, 176, 0.3)
+Art | #ff6b6b (Coral) | rgba(255, 107, 107, 0.3)
+
+Would you like me to help you set up the overlays for the other subject pages too (Reading, Science, History)? I can provide the exact code for each! 🎨✨
+
+---
 ## **🛠️ Troubleshooting**
 
 | Issue | Solution |
