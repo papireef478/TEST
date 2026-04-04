@@ -16,6 +16,11 @@ window.appState = {
   currentSubject: 'home'
 };
 
+// Parent button - direct link
+  document.getElementById('showParentBtn')?.addEventListener('click', () => {
+    window.location.href = 'parent.html';
+  });
+
 // ========== LOGIN STREAK TRACKING ==========
 function checkLoginStreak() {
   const today = new Date().toDateString();
@@ -195,8 +200,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeSceneModal();
   });
   
-  // Parent button - direct link
-  document.getElementById('showParentBtn')?.addEventListener('click', () => {
-    window.location.href = 'parent.html';
-  });
+  
 });
