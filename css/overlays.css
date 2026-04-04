@@ -1,20 +1,27 @@
 /* ========== OVERLAYS ========== */
-/* Clickable overlay areas - ONLY for home page */
-.clickable-overlay {
-    position: absolute;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    border-radius: 10px;
+.slide-container {
+  position: relative; width: 100%; max-width: 1400px; margin: 20px auto;
+  background: white; border-radius: 20px; overflow: hidden;
 }
+.slide-container iframe { display: block; width: 100%; height: auto; aspect-ratio: 960/569; }
 
+/* Clickable Overlay Base */
+.clickable-overlay, .math-overlay-zone {
+  position: absolute; cursor: pointer; z-index: 10;
+  border-radius: 10px; transition: all 0.3s ease; background: transparent;
+}
 .clickable-overlay:hover {
-    background: rgba(255, 215, 0, 0.3) !important;
-    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
-    transform: scale(1.02);
+  background: rgba(255, 215, 0, 0.3) !important;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+  transform: scale(1.02);
+}
+.math-overlay-zone:hover {
+  background: rgba(37, 99, 235, 0.25) !important;
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+  transform: scale(1.02);
 }
 
-/* Specific overlay positions for HOME PAGE only */
+/* Home Page Overlay Positions */
 .home-overlay-window { left: 65.5%; top: 29%; width: 16%; height: 23%; }
 .home-overlay-calendar { right: 36.5%; top: 26%; width: 11%; height: 12%; }
 .home-overlay-library { left: 85%; top: 31%; width: 12%; height: 42%; }
@@ -30,56 +37,9 @@
 .home-overlay-globe { left: 11%; top: 49%; width: 8%; height: 12%; }
 .home-overlay-clock { left: 1%; top: 0%; width: 8%; height: 10%; }
 
-/* 📍 Math Classroom Overlay Zones */
-/* ========== MATH OVERLAY ZONES ========== */
-.math-overlay-zone {
-    position: absolute;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    border-radius: 10px;
-    /* Transparent by default - shows your Google Slide images */
-}
-
-/* Blue hover effect for Math theme */
-.math-overlay-zone:hover {
-    background: rgba(37, 99, 235, 0.25) !important;  /* Math blue */
-    box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
-    transform: scale(1.02);
-}
-
-/* Math Overlay Positions - ADJUST THESE TO MATCH YOUR SLIDE */
-#clock-zone { top: 8%; left: 1.5%; width: 7.5%; height: 11%; }
-#poster-zone { top: 26%; left: 73%; width: 11%; height: 25%; }
-#laptop-zone { bottom: 33%; right: 65%; width: 13%; height: 15%; }
-#calendar-zone { top: 10%; right: 13.5%; width: 13%; height: 16%; }
-#notebook-zone { top: 43%; left: 12%; width: 5%; height: 9%; }
-
-/* 🟡 TEMPORARY: Make overlays visible while positioning (remove when done) */
-/* .math-overlay-zone { background: rgba(37, 99, 235, 0.2) !important; border: 2px dashed #2563eb !important; } */
-
-/* Math Modal Styling - Blue theme */
-#clock-modal .math-modal-content,
-#poster-modal .math-modal-content,
-#laptop-modal .math-modal-content,
-#calendar-modal .math-modal-content,
-#gradebook-modal .math-modal-content {
-    border: 3px solid #2563eb;  /* Math blue */
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-}
-
-#clock-modal .close-math-modal,
-#poster-modal .close-math-modal,
-#laptop-modal .close-math-modal,
-#calendar-modal .close-math-modal,
-#gradebook-modal .close-math-modal {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-}
-
-#clock-modal .math-btn,
-#poster-modal .math-btn,
-#laptop-modal .math-btn,
-#calendar-modal .math-btn,
-#gradebook-modal .math-btn {
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-}
+/* Math Overlay Positions */
+#math-clock { top: 8%; left: 5%; width: 7%; height: 9%; }
+#math-poster { top: 26%; left: 73%; width: 11%; height: 25%; }
+#math-laptop { bottom: 33%; right: 65%; width: 13%; height: 15%; }
+#math-calendar { top: 10%; right: 13.5%; width: 13%; height: 16%; }
+#math-notebook { top: 43%; left: 12%; width: 5%; height: 9%; }

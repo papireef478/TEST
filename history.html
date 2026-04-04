@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏛️ History Hub | Alli's Classroom</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/subjects.css">
+<link rel="stylesheet" href="css/modals.css">
+</head>
+<body>
+<div id="socialPage" class="subject-page social-page active-subject">
+  <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
+  <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#ffe66d;">🏛️ History Hub</h2>
+  
+  <div class="slide-container">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQS_-IPc8Zs2OOpQjgSaONQvjX5sjUvDbGqQWEX1JWy9A1oRnkWDE1_1UFmdXbQW1g3b-FDYtxyUYvI/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+  </div>
+
+  <div class="motivational-quote">💭 <span>"Those who cannot remember the past are condemned to repeat it."</span> ✨</div>
+  <div class="quote-author">- George Santayana</div>
+  
+  <div class="fun-fact-box"><h4>🏛️ History Fun Fact:</h4><p>Did you know? Tennessee is known as "The Volunteer State" because of the many volunteers who fought in the War of 1812! Nashville, our capital, is also known as "Music City USA"!</p></div>
+  
+  <div class="stats-box"><h4>🗺️ What We're Learning:</h4>
+    <div class="stat-item">🏛️ American History & Founding Fathers</div>
+    <div class="stat-item">🎸 Tennessee History & Culture</div>
+    <div class="stat-item">📜 Declaration of Independence</div>
+    <div class="stat-item">🏛️ Three Branches of Government</div>
+  </div>
+
+  <div class="topic-card">
+    <h3>📜 Declaration of Independence</h3>
+    <div class="quiz">
+      <p><strong>Who was the main author of the Declaration of Independence?</strong></p>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="author" value="george"> George Washington</label>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="author" value="thomas"> Thomas Jefferson</label>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="author" value="ben"> Benjamin Franklin</label>
+      <br><button id="checkAuthor">Check Answer</button>
+      <div id="authorFB" class="feedback"></div>
+    </div>
+  </div>
+
+  <div class="topic-card">
+    <h3>🎸 Tennessee Facts</h3>
+    <div class="quiz">
+      <p><strong>What is the capital of Tennessee?</strong></p>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="capital" value="memphis"> Memphis</label>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="capital" value="nashville"> Nashville</label>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="capital" value="chattanooga"> Chattanooga</label>
+      <br><button id="checkCapital">Check Answer</button>
+      <div id="capitalFB" class="feedback"></div>
+    </div>
+  </div>
+
+  <div class="reward-banner"><h3>🏛️ History Hero!</h3><p>You're learning so much about our history! Keep up the great work!</p></div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/quizzes.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧮 Math Lab | Alli's Classroom</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/subjects.css">
+  <link rel="stylesheet" href="css/overlays.css">
+  <link rel="stylesheet" href="css/modals.css"> <!-- Assuming you have this or will create it -->
+  <style>
+    /* Math-specific modal styles */
+    .math-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; justify-content: center; align-items: center; }
+    .math-modal.active { display: flex; }
+    .math-modal-content { background: #eff6ff; border: 3px solid #2563eb; border-radius: 16px; padding: 24px; max-width: 600px; width: 92%; position: relative; }
+    .close-math-modal { position: absolute; top: 12px; right: 16px; font-size: 28px; cursor: pointer; color: #2563eb; background: none; border: none; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div id="mathPage" class="subject-page active-subject">
+    <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
+    <h2 style="text-align:center; font-size:2.2rem; margin-bottom:20px; color:#667eea;">🧮 Math Lab</h2>
+    
+    <div class="slide-container">
+      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+      <!-- Math Overlays -->
+      <div class="math-overlay-zone" id="math-clock" onclick="openMathModal('clock-modal')"></div>
+      <div class="math-overlay-zone" id="math-poster" onclick="openMathModal('poster-modal')"></div>
+      <div class="math-overlay-zone" id="math-laptop" onclick="openMathModal('laptop-modal')"></div>
+      <div class="math-overlay-zone" id="math-calendar" onclick="openMathModal('calendar-modal')"></div>
+      <div class="math-overlay-zone" id="math-notebook" onclick="openMathModal('gradebook-modal')"></div>
+    </div>
+
+    <div class="motivational-quote">💭 <span id="math-quote">"Math is not about numbers, it's about understanding the world around us!"</span> ✨</div>
+    <div class="quote-author" id="math-author">- Mommy Teacher</div>
+    <div class="fun-fact-box"><h4>🤓 Fun Math Fact:</h4><p>Did you know? The number 0 is the only number that cannot be represented in Roman numerals!</p></div>
+    
+    <div class="stats-box"><h4>📊 Math Skills to Master:</h4>
+      <div class="stat-item">✖️ Multiplication & Division</div>
+      <div class="stat-item">🍕 Fractions & Decimals</div>
+      <div class="stat-item">📐 Geometry & Measurement</div>
+      <div class="stat-item">📊 Data & Graphs</div>
+    </div>
+
+    <div class="topic-card">
+      <h3>✖️ Multiplication Magic</h3>
+      <div class="quiz">
+        <p><strong>Question 1:</strong> 34 × 6 = ?</p><input type="number" id="math_q1">
+        <p><strong>Question 2:</strong> 57 × 4 = ?</p><input type="number" id="math_q2">
+        <br><button id="checkMathMult">Check Answers</button>
+        <div id="mathMultFB" class="feedback"></div>
+      </div>
+    </div>
+
+    <div class="reward-banner"><h3>🌟 Great Job Practicing Math!</h3><p>Complete all math quizzes to earn the Math Master achievement! +100 points</p></div>
+  </div>
+
+  <!-- Math Modals -->
+  <div class="math-modal" id="clock-modal">
+    <div class="math-modal-content">
+      <button class="close-math-modal" onclick="closeMathModal('clock-modal')">&times;</button>
+      <h3>⏰ Telling Time</h3>
+      <canvas id="analog-clock" width="200" height="200"></canvas>
+      <input type="text" id="time-ans" placeholder="HH:MM" style="width:120px; margin:10px auto; display:block;">
+      <button onclick="checkClock()">Check</button>
+      <p id="clock-fb" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <div class="math-modal" id="poster-modal">
+    <div class="math-modal-content">
+      <button class="close-math-modal" onclick="closeMathModal('poster-modal')">&times;</button>
+      <h3>🔢 Number of the Day</h3>
+      <div style="font-size:4rem; font-weight:bold; color:#2563eb; text-align:center; margin:20px 0;" id="display-number">--</div>
+    </div>
+  </div>
+
+  <div class="math-modal" id="laptop-modal">
+    <div class="math-modal-content">
+      <button class="close-math-modal" onclick="closeMathModal('laptop-modal')">&times;</button>
+      <h3>💻 Math Drill: <span id="drill-num">--</span>s</h3>
+      <div id="drill-cont"></div>
+      <button onclick="startDrill()" id="drill-start" style="margin-top:10px;">Start Drill</button>
+      <button onclick="gradeDrill()" id="drill-submit" style="display:none; margin-top:10px;">Submit</button>
+      <p id="drill-res" style="margin-top:10px;"></p>
+    </div>
+  </div>
+
+  <div class="math-modal" id="calendar-modal">
+    <div class="math-modal-content">
+      <button class="close-math-modal" onclick="closeMathModal('calendar-modal')">&times;</button>
+      <h3>📅 This Week's Math Plan</h3>
+      <div id="weekly-plan-display" style="max-height:300px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <div class="math-modal" id="gradebook-modal">
+    <div class="math-modal-content">
+      <button class="close-math-modal" onclick="closeMathModal('gradebook-modal')">&times;</button>
+      <h3>📓 Math Gradebook</h3>
+      <p><strong>Overall Grade:</strong> <span id="overall-grade">--%</span></p>
+      <div id="assignment-list" style="max-height:250px; overflow-y:auto; margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <!-- Load Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/math-classroom.js"></script>
+  <script>
+    // Bind Math Quiz
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('checkMathMult').onclick = () => {
+        const q1 = parseInt(document.getElementById('math_q1').value) === 204;
+        const q2 = parseInt(document.getElementById('math_q2').value) === 228;
+        const score = (q1 ? 1 : 0) + (q2 ? 1 : 0);
+        document.getElementById('mathMultFB').textContent = score === 2 ? '✅ Perfect! 🎉' : '💪 Keep practicing!';
+        if (score === 2) { addPoints(40, 'Math Quiz'); unlockAchievement('mathMaster', 100); }
+      };
+    });
+  </script>
+</body>
+</html>

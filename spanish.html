@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗣️ Spanish Hall | Alli's Classroom</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/subjects.css">
+<link rel="stylesheet" href="css/modals.css">
+</head>
+<body>
+<div id="spanishPage" class="subject-page spanish-page active-subject">
+  <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
+  <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#9c27b0;">🗣️ Spanish Hall</h2>
+  
+  <div class="slide-container">
+    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSxjWRLf_TFyU4rqjHJr63avj0CD7ggjEWfkh9pGH33s-2FtoFGu-LLSKlrN5K63yjG8O0Aie560ydW/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+  </div>
+
+  <div class="motivational-quote">💭 <span>"Los límites de mi lenguaje son los límites de mi mundo."</span> ✨</div>
+  <div class="quote-author">- Ludwig Wittgenstein</div>
+  
+  <div class="fun-fact-box"><h4>🗣️ Spanish Fun Fact:</h4><p>Spanish is spoken by over 500 million people worldwide! It's the second most spoken language by native speakers.</p></div>
+
+  <div class="topic-card">
+    <h3>📚 Vocabulary Practice</h3>
+    <div class="quiz">
+      <p><strong>¿Cómo se dice "hello" en español?</strong></p>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="adios"> Adiós</label>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="hola"> Hola ✓</label>
+      <label style="display:block;margin:10px 0;"><input type="radio" name="spanish_q1" value="gracias"> Gracias</label>
+      <br><button onclick="checkSpanishQ1()">Check Answer</button>
+      <div id="spanishQ1FB" class="feedback"></div>
+    </div>
+  </div>
+
+  <div class="reward-banner"><h3>🌟 ¡Muy Bien!</h3><p>Complete Spanish lessons to earn language learner points! +75 pts</p></div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/quizzes.js"></script>
+</body>
+</html>

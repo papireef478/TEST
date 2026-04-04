@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📝 TCAP Prep | Alli's Classroom</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/subjects.css">
+<link rel="stylesheet" href="css/modals.css">
+</head>
+<body>
+<div id="assessmentPage" class="subject-page assessment-page active-subject">
+  <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
+  <h2 style="text-align:center;font-size:2.2rem;margin-bottom:10px;color:#ff6b6b;">📝 TCAP Prep Station</h2>
+  <p style="text-align:center;margin-bottom:25px;color:#666;">Prepare for success with realistic TCAP practice tests!</p>
+  
+  <div class="motivational-quote">"Success doesn't come from what you do occasionally, it comes from what you do consistently!"</div>
+  
+  <div class="tcap-container">
+    <div class="tcap-header"><h2>🎯 Choose Your TCAP Practice Test</h2></div>
+    
+    <div class="tcap-options">
+      <div class="tcap-option" onclick="selectTestOption('full-week')"><h3>📅 Full Week</h3><p>Complete TCAP Experience</p></div>
+      <div class="tcap-option" onclick="selectTestOption('one-subject')"><h3>📚 One Subject</h3><p>2-hour timed test</p></div>
+      <div class="tcap-option" onclick="selectTestOption('two-subjects')"><h3>⚡ Two Subjects</h3><p>Build Endurance</p></div>
+    </div>
+
+    <div id="tcap-timer" class="tcap-timer" style="display:none;">⏱️ <span id="countdown">02:00:00</span></div>
+    
+    <div id="subjectSelection" class="subject-selection">
+      <h3 style="margin-bottom:15px;">📚 Select Subject(s) for Your Test:</h3>
+      <div id="singleSubjectOptions" style="display:none;">
+        <p><strong>Choose ONE subject:</strong></p>
+        <label style="display:block;margin:8px 0;"><input type="radio" name="tcap-subject-single" value="math"> 🧮 Math</label>
+        <label style="display:block;margin:8px 0;"><input type="radio" name="tcap-subject-single" value="ela"> 📖 Reading/ELA</label>
+        <label style="display:block;margin:8px 0;"><input type="radio" name="tcap-subject-single" value="science"> 🔬 Science</label>
+        <label style="display:block;margin:8px 0;"><input type="radio" name="tcap-subject-single" value="social"> 🏛️ Social Studies</label>
+      </div>
+      <div id="twoSubjectOptions" style="display:none;">
+        <p><strong>Choose TWO subjects:</strong></p>
+        <label style="display:block;margin:8px 0;"><input type="checkbox" value="math"> 🧮 Math</label>
+        <label style="display:block;margin:8px 0;"><input type="checkbox" value="ela"> 📖 Reading/ELA</label>
+        <label style="display:block;margin:8px 0;"><input type="checkbox" value="science"> 🔬 Science</label>
+        <label style="display:block;margin:8px 0;"><input type="checkbox" value="social"> 🏛️ Social Studies</label>
+        <p id="twoSubjectWarning" style="font-size:0.85rem;color:#ff6b6b;margin-top:8px;display:none;">⚠️ Please select exactly 2 subjects</p>
+      </div>
+      <button onclick="startTCAP()" style="margin-top:15px;">🚀 Start Test</button>
+    </div>
+
+    <div id="tcapQuestions" class="tcap-questions" style="display:none;">
+      <h3 style="margin-bottom:20px;">📋 TCAP Practice Questions</h3>
+      <div id="questionsContainer"></div>
+      <button id="submitTCAPTest" onclick="submitTCAPTest()" style="margin-top:20px;">✅ Submit Test</button>
+    </div>
+
+    <div id="tcapResults" class="tcap-results" style="display:none;text-align:center;"></div>
+  </div>
+
+  <div class="stats-box"><h4>📊 TCAP Test Information:</h4><div class="stat-item">📝 All tests are timed to match real TCAP</div><div class="stat-item">📈 Results saved for parent review</div></div>
+  <div class="reward-banner"><h3>🏆 TCAP Champion in Training!</h3><p>Complete full practice tests to earn the TCAP Master achievement! +250 points</p></div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/quizzes.js"></script>
+<script src="js/tcap-system.js"></script>
+</body>
+</html>
