@@ -49,11 +49,11 @@
 }
 
 /* Math Overlay Positions - ADJUST THESE TO MATCH YOUR SLIDE */
-#clock-zone { top: 8%; left: 2%; width: 7%; height: 9%; }
-#poster-zone { top: 26%; left: 73%; width: 15%; height: 21%; }
-#laptop-zone { bottom: 33%; right: 65%; width: 18%; height: 13%; }
-#calendar-zone { top: 10%; right: 13%; width: 19%; height: 12%; }
-#notebook-zone { top: 43%; left: 17%; width: 5%; height: 7%; }
+#clock-zone { top: 8%; left: 1.5%; width: 7.5%; height: 11%; }
+#poster-zone { top: 26%; left: 73%; width: 11%; height: 25%; }
+#laptop-zone { bottom: 33%; right: 65%; width: 13%; height: 15%; }
+#calendar-zone { top: 10%; right: 13.5%; width: 13%; height: 16%; }
+#notebook-zone { top: 43%; left: 12%; width: 5%; height: 9%; }
 
 /* 🟡 TEMPORARY: Make overlays visible while positioning (remove when done) */
 /* .math-overlay-zone { background: rgba(37, 99, 235, 0.2) !important; border: 2px dashed #2563eb !important; } */
