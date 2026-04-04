@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔒 Parent Dashboard | Alli's Classroom</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <link rel="stylesheet" href="css/parent-dashboard.css">
+</head>
+<body>
+  <div class="classroom-wrapper">
+    <header class="class-header">
+      <h2>📊 Parent Dashboard</h2>
+      <a href="index.html" class="parent-lock-btn" style="text-decoration:none;">🏠 Back to Classroom</a>
+    </header>
+
+    <div class="parent-container">
+      <!-- Password Gate -->
+      <div id="passwordGate" style="text-align:center; padding: 60px 20px;">
+        <h2 style="margin-bottom: 20px;">🔐 Parent Access Required</h2>
+        <input type="password" id="parentPassword" placeholder="Enter Password" style="padding: 12px; font-size: 1.1rem; border-radius: 25px; border: 2px solid #ddd; width: 300px; max-width: 100%;">
+        <br>
+        <button onclick="checkParentPassword()" style="margin-top: 15px; padding: 12px 30px; font-size: 1.1rem;">Unlock Dashboard</button>
+        <p id="passwordError" style="color: #ff6b6b; margin-top: 10px; display: none;">Incorrect password. (Hint: TCAP2025)</p>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div id="dashboardContent" style="display: none;">
+        <!-- Stats -->
+        <div class="stat-grid">
+          <div class="stat-card points"><div class="icon">⭐</div><div class="info"><span class="label">Total Points</span><span class="value" id="totalPointsParent">0</span></div></div>
+          <div class="stat-card quizzes"><div class="icon">📝</div><div class="info"><span class="label">Quizzes Done</span><span class="value" id="quizzesCompleted">0</span></div></div>
+          <div class="stat-card streak"><div class="icon">🔥</div><div class="info"><span class="label">Login Streak</span><span class="value" id="loginStreak">0</span></div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="parent-nav">
+          <button onclick="switchTab('planner')" id="tab-planner" class="nav-btn active">📚 Weekly Planner</button>
+          <button onclick="switchTab('gradebook')" id="tab-gradebook" class="nav-btn">📈 Gradebook</button>
+          <button onclick="switchTab('rewards')" id="tab-rewards" class="nav-btn">🎁 Reward Manager</button>
+          <button onclick="switchTab('settings')" id="tab-settings" class="nav-btn">⚙️ Settings</button>
+        </div>
+
+        <!-- Sections -->
+        <div id="plannerSection" class="parent-section active-section"></div>
+        <div id="gradebookSection" class="parent-section" style="display:none;"></div>
+        <div id="rewardsSection" class="parent-section" style="display:none;"></div>
+        <div id="settingsSection" class="parent-section" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Core & Parent Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/parent-dashboard.js"></script>
+</body>
+</html>
