@@ -1,219 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎒 Alli's Digital Classroom 🍎 | TCAP 4th Grade</title>
-  
-  <!-- EXACT SAME CSS - just moved to external file -->
-  <link rel="stylesheet" href="css/main.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>🎒 Alli's Digital Classroom 🍎 | Home</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/classroom.css">
+  <link rel="stylesheet" href="css/overlays.css">
+  <link rel="stylesheet" href="css/modals.css">
 </head>
 <body>
-
-  <!-- ========== HEADER (EXACT COPY FROM YOUR SINGLE-FILE) ========== -->
-  <header class="header">
-    <h1>🎨 Alli's Digital Classroom 🍎</h1>
-    <div class="points-display">
-      <span id="studentPoints">⭐0 points</span>
-      <button id="rewardsBtn">🎁 View Rewards</button>
+  <div id="app">
+    <!-- Header -->
+    <div class="class-header">
+      <h2>🎨 Alli's Digital Classroom 🍎</h2>
+      <div style="display: flex; gap: 15px; align-items: center;">
+        <div class="points-display" onclick="showRewardPreview()">
+          <span>⭐</span><span id="totalPoints">0</span> points
+        </div>
+        <button id="showParentBtn" class="parent-lock-btn">🔒 Parent Dashboard</button>
+      </div>
     </div>
-    <button id="parentDashboardBtn">🔒 Parent Dashboard</button>
-  </header>
 
-  <!-- ========== NAVIGATION (COLUMN LAYOUT - EXACT COPY) ========== -->
-  <nav class="nav-column">
-    <a href="index.html" class="nav-link active">🏠 Home</a>
-    <a href="math.html" class="nav-link">🧮 Math</a>
-    <a href="reading.html" class="nav-link">📖 Reading</a>
-    <a href="science.html" class="nav-link">🔬 Science</a>
-    <a href="history.html" class="nav-link">🏛️ History</a>
-    <a href="tcap.html" class="nav-link">📝 TCAP Prep</a>
-    <a href="gym.html" class="nav-link">💪 Gym</a>
-    <a href="spanish.html" class="nav-link">🗣️ Spanish</a>
-    <a href="art.html" class="nav-link">🎨 Art</a>
-  </nav>
-
-  <!-- ========== MAIN CLASSROOM (EXACT COPY) ========== -->
-  <main class="classroom-container">
-    
-    <!-- Google Slides Background with Clickable Overlays -->
-    <div class="classroom-background">
-      <iframe 
-        src="https://docs.google.com/presentation/d/YOUR_SLIDE_ID/embed?start=false&loop=false&delayms=3000" 
-        frameborder="0" 
-        allowfullscreen="true">
-      </iframe>
+    <!-- Google Slide with Overlays -->
+    <div class="slide-container">
+      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSa7HHICYY1xAIib19yKIRFHY5uV0GPQ-0UR4_nIXCORfCtRlZoCQm05EevkiX-0uKUZc4jttWuD8PT/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen></iframe>
       
-      <!-- Clickable Overlay Zones (EXACT positions from your code) -->
-      <div class="overlay-zone" data-target="math" style="left:15%;top:25%;width:18%;height:12%">
-        <span class="overlay-label">🧮📐 Math Corner</span>
-      </div>
-      <div class="overlay-zone" data-target="reading" style="left:40%;top:25%;width:18%;height:12%">
-        <span class="overlay-label">📖✨ Reading Nook</span>
-      </div>
-      <div class="overlay-zone" data-target="science" style="left:65%;top:25%;width:18%;height:12%">
-        <span class="overlay-label">🔬🧪 Science Lab</span>
-      </div>
-      <div class="overlay-zone" data-target="history" style="left:15%;top:50%;width:18%;height:12%">
-        <span class="overlay-label">🏛️🗺️ History Hub</span>
-      </div>
-      <div class="overlay-zone" data-target="tcap" style="left:40%;top:50%;width:18%;height:12%">
-        <span class="overlay-label">💻📝 TCAP Prep</span>
-      </div>
-      <div class="overlay-zone" data-target="gym" style="left:65%;top:50%;width:18%;height:12%">
-        <span class="overlay-label">🏃‍♀️💪 Gym & Health</span>
-      </div>
-      <div class="overlay-zone" data-target="spanish" style="left:28%;top:75%;width:18%;height:12%">
-        <span class="overlay-label">💬🗣️ Spanish Hall</span>
-      </div>
-      <div class="overlay-zone" data-target="art" style="left:53%;top:75%;width:18%;height:12%">
-        <span class="overlay-label">🎨🖌️ Art Studio</span>
-      </div>
+      <!-- Clickable overlays -->
+      <div class="clickable-overlay home-overlay-window" data-action="window"></div>
+      <div class="clickable-overlay home-overlay-calendar" data-action="calendar"></div>
+      <div class="clickable-overlay home-overlay-library" data-action="library"></div>
+      <div class="clickable-overlay home-overlay-laptop" data-action="laptop"></div>
+      <div class="clickable-overlay home-overlay-plant1" data-action="plant"></div>
+      <div class="clickable-overlay home-overlay-plant2" data-action="plant"></div>
+      <div class="clickable-overlay home-overlay-blm" data-action="blm"></div>
+      <div class="clickable-overlay home-overlay-whiteboard-math" data-action="math"></div>
+      <div class="clickable-overlay home-overlay-whiteboard-science" data-action="science"></div>
+      <div class="clickable-overlay home-overlay-whiteboard-reading" data-action="reading"></div>
+      <div class="clickable-overlay home-overlay-whiteboard-history" data-action="history"></div>
+      <div class="clickable-overlay home-overlay-whiteboard-test" data-action="test"></div>
+      <div class="clickable-overlay home-overlay-globe" data-action="geography"></div>
+      <div class="clickable-overlay home-overlay-clock" data-action="clock"></div>
     </div>
 
-    <!-- Welcome Message (EXACT TEXT) -->
-    <div class="welcome-section">
-      <div class="mommy-message">
-        👩‍🏫🍎 
-        <p>"Welcome to our digital classroom! Click on any station to start. I'm Mommy Teacher! ✨"</p>
-      </div>
+    <!-- Reward Banner -->
+    <div class="reward-banner">
+      <h3>🌟 Keep Learning to Earn Points!</h3>
+      <p>Complete quizzes and activities to unlock rewards!</p>
     </div>
 
-    <!-- 🌟 Keep Learning Section (EXACT COPY) -->
-    <section class="achievements-section">
-      <h2>🌟 Keep Learning to Earn Points!</h2>
-      <p class="achievements-intro">Complete quizzes and activities to unlock rewards and achievements!</p>
+    <!-- Achievements -->
+    <div class="achievements" id="achievementsHome">
+      <div class="achievement" id="ach-first-quiz"><div class="emoji">🎯</div><div class="name">First Quiz!</div><div class="points">+50 pts</div></div>
+      <div class="achievement locked" id="ach-math-master"><div class="emoji">🧮</div><div class="name">Math Master</div><div class="points">+100 pts</div></div>
+      <div class="achievement locked" id="ach-reading-star"><div class="emoji">📚</div><div class="name">Reading Star</div><div class="points">+100 pts</div></div>
+      <div class="achievement locked" id="ach-perfect-score"><div class="emoji">💯</div><div class="name">Perfect Score</div><div class="points">+150 pts</div></div>
+      <div class="achievement locked" id="ach-tcap-practice"><div class="emoji">🎯</div><div class="name">TCAP Practice Pro</div><div class="points">+200 pts</div></div>
+    </div>
+
+    <!-- Classroom Grid -->
+    <div class="classroom">
+      <a href="math.html" class="class-object"><span class="object-emoji">🧮📐</span><span class="object-label">Math Corner</span></a>
+      <a href="reading.html" class="class-object"><span class="object-emoji">📖✨</span><span class="object-label">Reading Nook</span></a>
+      <a href="science.html" class="class-object"><span class="object-emoji">🔬🧪</span><span class="object-label">Science Lab</span></a>
+      <a href="history.html" class="class-object"><span class="object-emoji">🏛️🗺️</span><span class="object-label">History Hub</span></a>
+      <a href="tcap.html" class="class-object"><span class="object-emoji">💻📝</span><span class="object-label">TCAP Prep</span></a>
+      <a href="gym.html" class="class-object"><span class="object-emoji">🏃‍♀️💪</span><span class="object-label">Gym & Health</span></a>
+      <a href="spanish.html" class="class-object"><span class="object-emoji">💬🗣️</span><span class="object-label">Spanish Hall</span></a>
+      <a href="art.html" class="class-object"><span class="object-emoji">🎨🖌️</span><span class="object-label">Art Studio</span></a>
       
-      <div class="achievements-grid">
-        <div class="achievement-card">
-          <span class="achievement-icon">🎯</span>
-          <h4>First Quiz!</h4>
-          <p class="achievement-points">+50 pts</p>
+      <!-- Teacher Desk -->
+      <div class="teacher-desk">
+        <div class="teacher-avatar">👩‍🏫🍎</div>
+        <div class="speech-bubble" id="teacherMessage">"Click any station to start learning! 🍎"</div>
+      </div>
+      
+      <!-- Whiteboard -->
+      <div class="whiteboard">
+        <h3>📌 Today's Goals</h3>
+        <div class="goal-details">
+          <ul>
+            <li>Mult facts (6s & 7s)</li>
+            <li>Read 20 mins</li>
+            <li>Solar System</li>
+            <li>TN History</li>
+          </ul>
         </div>
-        <div class="achievement-card">
-          <span class="achievement-icon">🧮</span>
-          <h4>Math Master</h4>
-          <p class="achievement-points">+100 pts</p>
-        </div>
-        <div class="achievement-card">
-          <span class="achievement-icon">📚</span>
-          <h4>Reading Star</h4>
-          <p class="achievement-points">+100 pts</p>
-        </div>
-        <div class="achievement-card">
-          <span class="achievement-icon">💯</span>
-          <h4>Perfect Score</h4>
-          <p class="achievement-points">+150 pts</p>
-        </div>
-        <div class="achievement-card">
-          <span class="achievement-icon">🎯</span>
-          <h4>TCAP Practice Pro</h4>
-          <p class="achievement-points">+200 pts</p>
+        <div class="progress-container">
+          <div class="progress-mini"><div id="miniProgress" style="width:0%"></div></div>
+          <div id="progressPercent">✨ 0% mastery ✨</div>
         </div>
       </div>
-    </section>
-
-    <!-- 📌 Today's Learning Goals (EXACT COPY) -->
-    <section class="daily-goals">
-      <h3>📌 Today's Learning Goals</h3>
-      <ul>
-        <li>Practice multiplication facts (6s and 7s)</li>
-        <li>Read for 20 minutes and identify the main idea</li>
-        <li>Learn about the solar system</li>
-        <li>Review Tennessee history</li>
-      </ul>
-      <p class="daily-challenge">🎯 <strong>Daily Challenge:</strong> Complete at least 2 quizzes to earn bonus points!</p>
-    </section>
-
-    <!-- Mastery Progress (EXACT COPY) -->
-    <div class="mastery-bar">
-      <span>✨ <span id="masteryPercent">0</span>% mastery ✨</span>
     </div>
 
-  </main>
+    <!-- Scene Modal -->
+    <div id="sceneModal" class="scene-modal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeSceneModal()">✕</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
 
-  <!-- ========== MODALS (EXACT COPY FROM YOUR CODE) ========== -->
-  
-  <!-- Rewards Modal -->
-  <div id="rewardsModal" class="modal">
-    <div class="modal-content rewards-modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>🎁 Rewards You Can Earn!</h2>
-      <p class="modal-points">Your Points: <strong id="modalPoints">0</strong> ⭐</p>
-      <p class="modal-note">👨‍👩‍👧 Mommy & Daddy redeem rewards in the Parent Dashboard</p>
-      
-      <div class="rewards-grid">
-        <div class="reward-card" data-cost="500">
-          <span class="reward-icon">🍫</span>
-          <h4>Candy Bar</h4>
-          <p class="reward-cost">500 points</p>
-          <button class="btn-redeem" disabled>Redeem</button>
-        </div>
-        <div class="reward-card" data-cost="2000">
-          <span class="reward-icon">🎮</span>
-          <h4>Roblox Card ($10)</h4>
-          <p class="reward-cost">2000 points</p>
-          <button class="btn-redeem" disabled>Redeem</button>
-        </div>
-        <div class="reward-card" data-cost="750">
-          <span class="reward-icon">🎬</span>
-          <h4>Movie Night</h4>
-          <p class="reward-cost">750 points</p>
-          <button class="btn-redeem" disabled>Redeem</button>
-        </div>
-        <div class="reward-card" data-cost="500">
-          <span class="reward-icon">🎨</span>
-          <h4>Art Supplies</h4>
-          <p class="reward-cost">500 points</p>
-          <button class="btn-redeem" disabled>Redeem</button>
-        </div>
-        <div class="reward-card" data-cost="500">
-          <span class="reward-icon">📚</span>
-          <h4>New Book</h4>
-          <p class="reward-cost">500 points</p>
-          <button class="btn-redeem" disabled>Redeem</button>
-        </div>
-        <div class="reward-card" data-cost="5000">
-          <span class="reward-icon">🏆</span>
-          <h4>Special Prize</h4>
-          <p class="reward-cost">5000 points</p>
-          <button class="btn-redeem" disabled>Redeem</button>
+    <!-- Reward Preview Modal -->
+    <div id="rewardPreviewModal" class="scene-modal">
+      <div class="modal-content">
+        <button class="close-modal" onclick="closeRewardPreview()">✕</button>
+        <h2 style="text-align:center;">🎁 Rewards Preview</h2>
+        <p style="text-align:center;">Points: <strong id="previewPoints">0</strong> ⭐</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;">
+          <div style="background:#ffecd2;padding:10px;border-radius:10px;text-align:center;"><div>🍫</div><h4>Candy</h4><p>500 pts</p></div>
+          <div style="background:#a8edea;padding:10px;border-radius:10px;text-align:center;"><div>🎮</div><h4>Roblox</h4><p>2000 pts</p></div>
         </div>
       </div>
-      <p class="keep-learning-note">Keep learning to earn more points! 💪✨</p>
     </div>
   </div>
 
-  <!-- Subject Preview Modal -->
-  <div id="subjectModal" class="modal">
-    <div class="modal-content subject-modal-content">
-      <span class="close-modal">&times;</span>
-      <h2 id="modalSubjectTitle">Subject</h2>
-      <div id="modalSubjectContent"></div>
-      <a id="modalGoToSubject" href="#" class="btn-primary">Start Learning →</a>
-    </div>
-  </div>
-
-  <!-- Parent Dashboard Modal -->
-  <div id="parentModal" class="modal">
-    <div class="modal-content">
-      <span class="close-modal">&times;</span>
-      <h2>🔐 Parent Access</h2>
-      <p>Enter password to view dashboard:</p>
-      <input type="password" id="parentPassword" placeholder="Password" class="password-input"/>
-      <button id="parentLoginBtn" class="btn-primary">Login</button>
-      <p id="parentError" class="error-msg"></p>
-    </div>
-  </div>
-
-  <!-- ========== FOOTER (EXACT COPY) ========== -->
-  <footer class="classroom-footer">
-    <p>✨ Made with love by Mommy Teacher for Alli ✨</p>
-  </footer>
-
-  <!-- ========== EXTERNAL JS (same code, just moved to file) ========== -->
+  <!-- Scripts -->
   <script src="js/app.js"></script>
-  <script src="js/navigation.js"></script>
   <script src="js/reward-system.js"></script>
+  <script src="js/quizzes.js"></script>
+  <script src="js/navigation.js"></script>
 </body>
 </html>

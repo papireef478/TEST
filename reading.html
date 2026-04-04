@@ -1,63 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📖 Reading Nook | Alli's Classroom</title>
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/subjects.css">
-<link rel="stylesheet" href="css/modals.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📖 Reading Nook | Alli's Classroom</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/subjects.css">
+  <link rel="stylesheet" href="css/modals.css">
 </head>
 <body>
-<div id="elaPage" class="subject-page ela-page active-subject">
-  <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
-  <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#f093fb;">📖 Reading Nook</h2>
-  
-  <div class="slide-container">
-    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT6WwTvX86dF18AbtD3g-vHpKJxv6jIQPcMJdYeASRDtXrsY2RQvoZQY5l6SwtE3cVbrmSpenlRfqMV/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+  <div class="subject-page ela-page">
+    <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
+    
+    <h2 style="text-align:center; font-size:2.2rem; margin-bottom:20px; color:#f093fb;">📖 Reading Nook</h2>
+    
+    <!-- Google Slide -->
+    <div class="slide-container">
+      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vT6WwTvX86dF18AbtD3g-vHpKJxv6jIQPcMJdYeASRDtXrsY2RQvoZQY5l6SwtE3cVbrmSpenlRfqMV/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+    </div>
+    
+    <!-- Content -->
+    <div class="motivational-quote">"A reader lives a thousand lives before he dies. The man who never reads lives only one."</div>
+    
+    <div class="fun-fact-box">
+      <h4>📚 Reading Fun Fact:</h4>
+      <p>Did you know? The fastest reader in the world can read over 4,000 words per minute! But remember, it's not about speed - it's about understanding what you read!</p>
+    </div>
+    
+    <div class="stats-box">
+      <h4>📖 Reading Skills We're Building:</h4>
+      <div class="stat-item">🎯 Finding the Main Idea</div>
+      <div class="stat-item">🔍 Identifying Details</div>
+      <div class="stat-item">💭 Making Inferences</div>
+      <div class="stat-item">📝 Understanding Vocabulary</div>
+    </div>
+    
+    <!-- Main Idea Quiz -->
+    <div class="topic-card">
+      <h3>🐬 Main Idea Practice</h3>
+      <p>Read the passage and find the main idea!</p>
+      <div class="quiz">
+        <p style="background: white; padding: 15px; border-radius: 10px; font-style: italic; margin: 15px 0;">"Dolphins are smart mammals. They use clicks and whistles to talk to each other. They live in groups called pods and work together to find food."</p>
+        <p><strong>What is the main idea?</strong></p>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="mainIdea" value="a" style="margin-right: 10px;"> Dolphins are fish that live in the ocean.</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="mainIdea" value="b" style="margin-right: 10px;"> Dolphins are intelligent mammals that communicate and live in groups.</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="mainIdea" value="c" style="margin-right: 10px;"> Dolphins only make sounds in the water.</label>
+        <br><button id="checkMainIdea">Check Answer</button>
+        <div id="elaMainFB" class="feedback"></div>
+      </div>
+    </div>
+    
+    <!-- Subject-Verb Quiz -->
+    <div class="topic-card">
+      <h3>✏️ Subject-Verb Agreement</h3>
+      <p>Choose the correct verb to complete the sentence!</p>
+      <div class="quiz">
+        <p><strong>The group of students ___ ready for the test.</strong></p>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="verb" value="is" style="margin-right: 10px;"> is</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="verb" value="are" style="margin-right: 10px;"> are</label>
+        <br><button id="checkVerb">Check Answer</button>
+        <div id="verbFB" class="feedback"></div>
+      </div>
+    </div>
+    
+    <div class="reward-banner"><h3>📚 You're a Reading Star!</h3><p>Complete all reading activities to earn the Reading Star achievement! +100 points</p></div>
   </div>
-
-  <div class="motivational-quote">💭 <span id="ela-quote">"A reader lives a thousand lives before he dies. The man who never reads lives only one."</span> ✨</div>
-  <div class="quote-author" id="ela-author">- George R.R. Martin</div>
   
-  <div class="fun-fact-box"><h4>📚 Reading Fun Fact:</h4><p>Did you know? The fastest reader in the world can read over 4,000 words per minute! But remember, it's not about speed - it's about understanding what you read!</p></div>
-  
-  <div class="stats-box"><h4>📖 Reading Skills We're Building:</h4>
-    <div class="stat-item">🎯 Finding the Main Idea</div>
-    <div class="stat-item">🔍 Identifying Details</div>
-    <div class="stat-item">💭 Making Inferences</div>
-    <div class="stat-item">📝 Understanding Vocabulary</div>
-  </div>
-
-  <div class="topic-card">
-    <h3>🐬 Main Idea Practice</h3>
-    <div class="quiz">
-      <p style="background:white;padding:15px;border-radius:10px;font-style:italic;margin:15px 0;">"Dolphins are smart mammals. They use clicks and whistles to talk to each other. They live in groups called pods and work together to find food."</p>
-      <p><strong>What is the main idea?</strong></p>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="a"> Dolphins are fish that live in the ocean.</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="b"> Dolphins are intelligent mammals that communicate and live in groups.</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="mainIdea" value="c"> Dolphins only make sounds in the water.</label>
-      <br><button id="checkMainIdea">Check Answer</button>
-      <div id="elaMainFB" class="feedback"></div>
+  <!-- Modal -->
+  <div id="sceneModal" class="scene-modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeSceneModal()">✕</button>
+      <div id="modalBody"></div>
     </div>
   </div>
-
-  <div class="topic-card">
-    <h3>✏️ Subject-Verb Agreement</h3>
-    <div class="quiz">
-      <p><strong>The group of students ___ ready for the test.</strong></p>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="verb" value="is"> is</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="verb" value="are"> are</label>
-      <br><button id="checkVerb">Check Answer</button>
-      <div id="verbFB" class="feedback"></div>
-    </div>
-  </div>
-
-  <div class="reward-banner"><h3>📚 You're a Reading Star!</h3><p>Complete all reading activities to earn the Reading Star achievement! +100 points</p></div>
-</div>
-
-<!-- Load Quiz Logic -->
-<script src="js/app.js"></script>
-<script src="js/quizzes.js"></script>
+  
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/reward-system.js"></script>
+  <script src="js/quizzes.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>bindQuizzes();</script>
 </body>
 </html>

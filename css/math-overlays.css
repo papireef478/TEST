@@ -1,0 +1,113 @@
+/* ========== MATH PAGE OVERLAYS ========== */
+.math-overlay-zone {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.math-overlay-zone:hover {
+  background: rgba(102, 126, 234, 0.25) !important;
+  box-shadow: 0 0 25px rgba(102, 126, 234, 0.6);
+  transform: scale(1.02);
+}
+
+/* Math slide overlay positions (adjust based on your Google Slide) */
+.math-overlay-clock { left: 12%; top: 45%; width: 8%; height: 12%; }
+.math-overlay-poster { right: 15%; top: 25%; width: 10%; height: 15%; }
+.math-overlay-laptop { left: 45%; bottom: 35%; width: 12%; height: 18%; }
+.math-overlay-calendar { right: 40%; top: 18%; width: 9%; height: 10%; }
+.math-overlay-notebook { left: 65%; bottom: 25%; width: 10%; height: 14%; }
+
+/* ========== MATH MODALS ========== */
+.math-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.math-modal.active { display: flex; }
+
+.math-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalPop 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border: 3px solid #2563eb;
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.close-math-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  color: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.close-math-modal:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Clock Canvas */
+#analog-clock {
+  display: block;
+  margin: 20px auto;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Drill Inputs */
+#drill-cont input[type="number"] {
+  width: 80px !important;
+  margin: 0 5px;
+}
+
+/* Gradebook Table */
+#assignment-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#assignment-list th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px;
+  text-align: left;
+}
+
+#assignment-list td {
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.math-correct { color: #4ecdc4; font-weight: bold; }
+.math-wrong { color: #ff6b6b; font-weight: bold; }

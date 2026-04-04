@@ -1,27 +1,38 @@
-/* ========== OVERLAYS ========== */
+/* ========== SLIDE CONTAINER ========== */
 .slide-container {
-  position: relative; width: 100%; max-width: 1400px; margin: 20px auto;
-  background: white; border-radius: 20px; overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
-.slide-container iframe { display: block; width: 100%; height: auto; aspect-ratio: 960/569; }
 
-/* Clickable Overlay Base */
-.clickable-overlay, .math-overlay-zone {
-  position: absolute; cursor: pointer; z-index: 10;
-  border-radius: 10px; transition: all 0.3s ease; background: transparent;
+.slide-container iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 960/569;
 }
+
+/* ========== CLICKABLE OVERLAYS ========== */
+.clickable-overlay {
+  position: absolute;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
 .clickable-overlay:hover {
   background: rgba(255, 215, 0, 0.3) !important;
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
   transform: scale(1.02);
 }
-.math-overlay-zone:hover {
-  background: rgba(37, 99, 235, 0.25) !important;
-  box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
-  transform: scale(1.02);
-}
 
-/* Home Page Overlay Positions */
+/* ========== HOME PAGE OVERLAY POSITIONS ========== */
 .home-overlay-window { left: 65.5%; top: 29%; width: 16%; height: 23%; }
 .home-overlay-calendar { right: 36.5%; top: 26%; width: 11%; height: 12%; }
 .home-overlay-library { left: 85%; top: 31%; width: 12%; height: 42%; }
@@ -36,10 +47,3 @@
 .home-overlay-whiteboard-test { left: 49%; top: 81%; width: 8%; height: 10%; }
 .home-overlay-globe { left: 11%; top: 49%; width: 8%; height: 12%; }
 .home-overlay-clock { left: 1%; top: 0%; width: 8%; height: 10%; }
-
-/* Math Overlay Positions */
-#math-clock { top: 8%; left: 5%; width: 7%; height: 9%; }
-#math-poster { top: 26%; left: 73%; width: 11%; height: 25%; }
-#math-laptop { bottom: 33%; right: 65%; width: 13%; height: 15%; }
-#math-calendar { top: 10%; right: 13.5%; width: 13%; height: 16%; }
-#math-notebook { top: 43%; left: 12%; width: 5%; height: 9%; }

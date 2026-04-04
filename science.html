@@ -1,63 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔬 Science Lab | Alli's Classroom</title>
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/subjects.css">
-<link rel="stylesheet" href="css/modals.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔬 Science Lab | Alli's Classroom</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/subjects.css">
+  <link rel="stylesheet" href="css/modals.css">
 </head>
 <body>
-<div id="sciencePage" class="subject-page science-page active-subject">
-  <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
-  <h2 style="text-align:center;font-size:2.2rem;margin-bottom:20px;color:#4ecdc4;">🔬 Science Lab</h2>
-  
-  <div class="slide-container">
-    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQK9Jt4Gt0nVlPSv64y9Yy0KcrTUxRrRbKgIBEsUFg2N9OMzngezVBYpO9e0eU4isJPchvRXV-iG3eK/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+  <div class="subject-page science-page">
+    <a href="index.html" class="back-home">🏠 Back to Main Classroom</a>
+    
+    <h2 style="text-align:center; font-size:2.2rem; margin-bottom:20px; color:#4ecdc4;">🔬 Science Lab</h2>
+    
+    <!-- Google Slide -->
+    <div class="slide-container">
+      <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQK9Jt4Gt0nVlPSv64y9Yy0KcrTUxRrRbKgIBEsUFg2N9OMzngezVBYpO9e0eU4isJPchvRXV-iG3eK/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
+    </div>
+    
+    <!-- Content -->
+    <div class="motivational-quote">"Don't let anyone rob you of your imagination, your creativity, or your curiosity." - Mae Jemison</div>
+    
+    <div class="fun-fact-box">
+      <h4>🔬 Science Fun Fact:</h4>
+      <p>Did you know? A day on Venus is longer than a year on Venus! It takes Venus 243 Earth days to rotate once on its axis, but only 225 Earth days to orbit the Sun!</p>
+    </div>
+    
+    <div class="stats-box">
+      <h4>🔬 Science Topics We're Exploring:</h4>
+      <div class="stat-item">🪐 Solar System & Planets</div>
+      <div class="stat-item">🌱 Plant & Animal Adaptations</div>
+      <div class="stat-item">🌊 Ecosystems & Habitats</div>
+      <div class="stat-item">⚡ Energy & Matter</div>
+    </div>
+    
+    <!-- Planet Quiz -->
+    <div class="topic-card">
+      <h3>🌞 Solar System Quiz</h3>
+      <p>Test your knowledge about our solar system!</p>
+      <div class="quiz">
+        <p><strong>Which planet is closest to the Sun?</strong></p>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="planet" value="Venus" style="margin-right: 10px;"> Venus</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="planet" value="Mercury" style="margin-right: 10px;"> Mercury</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="planet" value="Earth" style="margin-right: 10px;"> Earth</label>
+        <br><button id="checkPlanet">Check Answer</button>
+        <div id="planetFB" class="feedback"></div>
+      </div>
+    </div>
+    
+    <!-- Adaptations Quiz -->
+    <div class="topic-card">
+      <h3>🐪 Animal Adaptations</h3>
+      <p>How do animals survive in their environments?</p>
+      <div class="quiz">
+        <p><strong>What type of habitat do camels live in?</strong></p>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="camel" value="desert" style="margin-right: 10px;"> Desert</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="camel" value="arctic" style="margin-right: 10px;"> Arctic</label>
+        <label style="display: block; margin: 10px 0;"><input type="radio" name="camel" value="rainforest" style="margin-right: 10px;"> Rainforest</label>
+        <br><button id="checkCamel">Check Answer</button>
+        <div id="camelFB" class="feedback"></div>
+      </div>
+    </div>
+    
+    <div class="reward-banner"><h3>🔬 Science Explorer!</h3><p>Keep exploring and learning! Complete all science quizzes for bonus points!</p></div>
   </div>
-
-  <div class="motivational-quote">💭 <span id="science-quote">"Don't let anyone rob you of your imagination, your creativity, or your curiosity."</span> ✨</div>
-  <div class="quote-author" id="science-author">- Mae Jemison</div>
   
-  <div class="fun-fact-box"><h4>🔬 Science Fun Fact:</h4><p>Did you know? A day on Venus is longer than a year on Venus! It takes Venus 243 Earth days to rotate once on its axis, but only 225 Earth days to orbit the Sun!</p></div>
-  
-  <div class="stats-box"><h4>🔬 Science Topics We're Exploring:</h4>
-    <div class="stat-item">🪐 Solar System & Planets</div>
-    <div class="stat-item">🌱 Plant & Animal Adaptations</div>
-    <div class="stat-item">🌊 Ecosystems & Habitats</div>
-    <div class="stat-item">⚡ Energy & Matter</div>
-  </div>
-
-  <div class="topic-card">
-    <h3>🌞 Solar System Quiz</h3>
-    <div class="quiz">
-      <p><strong>Which planet is closest to the Sun?</strong></p>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Venus"> Venus</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Mercury"> Mercury</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="planet" value="Earth"> Earth</label>
-      <br><button id="checkPlanet">Check Answer</button>
-      <div id="planetFB" class="feedback"></div>
+  <!-- Modal -->
+  <div id="sceneModal" class="scene-modal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeSceneModal()">✕</button>
+      <div id="modalBody"></div>
     </div>
   </div>
-
-  <div class="topic-card">
-    <h3>🐪 Animal Adaptations</h3>
-    <div class="quiz">
-      <p><strong>What type of habitat do camels live in?</strong></p>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="camel" value="desert"> Desert</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="camel" value="arctic"> Arctic</label>
-      <label style="display:block;margin:10px 0;"><input type="radio" name="camel" value="rainforest"> Rainforest</label>
-      <br><button id="checkCamel">Check Answer</button>
-      <div id="camelFB" class="feedback"></div>
-    </div>
-  </div>
-
-  <div class="reward-banner"><h3>🔬 Science Explorer!</h3><p>Keep exploring and learning! Complete all science quizzes for bonus points!</p></div>
-</div>
-
-<!-- Load Quiz Logic -->
-<script src="js/app.js"></script>
-<script src="js/quizzes.js"></script>
+  
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/reward-system.js"></script>
+  <script src="js/quizzes.js"></script>
+  <script src="js/navigation.js"></script>
+  <script>bindQuizzes();</script>
 </body>
 </html>
