@@ -5,43 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>🎒 Alli's Digital Classroom 🍎 | TCAP 4th Grade</title>
   
-  <!-- Cozy Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
-  
-  <!-- Modular CSS -->
+  <!-- EXACT SAME CSS - just moved to external file -->
   <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/classroom.css" />
-  <link rel="stylesheet" href="css/overlays.css" />
-  <link rel="stylesheet" href="css/modals.css" />
 </head>
-<body class="cozy-bg">
+<body>
 
-  <!-- ========== HEADER ========== -->
-  <header class="classroom-header">
-    <div class="header-top">
-      <h1>🎨 Alli's Digital Classroom 🍎</h1>
-      <div class="points-display">
-        <span id="studentPoints">⭐0 points</span>
-        <button id="rewardsBtn" class="btn-rewards">🎁 View Rewards</button>
-      </div>
-      <button id="parentDashboardBtn" class="btn-parent">🔒 Parent Dashboard</button>
+  <!-- ========== HEADER (EXACT COPY FROM YOUR SINGLE-FILE) ========== -->
+  <header class="header">
+    <h1>🎨 Alli's Digital Classroom 🍎</h1>
+    <div class="points-display">
+      <span id="studentPoints">⭐0 points</span>
+      <button id="rewardsBtn">🎁 View Rewards</button>
     </div>
-    
-    <!-- Column Navigation (Cozy Style) -->
-    <nav class="nav-column">
-      <a href="index.html" class="nav-link active">🏠 Home</a>
-      <a href="math.html" class="nav-link">🧮 Math</a>
-      <a href="reading.html" class="nav-link">📖 Reading</a>
-      <a href="science.html" class="nav-link">🔬 Science</a>
-      <a href="history.html" class="nav-link">🏛️ History</a>
-      <a href="tcap.html" class="nav-link">📝 TCAP Prep</a>
-      <a href="gym.html" class="nav-link">💪 Gym</a>
-      <a href="spanish.html" class="nav-link">🗣️ Spanish</a>
-      <a href="art.html" class="nav-link">🎨 Art</a>
-    </nav>
+    <button id="parentDashboardBtn">🔒 Parent Dashboard</button>
   </header>
 
-  <!-- ========== MAIN CLASSROOM ========== -->
+  <!-- ========== NAVIGATION (COLUMN LAYOUT - EXACT COPY) ========== -->
+  <nav class="nav-column">
+    <a href="index.html" class="nav-link active">🏠 Home</a>
+    <a href="math.html" class="nav-link">🧮 Math</a>
+    <a href="reading.html" class="nav-link">📖 Reading</a>
+    <a href="science.html" class="nav-link">🔬 Science</a>
+    <a href="history.html" class="nav-link">🏛️ History</a>
+    <a href="tcap.html" class="nav-link">📝 TCAP Prep</a>
+    <a href="gym.html" class="nav-link">💪 Gym</a>
+    <a href="spanish.html" class="nav-link">🗣️ Spanish</a>
+    <a href="art.html" class="nav-link">🎨 Art</a>
+  </nav>
+
+  <!-- ========== MAIN CLASSROOM (EXACT COPY) ========== -->
   <main class="classroom-container">
     
     <!-- Google Slides Background with Clickable Overlays -->
@@ -49,39 +41,37 @@
       <iframe 
         src="https://docs.google.com/presentation/d/YOUR_SLIDE_ID/embed?start=false&loop=false&delayms=3000" 
         frameborder="0" 
-        allowfullscreen="true" 
-        mozallowfullscreen="true" 
-        webkitallowfullscreen="true">
+        allowfullscreen="true">
       </iframe>
       
-      <!-- Clickable Overlay Zones (Restored Functionality) -->
-      <div class="overlay-zone" data-target="math" data-left="15%" data-top="25%" data-width="18%" data-height="12%">
+      <!-- Clickable Overlay Zones (EXACT positions from your code) -->
+      <div class="overlay-zone" data-target="math" style="left:15%;top:25%;width:18%;height:12%">
         <span class="overlay-label">🧮📐 Math Corner</span>
       </div>
-      <div class="overlay-zone" data-target="reading" data-left="40%" data-top="25%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="reading" style="left:40%;top:25%;width:18%;height:12%">
         <span class="overlay-label">📖✨ Reading Nook</span>
       </div>
-      <div class="overlay-zone" data-target="science" data-left="65%" data-top="25%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="science" style="left:65%;top:25%;width:18%;height:12%">
         <span class="overlay-label">🔬🧪 Science Lab</span>
       </div>
-      <div class="overlay-zone" data-target="history" data-left="15%" data-top="50%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="history" style="left:15%;top:50%;width:18%;height:12%">
         <span class="overlay-label">🏛️🗺️ History Hub</span>
       </div>
-      <div class="overlay-zone" data-target="tcap" data-left="40%" data-top="50%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="tcap" style="left:40%;top:50%;width:18%;height:12%">
         <span class="overlay-label">💻📝 TCAP Prep</span>
       </div>
-      <div class="overlay-zone" data-target="gym" data-left="65%" data-top="50%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="gym" style="left:65%;top:50%;width:18%;height:12%">
         <span class="overlay-label">🏃‍♀️💪 Gym & Health</span>
       </div>
-      <div class="overlay-zone" data-target="spanish" data-left="28%" data-top="75%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="spanish" style="left:28%;top:75%;width:18%;height:12%">
         <span class="overlay-label">💬🗣️ Spanish Hall</span>
       </div>
-      <div class="overlay-zone" data-target="art" data-left="53%" data-top="75%" data-width="18%" data-height="12%">
+      <div class="overlay-zone" data-target="art" style="left:53%;top:75%;width:18%;height:12%">
         <span class="overlay-label">🎨🖌️ Art Studio</span>
       </div>
     </div>
 
-    <!-- Welcome Message (Personalized & Cozy) -->
+    <!-- Welcome Message (EXACT TEXT) -->
     <div class="welcome-section">
       <div class="mommy-message">
         👩‍🏫🍎 
@@ -89,7 +79,7 @@
       </div>
     </div>
 
-    <!-- 🌟 Keep Learning to Earn Points! (Restored Section) -->
+    <!-- 🌟 Keep Learning Section (EXACT COPY) -->
     <section class="achievements-section">
       <h2>🌟 Keep Learning to Earn Points!</h2>
       <p class="achievements-intro">Complete quizzes and activities to unlock rewards and achievements!</p>
@@ -123,7 +113,7 @@
       </div>
     </section>
 
-    <!-- 📌 Today's Learning Goals -->
+    <!-- 📌 Today's Learning Goals (EXACT COPY) -->
     <section class="daily-goals">
       <h3>📌 Today's Learning Goals</h3>
       <ul>
@@ -135,17 +125,17 @@
       <p class="daily-challenge">🎯 <strong>Daily Challenge:</strong> Complete at least 2 quizzes to earn bonus points!</p>
     </section>
 
-    <!-- Mastery Progress -->
+    <!-- Mastery Progress (EXACT COPY) -->
     <div class="mastery-bar">
       <span>✨ <span id="masteryPercent">0</span>% mastery ✨</span>
     </div>
 
   </main>
 
-  <!-- ========== MODALS ========== -->
+  <!-- ========== MODALS (EXACT COPY FROM YOUR CODE) ========== -->
   
-  <!-- Rewards Modal (Perfect Cozy Style) -->
-  <div id="rewardsModal" class="modal cozy-modal">
+  <!-- Rewards Modal -->
+  <div id="rewardsModal" class="modal">
     <div class="modal-content rewards-modal-content">
       <span class="close-modal">&times;</span>
       <h2>🎁 Rewards You Can Earn!</h2>
@@ -194,20 +184,18 @@
     </div>
   </div>
 
-  <!-- Subject Preview Modals (Pop when overlay clicked) -->
-  <div id="subjectModal" class="modal cozy-modal">
+  <!-- Subject Preview Modal -->
+  <div id="subjectModal" class="modal">
     <div class="modal-content subject-modal-content">
       <span class="close-modal">&times;</span>
       <h2 id="modalSubjectTitle">Subject</h2>
-      <div id="modalSubjectContent">
-        <!-- Dynamic content loaded via JS -->
-      </div>
+      <div id="modalSubjectContent"></div>
       <a id="modalGoToSubject" href="#" class="btn-primary">Start Learning →</a>
     </div>
   </div>
 
   <!-- Parent Dashboard Modal -->
-  <div id="parentModal" class="modal cozy-modal">
+  <div id="parentModal" class="modal">
     <div class="modal-content">
       <span class="close-modal">&times;</span>
       <h2>🔐 Parent Access</h2>
@@ -218,12 +206,12 @@
     </div>
   </div>
 
-  <!-- ========== FOOTER ========== -->
+  <!-- ========== FOOTER (EXACT COPY) ========== -->
   <footer class="classroom-footer">
     <p>✨ Made with love by Mommy Teacher for Alli ✨</p>
   </footer>
 
-  <!-- ========== MODULAR JS ========== -->
+  <!-- ========== EXTERNAL JS (same code, just moved to file) ========== -->
   <script src="js/app.js"></script>
   <script src="js/navigation.js"></script>
   <script src="js/reward-system.js"></script>

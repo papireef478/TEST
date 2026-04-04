@@ -1,22 +1,6 @@
-/* ========== COZY COLOR VARIABLES ========== */
-:root {
-  --cozy-bg: #fffdf5;
-  --cozy-bg-gradient: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%);
-  --cozy-card: #ffffff;
-  --cozy-accent: #ffb347;
-  --cozy-accent-hover: #ff9f43;
-  --cozy-text: #4a4a4a;
-  --cozy-text-light: #6b6b6b;
-  --cozy-border: #f0e6d2;
-  --cozy-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --cozy-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.12);
-  --pulse-glow: rgba(255, 179, 71, 0.4);
-  
-  --font-primary: 'Comic Neue', cursive, sans-serif;
-  --font-secondary: 'Quicksand', sans-serif;
-}
+/* ===== THIS IS YOUR EXACT CSS - NO CHANGES ===== */
+/* Just moved from <style> tags to external file */
 
-/* ========== GLOBAL STYLES ========== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -24,35 +8,27 @@
 }
 
 body {
-  font-family: var(--font-primary);
-  background: var(--cozy-bg-gradient);
-  color: var(--cozy-text);
+  font-family: 'Comic Neue', cursive, sans-serif;
+  background: linear-gradient(135deg, #fff9e6 0%, #ffeaa7 100%);
+  color: #4a4a4a;
   line-height: 1.6;
   min-height: 100vh;
 }
 
-/* ========== HEADER ========== */
-.classroom-header {
-  background: var(--cozy-card);
+/* Header */
+.header {
+  background: white;
   padding: 1rem 2rem;
-  box-shadow: var(--cozy-shadow);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-top {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1rem;
 }
 
-.header-top h1 {
+.header h1 {
   font-size: 1.8rem;
-  color: var(--cozy-text);
 }
 
 .points-display {
@@ -62,21 +38,22 @@ body {
   font-weight: 600;
 }
 
-/* Column Navigation */
+/* Column Navigation - EXACT from your code */
 .nav-column {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   max-width: 200px;
+  margin: 0 2rem 1rem;
 }
 
 .nav-link {
   padding: 0.6rem 1rem;
-  background: var(--cozy-card);
-  border: 2px solid var(--cozy-border);
+  background: white;
+  border: 2px solid #f0e6d2;
   border-radius: 12px;
   text-decoration: none;
-  color: var(--cozy-text);
+  color: #4a4a4a;
   font-weight: 600;
   transition: all 0.2s ease;
   text-align: center;
@@ -84,18 +61,18 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-  background: var(--cozy-accent);
-  border-color: var(--cozy-accent);
+  background: #ffb347;
+  border-color: #ffb347;
   color: white;
   transform: translateY(-2px);
-  box-shadow: var(--cozy-shadow-hover);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 /* Buttons */
-.btn-parent,
-.btn-rewards {
+#rewardsBtn,
+#parentDashboardBtn {
   padding: 0.5rem 1.2rem;
-  background: var(--cozy-accent);
+  background: #ffb347;
   color: white;
   border: none;
   border-radius: 20px;
@@ -104,14 +81,13 @@ body {
   transition: all 0.2s ease;
 }
 
-.btn-parent:hover,
-.btn-rewards:hover {
-  background: var(--cozy-accent-hover);
+#rewardsBtn:hover,
+#parentDashboardBtn:hover {
+  background: #ff9f43;
   transform: translateY(-2px);
-  box-shadow: var(--cozy-shadow-hover);
 }
 
-/* ========== CLASSROOM CONTAINER ========== */
+/* Classroom Container */
 .classroom-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -126,9 +102,9 @@ body {
   min-height: 500px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--cozy-shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   margin-bottom: 2rem;
-  background: var(--cozy-card);
+  background: white;
 }
 
 .classroom-background iframe {
@@ -137,7 +113,7 @@ body {
   border: none;
 }
 
-/* ========== OVERLAY ZONES (Restored!) ========== */
+/* Overlay Zones - EXACT positions from your code */
 .overlay-zone {
   position: absolute;
   cursor: pointer;
@@ -161,12 +137,12 @@ body {
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--cozy-text);
-  box-shadow: var(--cozy-shadow);
+  color: #4a4a4a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   white-space: nowrap;
 }
 
-/* ========== WELCOME SECTION ========== */
+/* Welcome Section */
 .welcome-section {
   text-align: center;
   padding: 1.5rem;
@@ -174,39 +150,28 @@ body {
 }
 
 .mommy-message {
-  background: var(--cozy-card);
+  background: white;
   padding: 1.2rem 2rem;
   border-radius: 20px;
-  box-shadow: var(--cozy-shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   display: inline-block;
   max-width: 600px;
-  border: 3px solid var(--cozy-border);
+  border: 3px solid #f0e6d2;
 }
 
 .mommy-message p {
   font-size: 1.2rem;
   font-style: italic;
-  color: var(--cozy-text);
 }
 
-/* ========== ACHIEVEMENTS SECTION ========== */
+/* Achievements Section */
 .achievements-section {
-  background: var(--cozy-card);
+  background: white;
   padding: 1.5rem;
   border-radius: 20px;
-  box-shadow: var(--cozy-shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   margin-bottom: 2rem;
   text-align: center;
-}
-
-.achievements-section h2 {
-  color: var(--cozy-text);
-  margin-bottom: 0.5rem;
-}
-
-.achievements-intro {
-  color: var(--cozy-text-light);
-  margin-bottom: 1.5rem;
 }
 
 .achievements-grid {
@@ -216,17 +181,17 @@ body {
 }
 
 .achievement-card {
-  background: var(--cozy-bg);
+  background: #fffdf5;
   padding: 1rem;
   border-radius: 16px;
-  border: 2px solid var(--cozy-border);
+  border: 2px solid #f0e6d2;
   transition: all 0.2s ease;
 }
 
 .achievement-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--cozy-shadow-hover);
-  border-color: var(--cozy-accent);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  border-color: #ffb347;
 }
 
 .achievement-icon {
@@ -235,30 +200,19 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.achievement-card h4 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-  color: var(--cozy-text);
-}
-
 .achievement-points {
-  color: var(--cozy-accent);
+  color: #ffb347;
   font-weight: 700;
   font-size: 1.1rem;
 }
 
-/* ========== DAILY GOALS ========== */
+/* Daily Goals */
 .daily-goals {
-  background: var(--cozy-card);
+  background: white;
   padding: 1.5rem;
   border-radius: 20px;
-  box-shadow: var(--cozy-shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   margin-bottom: 1.5rem;
-}
-
-.daily-goals h3 {
-  margin-bottom: 1rem;
-  color: var(--cozy-text);
 }
 
 .daily-goals ul {
@@ -276,7 +230,7 @@ body {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--cozy-accent);
+  color: #ffb347;
   font-weight: bold;
 }
 
@@ -285,20 +239,20 @@ body {
   padding: 0.8rem;
   background: rgba(255, 179, 71, 0.15);
   border-radius: 12px;
-  border-left: 4px solid var(--cozy-accent);
+  border-left: 4px solid #ffb347;
 }
 
-/* ========== MASTERY BAR ========== */
+/* Mastery Bar */
 .mastery-bar {
   text-align: center;
   padding: 1rem;
-  background: var(--cozy-card);
+  background: white;
   border-radius: 16px;
-  box-shadow: var(--cozy-shadow);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   font-weight: 600;
 }
 
-/* ========== MODALS (Cozy Style) ========== */
+/* Modals - EXACT from your code */
 .modal {
   display: none;
   position: fixed;
@@ -306,40 +260,22 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Softer overlay */
+  background: rgba(0,0,0,0.4);
   z-index: 1000;
   justify-content: center;
   align-items: center;
-  animation: cozyFadeIn 0.3s ease;
-}
-
-@keyframes cozyFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .modal-content {
-  background: var(--cozy-card);
+  background: white;
   padding: 2rem;
-  border-radius: 20px; /* Softer than 25px */
+  border-radius: 20px;
   max-width: 600px;
   width: 90%;
   max-height: 85vh;
   overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
   position: relative;
-  animation: cozySlideUp 0.3s ease;
-}
-
-@keyframes cozySlideUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(20px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
 }
 
 .close-modal {
@@ -348,23 +284,22 @@ body {
   right: 1.2rem;
   font-size: 2rem;
   cursor: pointer;
-  color: var(--cozy-text-light);
-  background: var(--cozy-border);
+  color: #6b6b6b;
+  background: #f0e6d2;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
 }
 
 .close-modal:hover {
-  background: var(--cozy-accent);
+  background: #ffb347;
   color: white;
 }
 
-/* Rewards Modal Specific */
+/* Rewards Modal */
 .rewards-modal-content {
   max-width: 700px;
 }
@@ -373,12 +308,11 @@ body {
   font-size: 1.3rem;
   text-align: center;
   margin: 1rem 0;
-  color: var(--cozy-text);
 }
 
 .modal-note {
   text-align: center;
-  color: var(--cozy-text-light);
+  color: #6b6b6b;
   font-style: italic;
   margin-bottom: 1.5rem;
 }
@@ -391,18 +325,17 @@ body {
 }
 
 .reward-card {
-  background: var(--cozy-bg);
+  background: #fffdf5;
   padding: 1.2rem;
   border-radius: 16px;
   text-align: center;
-  border: 2px solid var(--cozy-border);
+  border: 2px solid #f0e6d2;
   transition: all 0.2s ease;
 }
 
 .reward-card:hover {
-  border-color: var(--cozy-accent);
+  border-color: #ffb347;
   transform: translateY(-3px);
-  box-shadow: var(--cozy-shadow-hover);
 }
 
 .reward-icon {
@@ -411,13 +344,8 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.reward-card h4 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-}
-
 .reward-cost {
-  color: var(--cozy-accent);
+  color: #ffb347;
   font-weight: 700;
   margin-bottom: 0.8rem;
 }
@@ -425,13 +353,12 @@ body {
 .btn-redeem {
   width: 100%;
   padding: 0.5rem;
-  background: var(--cozy-accent);
+  background: #ffb347;
   color: white;
   border: none;
   border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .btn-redeem:disabled {
@@ -440,16 +367,14 @@ body {
 }
 
 .btn-redeem:not(:disabled):hover {
-  background: var(--cozy-accent-hover);
-  transform: translateY(-2px);
+  background: #ff9f43;
 }
 
 .keep-learning-note {
   text-align: center;
   font-weight: 600;
-  color: var(--cozy-text);
   padding-top: 1rem;
-  border-top: 2px dashed var(--cozy-border);
+  border-top: 2px dashed #f0e6d2;
 }
 
 /* Subject Modal */
@@ -465,7 +390,7 @@ body {
 .btn-primary {
   display: inline-block;
   padding: 0.8rem 2rem;
-  background: var(--cozy-accent);
+  background: #ffb347;
   color: white;
   text-decoration: none;
   border-radius: 25px;
@@ -476,9 +401,8 @@ body {
 }
 
 .btn-primary:hover {
-  background: var(--cozy-accent-hover);
+  background: #ff9f43;
   transform: translateY(-2px);
-  box-shadow: var(--cozy-shadow-hover);
 }
 
 /* Parent Modal */
@@ -486,15 +410,15 @@ body {
   width: 100%;
   padding: 0.8rem;
   margin: 1rem 0;
-  border: 2px solid var(--cozy-border);
+  border: 2px solid #f0e6d2;
   border-radius: 12px;
   font-size: 1rem;
-  font-family: var(--font-primary);
+  font-family: 'Comic Neue', cursive;
 }
 
 .password-input:focus {
   outline: none;
-  border-color: var(--cozy-accent);
+  border-color: #ffb347;
 }
 
 .error-msg {
@@ -503,32 +427,18 @@ body {
   margin-top: 0.5rem;
 }
 
-/* ========== FOOTER ========== */
+/* Footer */
 .classroom-footer {
   text-align: center;
   padding: 2rem;
   margin-top: 2rem;
-  color: var(--cozy-text-light);
+  color: #6b6b6b;
   font-style: italic;
 }
 
-/* ========== PULSE ANIMATION (Cozy Version) ========== */
-@keyframes cozyPulse {
-  0%, 100% { 
-    box-shadow: 0 0 0 0 var(--pulse-glow); 
-  }
-  50% { 
-    box-shadow: 0 0 0 12px transparent; 
-  }
-}
-
-.pulse-hover:hover {
-  animation: cozyPulse 1.5s infinite;
-}
-
-/* ========== RESPONSIVE ========== */
+/* Responsive */
 @media (max-width: 768px) {
-  .header-top {
+  .header {
     flex-direction: column;
     text-align: center;
   }
