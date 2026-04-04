@@ -139,13 +139,12 @@
     <div class="slide-container" style="position: relative;">
     <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ-aI_hd6i-2Qya62M1YV52t4kLc0ih28drpA8rDcRBU8vzSmrfVr36NwwHDtOcLzT0TUBpJ0es1Gje/pubembed?start=false&loop=false&delayms=60000" frameborder="0" allowfullscreen="true"></iframe>
     
-    <!-- 🔲 Transparent Overlay Zones (Math Theme - Blue) -->
-    <div class="clickable-overlay math-overlay-clock" onclick="openMathModal('clock-modal')" style="top: 8%; left: 2%; width: 93px; height: 91px;"></div>
-    <div class="clickable-overlay math-overlay-poster" onclick="openMathModal('poster-modal')" style="top: 26%; left: 73%; width: 151px; height: 209px;"></div>
-    <div class="clickable-overlay math-overlay-laptop" onclick="openMathModal('laptop-modal')" style="bottom: 33%; right: 65%; width: 179px; height: 128px;"></div>
-    <div class="clickable-overlay math-overlay-calendar" onclick="openMathModal('calendar-modal')" style="top: 10%; right: 13%; width: 191px; height: 123px;"></div>
-    <div class="clickable-overlay math-overlay-notebook" onclick="openMathModal('gradebook-modal')" style="top: 43%; left: 171px; width: 52px; height: 66px;"></div>
-</div>
+<!-- 🔲 Math Overlay Zones - INSIDE the math page slide-container -->
+<div class="math-overlay-zone" id="clock-zone" onclick="openMathModal('clock-modal')"></div>
+<div class="math-overlay-zone" id="poster-zone" onclick="openMathModal('poster-modal')"></div>
+<div class="math-overlay-zone" id="laptop-zone" onclick="openMathModal('laptop-modal')"></div>
+<div class="math-overlay-zone" id="calendar-zone" onclick="openMathModal('calendar-modal')"></div>
+<div class="math-overlay-zone" id="notebook-zone" onclick="openMathModal('gradebook-modal')"></div>
 
         <!-- Math Modals -->
         <div class="math-modal" id="clock-modal">
