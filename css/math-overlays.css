@@ -14,11 +14,11 @@
 }
 
 /* Math slide overlay positions (adjust based on your Google Slide) */
-.math-overlay-clock { left: 12%; top: 45%; width: 8%; height: 12%; }
-.math-overlay-poster { right: 15%; top: 25%; width: 10%; height: 15%; }
-.math-overlay-laptop { left: 45%; bottom: 35%; width: 12%; height: 18%; }
-.math-overlay-calendar { right: 40%; top: 18%; width: 9%; height: 10%; }
-.math-overlay-notebook { left: 65%; bottom: 25%; width: 10%; height: 14%; }
+.math-overlay-clock { left: 1%; top: 8%; width: 9%; height: 10%; }
+.math-overlay-poster { right: 16.5%; top: 25%; width: 11%; height: 25%; }
+.math-overlay-laptop { left: 21%; bottom: 33%; width: 16%; height: 18%; }
+.math-overlay-calendar { right: 13%; top: 9%; width: 14%; height: 16%; }
+.math-overlay-notebook { left: 12.5%; bottom: 48%; width: 4%; height: 10%; }
 
 /* ========== MATH MODALS ========== */
 .math-modal {
